@@ -45,6 +45,78 @@ public class Parcel {
 		return new Parcel(this.a, this.value, this.weight, this.height, this.length, this.width);
 	}
 	
+	public boolean checkCollision(Parcel p){
+		boolean length = this.lengthOverlap(p);
+		boolean width = this.widthtOverlap(p);
+		boolean height = this.heightOverlap(p);
+		
+		if (length == true && width == true && height == true)
+			return true;
+		
+		return false;
+		
+		
+		
+		
+	}
+	
+	public boolean heightOverlap(Parcel p){
+		Parcel one = this;
+		Parcel two = p;
+		if (p.height > this.height){
+			Parcel temp = two;
+			two = one;
+			one = temp;
+		}
+		
+		if (two.a.getY() > one.a.getY() && two.a.getY() < one.b.getY())
+			return true;
+		
+		else if(two.b.getY() > one.a.getY() && two.b.getY() < one.b.getY())
+			return true;
+		
+		return false;		
+		
+	}
+	
+	public boolean widthtOverlap(Parcel p){
+		Parcel one = this;
+		Parcel two = p;
+		if (p.width > this.width){
+			Parcel temp = two;
+			two = one;
+			one = temp;
+		}
+		
+		if (two.a.getZ() > one.a.getZ() && two.a.getZ() < one.b.getZ())
+			return true;
+		
+		else if(two.b.getZ() > one.a.getZ() && two.b.getZ() < one.b.getZ())
+			return true;
+		
+		return false;		
+		
+	}
+	
+	public boolean lengthOverlap(Parcel p){
+		Parcel one = this;
+		Parcel two = p;
+		if (p.length > this.length){
+			Parcel temp = two;
+			two = one;
+			one = temp;
+		}
+		
+		if (two.a.getX() > one.a.getX() && two.a.getX() < one.b.getX())
+			return true;
+		
+		else if(two.b.getX() > one.a.getX() && two.b.getX() < one.b.getX())
+			return true;
+		
+		return false;		
+		
+	}
+	
 	public static void main(String[] args){
 		Parcel dawid = new Parcel(new Coordinate(0, 0, 0), 0, 0, 4, 2, 3);
 		/**dawid.a.printCoord();
@@ -74,12 +146,12 @@ public class Parcel {
 		dawid.f.printCoord();
 		dawid.g.printCoord();
 		dawid.h.printCoord();
-		
-		}
-		
+				
 	}
+	
+}
 	
 	
 	
 
-}
+
