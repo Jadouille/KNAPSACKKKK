@@ -45,7 +45,7 @@ public class Container {
 		d = this.cornerIntoContainer(p.getD());
 		g = this.cornerIntoContainer(p.getG());
 		
-		if (a == true && b == true && c == true && d == true)
+		if (a == true && b == true && d == true && g == true)
 			return true;
 		
 		return false;

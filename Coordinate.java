@@ -45,4 +45,12 @@ public class Coordinate {
 		System.out.println(this.x + " " + this.y + " " + this.z);
 	}
 
+	public double computeProjectedX(Coordinate viewer){
+		return (((((viewer.z * this.x)-(viewer.x * this.z))/(viewer.z - this.z)))/viewer.z);
+	}
+
+	public double computeProjectedY(Coordinate viewer){
+		return (((((viewer.z * this.y)-(viewer.y * this.z))/(viewer.z - this.z)))/viewer.z);
+	}
+
 }

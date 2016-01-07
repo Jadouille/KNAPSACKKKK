@@ -15,6 +15,7 @@ public class Parcel {
 	private double width;
 	private double length;
 	private double height;
+	private Coordinate[] coordinates = new Coordinate[8];
 	
 
 	public Parcel(Coordinate a, double value, double weight, double width, double length, double height) {
@@ -26,6 +27,15 @@ public class Parcel {
 		this.f = new Coordinate(a.getX() + length, a.getY() + height, a.getZ() + width);
 		this.g = new Coordinate(a.getX(), a.getY(), a.getZ() + width);
 		this.h = new Coordinate(a.getX() + length, a.getY(), a.getZ() + width);
+
+		coordinates[0] = a;
+		coordinates[1] = b;
+		coordinates[2] = c;
+		coordinates[3] = d;
+		coordinates[4] = e;
+		coordinates[5] = f;
+		coordinates[6] = g;
+		coordinates[7] = h;
 		
 		this.weight = weight;
 		this.value = value;
@@ -35,6 +45,26 @@ public class Parcel {
 		this.length = length;
 		
 			
+	}
+
+	public Coordinate getA() {
+		return a;
+	}
+
+	public Coordinate getB() {
+		return b;
+	}
+
+	public Coordinate getD() {
+		return d;
+	}
+
+	public Coordinate getG() {
+		return g;
+	}
+
+	public Coordinate[] getCoords(){
+		return coordinates;
 	}
 	
 	public Parcel rotateWidth(){
@@ -116,39 +146,53 @@ public class Parcel {
 		return false;		
 		
 	}
-	
-	public static void main(String[] args){
-		Parcel dawid = new Parcel(new Coordinate(0, 0, 0), 0, 0, 4, 2, 3);
-		/**dawid.a.printCoord();
-		dawid.b.printCoord();
-		dawid.c.printCoord();
-		dawid.d.printCoord();
-		dawid.e.printCoord();
-		dawid.f.printCoord();
-		dawid.g.printCoord();
-		dawid.h.printCoord();*/
-		
-		dawid = dawid.rotateLength();
-		/**dawid.a.printCoord();
-		dawid.b.printCoord();
-		dawid.c.printCoord();
-		dawid.d.printCoord();
-		dawid.e.printCoord();
-		dawid.f.printCoord();
-		dawid.g.printCoord();
-		dawid.h.printCoord();*/
-		
-		dawid = dawid.rotateWidth();
-		dawid.b.printCoord();
-		dawid.c.printCoord();
-		dawid.d.printCoord();
-		dawid.e.printCoord();
-		dawid.f.printCoord();
-		dawid.g.printCoord();
-		dawid.h.printCoord();
-				
+
+
+
+	public Coordinate[] getProjection(Coordinate viewer){
+		Coordinate[] coords = coordinates;
+		for (int i =0;i<8;i++){
+			coords[i].setZ(0);
+			coords[i].setX(coords[i].computeProjectedX(viewer));
+			coords[i].setY(coords[i].computeProjectedY(viewer));
+		}
+		return coords;
+
 	}
 	
+	public static void main(String[] args){
+		/**Parcel dawid = new Parcel(new Coordinate(0, 0, 0), 0, 0, 4, 2, 3);
+		/**dawid.a.printCoord();
+		dawid.b.printCoord();
+		dawid.c.printCoord();
+		dawid.d.printCoord();
+		dawid.e.printCoord();
+		dawid.f.printCoord();
+		dawid.g.printCoord();
+		dawid.h.printCoord();*/
+		
+		//dawid = dawid.rotateLength();
+		/**dawid.a.printCoord();
+		dawid.b.printCoord();
+		dawid.c.printCoord();
+		dawid.d.printCoord();
+		dawid.e.printCoord();
+		dawid.f.printCoord();
+		dawid.g.printCoord();
+		dawid.h.printCoord();*/
+		
+		/**dawid = dawid.rotateWidth();
+		dawid.b.printCoord();
+		dawid.c.printCoord();
+		dawid.d.printCoord();
+		dawid.e.printCoord();
+		dawid.f.printCoord();
+		dawid.g.printCoord();
+		dawid.h.printCoord();*/
+				
+	}
+
+
 }
 	
 	
