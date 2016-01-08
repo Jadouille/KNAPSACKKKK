@@ -1,6 +1,7 @@
+import javax.swing.*;
+import java.awt.Graphics2D;
 
-
-public class Parcel {
+public class Parcel extends JComponent {
 	
 	private Coordinate a;
 	private Coordinate b;
@@ -15,7 +16,7 @@ public class Parcel {
 	private double width;
 	private double length;
 	private double height;
-	private Coordinate[] coordinates = new Coordinate[8];
+	private Coordinate[] coords = new Coordinate[8];
 	
 
 	public Parcel(Coordinate a, double value, double weight, double width, double length, double height) {
@@ -28,14 +29,14 @@ public class Parcel {
 		this.g = new Coordinate(a.getX(), a.getY(), a.getZ() + width);
 		this.h = new Coordinate(a.getX() + length, a.getY(), a.getZ() + width);
 
-		coordinates[0] = a;
-		coordinates[1] = b;
-		coordinates[2] = c;
-		coordinates[3] = d;
-		coordinates[4] = e;
-		coordinates[5] = f;
-		coordinates[6] = g;
-		coordinates[7] = h;
+		coords[0] = a;
+		coords[1] = b;
+		coords[2] = c;
+		coords[3] = d;
+		coords[4] = e;
+		coords[5] = f;
+		coords[6] = g;
+		coords[7] = h;
 		
 		this.weight = weight;
 		this.value = value;
@@ -64,7 +65,7 @@ public class Parcel {
 	}
 
 	public Coordinate[] getCoords(){
-		return coordinates;
+		return coords;
 	}
 	
 	public Parcel rotateWidth(){
@@ -149,28 +150,28 @@ public class Parcel {
 
 
 
-	public Coordinate[] getProjection(Coordinate viewer){
-		Coordinate[] coords = coordinates;
-		for (int i =0;i<8;i++){
-			coords[i].setZ(0);
-			coords[i].setX(coords[i].computeProjectedX(viewer));
-			coords[i].setY(coords[i].computeProjectedY(viewer));
-		}
-		return coords;
 
-	}
+
+
 	
 	public static void main(String[] args){
-		/**Parcel dawid = new Parcel(new Coordinate(0, 0, 0), 0, 0, 4, 2, 3);
-		/**dawid.a.printCoord();
+		Parcel dawid = new Parcel(new Coordinate(0, 0, 0), 0, 0, 4, 2, 3);
+		dawid.a.printCoord();
 		dawid.b.printCoord();
 		dawid.c.printCoord();
 		dawid.d.printCoord();
 		dawid.e.printCoord();
 		dawid.f.printCoord();
 		dawid.g.printCoord();
-		dawid.h.printCoord();*/
-		
+		dawid.h.printCoord();
+		System.out.println("  ");
+
+		Projector p = new Projector(new Coordinate(5,10,5));
+
+
+
+
+
 		//dawid = dawid.rotateLength();
 		/**dawid.a.printCoord();
 		dawid.b.printCoord();
