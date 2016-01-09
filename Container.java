@@ -15,6 +15,8 @@ public class Container {
 	private double height;
 	
 
+	/** Creates a container in which parcel will be stored
+	 */
 	public Container( double weight, double width, double length, double height) {
 		this.a = new Coordinate(0, 0, 0);
 		this.b = new Coordinate(a.getX(), a.getY() + height, a.getZ());
@@ -34,6 +36,10 @@ public class Container {
 			
 	}
 	
+	/** Check whether a parcel is in the container or not by checking if all the corners lie in the container
+	 * @param p parcel that is checked
+	 * @return return true if p lies into the container, false otherwise
+	 */
 	public boolean liesInto(Parcel p){
 		boolean a = false;
 		boolean b = false;
@@ -54,6 +60,11 @@ public class Container {
 		
 	}
 	
+	/** Is the corner of a parcel in the container
+	 * 
+	 * @param c the corner of a parcel
+	 * @return true if it lies into the container
+	 */
 	public boolean cornerIntoContainer(Coordinate c){
 		boolean x = true;
 		boolean y = true;

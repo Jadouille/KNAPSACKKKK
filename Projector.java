@@ -10,10 +10,17 @@ public class Projector {
     private Coordinate viewer;
 
 
+    /** Creates a projector that will help us to transforms 2D coordinates in 2D coordinates
+     * @param viewer is the cordinate in 3D from where we see the shape that's being projected
+     */
     public Projector(Coordinate viewer){
         this.viewer = viewer;
     }
-
+    
+    
+    /** Gets the projected coordinate thanks to the computeProjectedX/Y method
+     * 
+     */
     public Coordinate[] getProjection(Parcel p){
         Coordinate[] coordinates = p.getCoords();
         Coordinate[] pCoords = new Coordinate[coordinates.length];
@@ -28,6 +35,10 @@ public class Projector {
         return pCoords;
     }
 
+    
+    /** Draw a parcel
+     * 
+     */
     public void draw(Graphics g, Parcel p){
         Graphics2D g2 = (Graphics2D) g;
         Coordinate[] coordinates = this.getProjection(p);

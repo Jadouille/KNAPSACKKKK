@@ -45,10 +45,18 @@ public class Coordinate {
 		System.out.println(this.x + " " + this.y + " " + this.z);
 	}
 
+	/** compute the coordinate x in 2D using Thales
+	 * 
+	 * @param viewer is the coordinate in 3D from where we see the shape that's being projected
+	 */
 	public double computeProjectedX(Coordinate viewer){
 		return (((((viewer.z * this.x)-(viewer.x * this.z))/(viewer.z - this.z)))/viewer.z);
 	}
 
+	/** compute the coordinate y in 2D using Thales
+	 * 
+	 * @param viewer is the coordinate in 3D from where we see the shape that's being projected
+	 */
 	public double computeProjectedY(Coordinate viewer){
 		return (((((viewer.z * this.y)-(viewer.y * this.z))/(viewer.z - this.z)))/viewer.z);
 	}
