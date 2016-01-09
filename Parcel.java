@@ -19,6 +19,11 @@ public class Parcel extends JComponent {
 	private Coordinate[] coords = new Coordinate[8];
 	
 
+	/** creates a parcel
+	 * 
+	 * @param a is the coordinate of the downer left corner, the others letters are the other corners
+	
+	 */
 	public Parcel(Coordinate a, double value, double weight, double width, double length, double height) {
 		this.a = a;
 		this.b = new Coordinate(a.getX(), a.getY() + height, a.getZ());
@@ -68,29 +73,21 @@ public class Parcel extends JComponent {
 		return coords;
 	}
 	
+	/** rotation method when the width stays the same
+	  */
 	public Parcel rotateWidth(){
 		return new Parcel(this.a, this.value, this.weight, this.width, this.height, this.length);
 	}
 	
+	/** rotation method when the length stays the same
+	 */
 	public Parcel rotateLength(){
 		return new Parcel(this.a, this.value, this.weight, this.height, this.length, this.width);
 	}
 	
-	public boolean checkCollision(Parcel p){
-		boolean length = this.lengthOverlap(p);
-		boolean width = this.widthtOverlap(p);
-		boolean height = this.heightOverlap(p);
-		
-		if (length == true && width == true && height == true)
-			return true;
-		
-		return false;
-		
-		
-		
-		
-	}
-	
+	/** Check whether the heights overlap or not
+	  * @return true there is an overlap
+	 */
 	public boolean heightOverlap(Parcel p){
 		Parcel one = this;
 		Parcel two = p;
@@ -110,6 +107,9 @@ public class Parcel extends JComponent {
 		
 	}
 	
+	/** Check whether there's a width overlap 
+	 * @return true if there is an overlap
+	 */
 	public boolean widthtOverlap(Parcel p){
 		Parcel one = this;
 		Parcel two = p;
@@ -129,6 +129,9 @@ public class Parcel extends JComponent {
 		
 	}
 	
+	/** Check whether there's a length overlap
+	 * @return true if overlap
+	 */
 	public boolean lengthOverlap(Parcel p){
 		Parcel one = this;
 		Parcel two = p;
@@ -148,10 +151,24 @@ public class Parcel extends JComponent {
 		
 	}
 
-
-
-
-
+	
+	/** Check whether two parcels are colliding or not
+	 * @return true if there is a collision
+	 */
+	public boolean checkCollision(Parcel p){
+		boolean length = this.lengthOverlap(p);
+		boolean width = this.widthtOverlap(p);
+		boolean height = this.heightOverlap(p);
+		
+		if (length == true && width == true && height == true)
+			return true;
+		
+		return false;
+		
+		
+		
+		
+	}
 
 	
 	public static void main(String[] args){
