@@ -1,7 +1,6 @@
-import javax.swing.*;
-import java.awt.Graphics2D;
 
-public class Parcel extends JComponent {
+
+public class Parcel {
 	
 	private Coordinate a;
 	private Coordinate b;
@@ -71,6 +70,37 @@ public class Parcel extends JComponent {
 
 	public Coordinate[] getCoords(){
 		return coords;
+	}
+
+	public void moveDown(){
+		for (int i = 0;i<this.getCoords().length;i++){
+			this.coords[i].setY((this.coords[i].getY()-1));
+		}
+	}
+	public void moveUp(){
+		for (int i = 0;i<this.getCoords().length;i++){
+			this.coords[i].setY((this.coords[i].getY()+1));
+		}
+	}
+	public void moveRight(){
+		for (int i = 0;i<this.getCoords().length;i++){
+			this.coords[i].setX((this.coords[i].getX()+1));
+		}
+	}
+	public void moveLeft(){
+		for (int i = 0;i<this.getCoords().length;i++){
+			this.coords[i].setX((this.coords[i].getX()-1));
+		}
+	}
+	public void moveForward(){
+		for (int i = 0;i<this.getCoords().length;i++){
+			this.coords[i].setZ((this.coords[i].getZ()-1));
+		}
+	}
+	public void moveBackward(){
+		for (int i = 0;i<this.getCoords().length;i++){
+			this.coords[i].setZ((this.coords[i].getZ()+1));
+		}
 	}
 	
 	/** rotation method when the width stays the same

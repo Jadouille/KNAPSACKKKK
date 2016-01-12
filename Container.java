@@ -13,6 +13,7 @@ public class Container {
 	private double width;
 	private double length;
 	private double height;
+	private Parcel[] parcels;
 	
 
 	/** Creates a container in which parcel will be stored
@@ -32,10 +33,38 @@ public class Container {
 		this.height = height;
 		this.width = width;
 		this.length = length;
+		this.parcels = new Parcel[0];
 		
 			
 	}
-	
+
+	public void addParcel(Parcel p){
+		int length = parcels.length;
+		Parcel[] tempParcel = new Parcel[length + 1];
+		System.arraycopy(parcels, 0,tempParcel, 0, parcels.length);
+		tempParcel[length] = p;
+		parcels = tempParcel;
+
+	}
+
+	public void removeParcel(){
+		if (this.parcels.length != 0){
+			Parcel[] tempParcel = new Parcel[(this.parcels.length - 1)];
+			System.arraycopy(parcels, 0, tempParcel, 0, tempParcel.length);
+			parcels = tempParcel;
+		}
+	}
+
+	public Parcel getParcel(int index){
+		return parcels[index];
+	}
+
+	public Parcel[] getParcels(){
+		return parcels;
+	}
+	public void setParcel(int index, Parcel p){
+		parcels[index] = p;
+	}
 	/** Check whether a parcel is in the container or not by checking if all the corners lie in the container
 	 * @param p parcel that is checked
 	 * @return return true if p lies into the container, false otherwise
@@ -77,14 +106,14 @@ public class Container {
 		
 		if (c.getZ() < 0 || c.getZ() > this.width)
 			z = false;
-		
-		if (x == false && y == false && z == false)
+
+		if (!x && !y && !z)
 			return false;
-		
+
 		return true;
-		
-		
-		
+
+
+
 	}
 	
 	
