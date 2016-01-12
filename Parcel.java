@@ -16,6 +16,7 @@ public class Parcel {
 	private double length;
 	private double height;
 	private Coordinate[] coords = new Coordinate[8];
+	private static double movingUnit = 0.5;
 	
 
 	/** creates a parcel
@@ -52,6 +53,9 @@ public class Parcel {
 			
 	}
 
+	public Parcel() {}
+
+
 	public Coordinate getA() {
 		return a;
 	}
@@ -60,91 +64,164 @@ public class Parcel {
 		return b;
 	}
 
+	public Coordinate getC() {
+		return c;
+	}
+
 	public Coordinate getD() {
 		return d;
+	}
+
+	public Coordinate getE() {
+		return e;
+	}
+
+	public Coordinate getF() {
+		return f;
 	}
 
 	public Coordinate getG() {
 		return g;
 	}
 
+	public Coordinate getH() {
+		return h;
+	}
+
 	public Coordinate[] getCoords(){
 		return coords;
 	}
 
-	public void moveToCoordinate(Coordinate coord){
-		if (this.coords[0].getX() > coord.getX()) {
-			int i = 0;
-			while (this.coords[0].getX() > coord.getX()) {
-				moveLeft();
-			}
-		}
 
-		if (this.coords[0].getX() < coord.getX()) {
-			int i = 0;
-			while (this.coords[0].getX() > coord.getX()) {
-				moveRight();
-			}
-		}
 
-		if (this.coords[0].getY() > coord.getY()) {
-			int i = 0;
-			while (this.coords[0].getY() > coord.getY()) {
-				moveDown();
-			}
-		}
-
-		if (this.coords[0].getY() < coord.getY()) {
-			int i = 0;
-			while (this.coords[0].getY() > coord.getY()) {
-				moveUp();
-			}
-		}
-
-		if (this.coords[0].getZ() > coord.getZ()) {
-			int i = 0;
-			while (this.coords[0].getZ() > coord.getZ()) {
-				moveBackward();
-			}
-		}
-
-		if (this.coords[0].getZ() < coord.getZ()) {
-			int i = 0;
-			while (this.coords[0].getZ() > coord.getZ()) {
-				moveForward();
-			}
-		}
+	public double getParcelLength(){
+		return this.length;
 	}
 
-	public void moveDown(){
-		for (int i = 0;i<this.getCoords().length;i++){
-			this.coords[i].setY((this.coords[i].getY()-1));
-		}
+	public double getParcelWidth(){
+		return this.width;
 	}
-	public void moveUp(){
-		for (int i = 0;i<this.getCoords().length;i++){
-			this.coords[i].setY((this.coords[i].getY()+1));
-		}
+
+	public double getParcelHeight(){
+		return this.height;
 	}
-	public void moveRight(){
-		for (int i = 0;i<this.getCoords().length;i++){
-			this.coords[i].setX((this.coords[i].getX()+1));
-		}
+
+	public void setA(double x, double y, double z){
+		this.a.setX(x);
+		this.a.setY(y);
+		this.a.setZ(z);
 	}
-	public void moveLeft(){
-		for (int i = 0;i<this.getCoords().length;i++){
-			this.coords[i].setX((this.coords[i].getX()-1));
-		}
+
+	public void setA(Coordinate a){
+		this.a = a;
 	}
-	public void moveForward(){
-		for (int i = 0;i<this.getCoords().length;i++){
-			this.coords[i].setZ((this.coords[i].getZ()-1));
-		}
+
+	public void setB(double x, double y, double z){
+		this.b.setX(x);
+		this.b.setY(y);
+		this.b.setZ(z);
 	}
-	public void moveBackward(){
-		for (int i = 0;i<this.getCoords().length;i++){
-			this.coords[i].setZ((this.coords[i].getZ()+1));
-		}
+
+	public void setB(Coordinate b){
+		this.b = b;
+	}
+
+	public void setC(double x, double y, double z){
+		this.c.setX(x);
+		this.c.setY(y);
+		this.c.setZ(z);
+	}
+
+	public void setC(Coordinate c){
+		this.c = c;
+	}
+
+	public void setD(double x, double y, double z){
+		this.d.setX(x);
+		this.d.setY(y);
+		this.d.setZ(z);
+	}
+
+	public void setD(Coordinate d){
+		this.d = d;
+	}
+
+	public void setE(double x, double y, double z){
+		this.e.setX(x);
+		this.e.setY(y);
+		this.e.setZ(z);
+	}
+
+	public void setE(Coordinate e){
+		this.e = e;
+	}
+
+	public void setF(double x, double y, double z){
+		this.f.setX(x);
+		this.f.setY(y);
+		this.f.setZ(z);
+	}
+
+	public void setF(Coordinate f){
+		this.f = f;
+	}
+
+	public void setG(double x, double y, double z){
+		this.g.setX(x);
+		this.g.setY(y);
+		this.g.setZ(z);
+	}
+
+	public void setG(Coordinate g){
+		this.g = g;
+	}
+
+	public void setH(double x, double y, double z){
+		this.h.setX(x);
+		this.h.setY(y);
+		this.h.setZ(z);
+	}
+
+	public void setH(Coordinate h){
+		this.h = h;
+	}
+
+	public void setHeight(double height){
+		this.height = height;
+	}
+
+	public void setLength(double length){
+		this.length = length;
+	}
+
+	public void setWidth(double width){
+		this.width = width;
+	}
+
+
+	public void moveToCoordinate(Coordinate coord) {
+		this.setA(coord);
+	}
+
+	public Parcel moveDown(){
+		return new Parcel(new Coordinate(this.a.getX(), this.getA().getY()-movingUnit, this.getA().getZ()),this.value,this.weight,this.width,this.length,this.height);
+	}
+	public Parcel moveUp(){
+		return new Parcel(new Coordinate(this.a.getX(), this.getA().getY() + movingUnit, this.getA().getZ()),this.value,this.weight,this.width,this.length,this.height);
+	}
+	public Parcel moveRight(){
+		return new Parcel(new Coordinate(this.a.getX() + movingUnit, this.getA().getY(), this.getA().getZ()),this.value,this.weight,this.width,this.length,this.height);
+	}
+	public Parcel moveLeft(){
+		return new Parcel(new Coordinate(this.a.getX() - movingUnit, this.getA().getY(), this.getA().getZ()),this.value,this.weight,this.width,this.length,this.height);
+
+	}
+	public Parcel moveForward(){
+		return new Parcel(new Coordinate(this.a.getX(), this.getA().getY(), this.getA().getZ() - movingUnit),this.value,this.weight,this.width,this.length,this.height);
+
+	}
+	public Parcel moveBackward(){
+		return new Parcel(new Coordinate(this.a.getX(), this.getA().getY(), this.getA().getZ() + movingUnit),this.value,this.weight,this.width,this.length,this.height);
 	}
 	
 	/** rotation method when the width stays the same
@@ -193,10 +270,10 @@ public class Parcel {
 			one = temp;
 		}
 		
-		if (two.a.getZ() > one.a.getZ() && two.a.getZ() < one.b.getZ())
+		if (two.a.getZ() > one.a.getZ() && two.a.getZ() < one.g.getZ())
 			return true;
 		
-		else if(two.b.getZ() > one.a.getZ() && two.b.getZ() < one.b.getZ())
+		else if(two.g.getZ() > one.a.getZ() && two.g.getZ() < one.g.getZ())
 			return true;
 		
 		return false;		
@@ -215,10 +292,10 @@ public class Parcel {
 			one = temp;
 		}
 		
-		if (two.a.getX() > one.a.getX() && two.a.getX() < one.b.getX())
+		if (two.a.getX() > one.a.getX() && two.a.getX() < one.d.getX())
 			return true;
 		
-		else if(two.b.getX() > one.a.getX() && two.b.getX() < one.b.getX())
+		else if(two.d.getX() > one.a.getX() && two.d.getX() < one.d.getX())
 			return true;
 		
 		return false;		

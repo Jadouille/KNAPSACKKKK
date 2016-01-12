@@ -16,7 +16,10 @@ public class Container {
 	private double width;
 	private double length;
 	private double height;
-	private ArrayList<Parcel> parcels;
+	private ArrayList<Parcel> parcels = new ArrayList<Parcel>(2);
+	private static Coordinate lastEmptyCell;
+	private static Coordinate previousEmptyCell;
+	private int indexInTheArray = 0;
 
 	public enum CoordinateName {
 		x, y, z
@@ -46,6 +49,10 @@ public class Container {
 		return parcels.get(index);
 	}
 
+	public ArrayList<Parcel> getParcels(){
+		return parcels;
+	}
+
 
 	/** Check whether a parcel is in the container or not by checking if all the corners lie in the container
 	 * @param p parcel that is checked
@@ -67,6 +74,11 @@ public class Container {
 		
 		return false;
 	}
+
+	/**public boolean addParcel(Parcel p){
+		 return this.parcels.add(p);
+		//this.indexInTheArray++;
+	}*/
 	
 	/** Is the corner of a parcel in the container
 	 * 
@@ -126,6 +138,43 @@ public class Container {
 		}
 	}
 	*/
+
+	public Coordinate getFirstEmptyCell(Coordinate lastEmptyCell){
+		Parcel unitCube = new Parcel(lastEmptyCell, 0, 0, 0.5, 0.5, 0.5);
+		boolean collision = false;
+		Coordinate returnCoord = new Coordinate(100,100,100);
+
+		for (Parcel parcel : parcels ){
+			collision = parcel.checkCollision(unitCube);
+			if (collision)
+				break;
+		}
+		if(!collision) {
+			previousEmptyCell = lastEmptyCell;
+			lastEmptyCell = unitCube.getA();
+			return unitCube.getA();
+		}
+		else if(unitCube.getA().getX()<(this.length-0.5)){
+			unitCube = unitCube.moveRight();
+			returnCoord = getFirstEmptyCell(unitCube.getA());
+			System.out.println("XMOOOVE");
+		}
+		else if(unitCube.getA().getZ()<(this.width-0.5)){
+			unitCube = unitCube.moveBackward();
+			unitCube.getA().setX(0);
+			System.out.println("ZSLIDE");
+			returnCoord = getFirstEmptyCell(unitCube.getA());
+		}
+		else if (unitCube.getA().getY()<(this.height-0.5)){
+			unitCube = unitCube.moveUp();
+			unitCube.getA().setX(0);
+			unitCube.getA().setZ(0);
+			System.out.println("YFLIED");
+			returnCoord = getFirstEmptyCell(unitCube.getA());
+		}
+		else System.out.println("no empty cells left");
+		return returnCoord;
+	}
 
 
 	
