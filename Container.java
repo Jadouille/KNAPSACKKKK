@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+
+
 
 public class Container {
 	
@@ -13,7 +16,11 @@ public class Container {
 	private double width;
 	private double length;
 	private double height;
-	private Parcel[] parcels;
+	private ArrayList<Parcel> parcels;
+
+	public enum CoordinateName {
+		x, y, z
+	}
 	
 
 	/** Creates a container in which parcel will be stored
@@ -33,38 +40,13 @@ public class Container {
 		this.height = height;
 		this.width = width;
 		this.length = length;
-		this.parcels = new Parcel[0];
-		
-			
-	}
-
-	public void addParcel(Parcel p){
-		int length = parcels.length;
-		Parcel[] tempParcel = new Parcel[length + 1];
-		System.arraycopy(parcels, 0,tempParcel, 0, parcels.length);
-		tempParcel[length] = p;
-		parcels = tempParcel;
-
-	}
-
-	public void removeParcel(){
-		if (this.parcels.length != 0){
-			Parcel[] tempParcel = new Parcel[(this.parcels.length - 1)];
-			System.arraycopy(parcels, 0, tempParcel, 0, tempParcel.length);
-			parcels = tempParcel;
-		}
 	}
 
 	public Parcel getParcel(int index){
-		return parcels[index];
+		return parcels.get(index);
 	}
 
-	public Parcel[] getParcels(){
-		return parcels;
-	}
-	public void setParcel(int index, Parcel p){
-		parcels[index] = p;
-	}
+
 	/** Check whether a parcel is in the container or not by checking if all the corners lie in the container
 	 * @param p parcel that is checked
 	 * @return return true if p lies into the container, false otherwise
@@ -84,9 +66,6 @@ public class Container {
 			return true;
 		
 		return false;
-		
-	
-		
 	}
 	
 	/** Is the corner of a parcel in the container
@@ -111,10 +90,44 @@ public class Container {
 			return false;
 
 		return true;
-
-
-
 	}
+
+	public boolean putParcel(Parcel p, Coordinate coord) {
+		boolean result = true;
+		p.moveToCoordinate(coord);
+		parcels.add(p);
+		return result;
+	}
+
+	public boolean removeParcel(Parcel p) {
+		boolean result = true;
+		parcels.remove(p);
+		return result;
+	}
+
+	public boolean checkCollision(Parcel p) {
+		for (Parcel curParcel : parcels) {
+			if (curParcel.checkCollision(p)) {
+				return true;
+			}
+		}
+		if (!liesInto(p)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/*
+	public Coordinate getFirstEmptyCoord() {
+		double max = 0;
+		for (Parcel parcel : parcels) {
+			if (parcel.getG().getY() == 0 && parcel.getG().getZ() == 0) {}
+		}
+	}
+	*/
+
+
 	
 	
 	

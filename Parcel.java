@@ -72,6 +72,50 @@ public class Parcel {
 		return coords;
 	}
 
+	public void moveToCoordinate(Coordinate coord){
+		if (this.coords[0].getX() > coord.getX()) {
+			int i = 0;
+			while (this.coords[0].getX() > coord.getX()) {
+				moveLeft();
+			}
+		}
+
+		if (this.coords[0].getX() < coord.getX()) {
+			int i = 0;
+			while (this.coords[0].getX() > coord.getX()) {
+				moveRight();
+			}
+		}
+
+		if (this.coords[0].getY() > coord.getY()) {
+			int i = 0;
+			while (this.coords[0].getY() > coord.getY()) {
+				moveDown();
+			}
+		}
+
+		if (this.coords[0].getY() < coord.getY()) {
+			int i = 0;
+			while (this.coords[0].getY() > coord.getY()) {
+				moveUp();
+			}
+		}
+
+		if (this.coords[0].getZ() > coord.getZ()) {
+			int i = 0;
+			while (this.coords[0].getZ() > coord.getZ()) {
+				moveBackward();
+			}
+		}
+
+		if (this.coords[0].getZ() < coord.getZ()) {
+			int i = 0;
+			while (this.coords[0].getZ() > coord.getZ()) {
+				moveForward();
+			}
+		}
+	}
+
 	public void moveDown(){
 		for (int i = 0;i<this.getCoords().length;i++){
 			this.coords[i].setY((this.coords[i].getY()-1));
