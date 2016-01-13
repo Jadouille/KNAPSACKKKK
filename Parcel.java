@@ -92,6 +92,9 @@ public class Parcel {
 		return coords;
 	}
 
+	public double getValue() {return value;}
+
+	public double getWeight() {return weight;}
 
 
 	public double getParcelLength(){

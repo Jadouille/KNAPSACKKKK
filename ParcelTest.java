@@ -9,8 +9,8 @@ public class ParcelTest extends Applet {
 
     public void paint(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
-        Projector viewer = new Projector(new Coordinate(15,4,10));
-        LParcel l = new LParcel(new Coordinate(10,10,1),0,0,2,2,2);
+        Projector viewer = new Projector(new Coordinate(5,8,20));
+        /**LParcel l = new LParcel(new Coordinate(10,10,1),0,0,2,2,2);
         viewer.draw(g2,l.getParcel1());
         viewer.draw(g2,l.getParcel2());
         viewer.draw(g2,l.getParcel3());
@@ -22,7 +22,12 @@ public class ParcelTest extends Applet {
         viewer2.draw(g2,l.getParcel2());
         viewer2.draw(g2,l.getParcel3());
         viewer2.draw(g2,l.getParcel4());
-        viewer2.draw(g2,l.getParcel5());
+        viewer2.draw(g2,l.getParcel5());*/
+
+        Container container = GreedyAlgorithm.Algotithm();
+        viewer.drawContainer(g, container);
+        container.printParcels();
+
     }
 
 

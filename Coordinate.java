@@ -45,6 +45,13 @@ public class Coordinate {
 		System.out.println(this.x + " " + this.y + " " + this.z);
 	}
 
+	public Coordinate addCoordinates(Coordinate plus){
+		this.x = this.x + plus.x;
+		this.y = this.y + plus.y;
+		this.z = this.z + plus.z;
+		return this;
+	}
+
 	/** compute the coordinate x in 2D using Thales
 	 * 
 	 * @param viewer is the coordinate in 3D from where we see the shape that's being projected

@@ -16,6 +16,7 @@ public class Container {
 	private double width;
 	private double length;
 	private double height;
+	private double value;
 	private ArrayList<Parcel> parcels = new ArrayList<Parcel>(2);
 	private static Coordinate lastEmptyCell;
 	private static Coordinate previousEmptyCell;
@@ -39,7 +40,7 @@ public class Container {
 		this.h = new Coordinate(a.getX() + length, a.getY(), a.getZ() + width);
 		
 		this.weight = weight;
-				
+		this.value = 0;
 		this.height = height;
 		this.width = width;
 		this.length = length;
@@ -51,6 +52,51 @@ public class Container {
 
 	public ArrayList<Parcel> getParcels(){
 		return parcels;
+	}
+
+	public double getWeight() {return weight;}
+
+	public double getValue() {return value;}
+
+	public Coordinate getA(){return a;}
+
+	public void setWeight(double weight){
+		this.weight = weight;
+	}
+
+	public void setValue(double value){
+		this.value = value;
+	}
+
+	public void setA(Coordinate a){
+		this.a = a;
+	}
+
+	public void printParcelsValue(){
+		for (Parcel curParcel : parcels){
+			System.out.println(curParcel.getValue());
+		}
+	}
+
+	public void moveContainer(Coordinate a){
+		this.setA(a);
+		for (Parcel curParcel : parcels){
+			curParcel.setA(getA().addCoordinates(a));
+		}
+	}
+
+	public void printAmountOfParcels(){
+		int length = 0;
+		for (Parcel curParcel : parcels)
+			length++;
+		System.out.println(length);
+
+	}
+
+	public void printParcels(){
+		for (Parcel curParcel : parcels){
+			curParcel.getA().printCoord();
+		}
 	}
 
 
@@ -176,8 +222,4 @@ public class Container {
 		return returnCoord;
 	}
 
-
-	
-	
-	
 }
