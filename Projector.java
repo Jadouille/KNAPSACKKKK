@@ -25,6 +25,10 @@ public class Projector {
      */
     public Coordinate2D[] getProjection(Parcel p) {
         ArrayList<Coordinate> coordinates = p.getCornerCoords(new Coordinate(0, 0, 0));
+        for (Coordinate curcoord : coordinates){
+            curcoord.printCoord();
+        }
+
         Coordinate2D[] projectedCoords = new Coordinate2D[coordinates.size()];
         for (int i = 0; i < projectedCoords.length; i++) {
             projectedCoords[i] = new Coordinate2D(0, 0);
@@ -32,6 +36,8 @@ public class Projector {
         for (int i = 0; i < projectedCoords.length; i++) {
             projectedCoords[i].setX((coordinates.get(i).computeProjectedX(viewer)));
             projectedCoords[i].setY(coordinates.get(i).computeProjectedY(viewer));
+            projectedCoords[i].printCoords();
+
         }
         return projectedCoords;
     }
@@ -46,27 +52,27 @@ public class Projector {
         g2.setColor(Color.pink);
         g2.draw(new Line2D.Double((coordinates[0].getX() * 100), (coordinates[0].getY() * 100), (coordinates[1].getX() * 100), (coordinates[1].getY() * 100)));
         g2.setColor(Color.red);
-        g2.draw(new Line2D.Double((coordinates[0].getX() * 100), (coordinates[0].getY() * 100), (coordinates[3].getX() * 100), (coordinates[3].getY() * 100)));
+        g2.draw(new Line2D.Double((coordinates[1].getX() * 100), (coordinates[1].getY() * 100), (coordinates[2].getX() * 100), (coordinates[2].getY() * 100)));
         g2.setColor(Color.black);
-        g2.draw(new Line2D.Double((coordinates[0].getX() * 100), (coordinates[0].getY() * 100), (coordinates[6].getX() * 100), (coordinates[6].getY() * 100)));
+        g2.draw(new Line2D.Double((coordinates[2].getX() * 100), (coordinates[2].getY() * 100), (coordinates[3].getX() * 100), (coordinates[3].getY() * 100)));
         g2.setColor(Color.yellow);
-        g2.draw(new Line2D.Double((coordinates[3].getX() * 100), (coordinates[3].getY() * 100), (coordinates[2].getX() * 100), (coordinates[2].getY() * 100)));
+        g2.draw(new Line2D.Double((coordinates[0].getX() * 100), (coordinates[0].getY() * 100), (coordinates[3].getX() * 100), (coordinates[3].getY() * 100)));
         g2.setColor(Color.orange);
-        g2.draw(new Line2D.Double((coordinates[7].getX() * 100), (coordinates[7].getY() * 100), (coordinates[5].getX() * 100), (coordinates[5].getY() * 100)));
+        g2.draw(new Line2D.Double((coordinates[3].getX() * 100), (coordinates[3].getY() * 100), (coordinates[4].getX() * 100), (coordinates[4].getY() * 100)));
         g2.setColor(Color.green);
-        g2.draw(new Line2D.Double((coordinates[2].getX() * 100), (coordinates[2].getY() * 100), (coordinates[5].getX() * 100), (coordinates[5].getY() * 100)));
+        g2.draw(new Line2D.Double((coordinates[6].getX() * 100), (coordinates[6].getY() * 100), (coordinates[4].getX() * 100), (coordinates[4].getY() * 100)));
         g2.setColor(Color.blue);
-        g2.draw(new Line2D.Double((coordinates[2].getX() * 100), (coordinates[2].getY() * 100), (coordinates[1].getX() * 100), (coordinates[1].getY() * 100)));
+        g2.draw(new Line2D.Double((coordinates[2].getX() * 100), (coordinates[2].getY() * 100), (coordinates[6].getX() * 100), (coordinates[6].getY() * 100)));
         g2.setColor(Color.gray);
-        g2.draw(new Line2D.Double((coordinates[4].getX() * 100), (coordinates[4].getY() * 100), (coordinates[1].getX() * 100), (coordinates[1].getY() * 100)));
-        g2.setColor(Color.magenta);
-        g2.draw(new Line2D.Double((coordinates[4].getX() * 100), (coordinates[4].getY() * 100), (coordinates[5].getX() * 100), (coordinates[5].getY() * 100)));
-        g2.setColor(Color.cyan);
-        g2.draw(new Line2D.Double((coordinates[4].getX() * 100), (coordinates[4].getY() * 100), (coordinates[6].getX() * 100), (coordinates[6].getY() * 100)));
-        g2.setColor(Color.darkGray);
         g2.draw(new Line2D.Double((coordinates[6].getX() * 100), (coordinates[6].getY() * 100), (coordinates[7].getX() * 100), (coordinates[7].getY() * 100)));
+        g2.setColor(Color.magenta);
+        g2.draw(new Line2D.Double((coordinates[7].getX() * 100), (coordinates[7].getY() * 100), (coordinates[1].getX() * 100), (coordinates[1].getY() * 100)));
+        g2.setColor(Color.cyan);
+        g2.draw(new Line2D.Double((coordinates[5].getX() * 100), (coordinates[5].getY() * 100), (coordinates[7].getX() * 100), (coordinates[7].getY() * 100)));
+        g2.setColor(Color.darkGray);
+        g2.draw(new Line2D.Double((coordinates[0].getX() * 100), (coordinates[0].getY() * 100), (coordinates[5].getX() * 100), (coordinates[5].getY() * 100)));
         g2.setColor(new Color(128, 183, 180));
-        g2.draw(new Line2D.Double((coordinates[3].getX() * 100), (coordinates[3].getY() * 100), (coordinates[7].getX() * 100), (coordinates[7].getY() * 100)));
+        g2.draw(new Line2D.Double((coordinates[4].getX() * 100), (coordinates[4].getY() * 100), (coordinates[5].getX() * 100), (coordinates[5].getY() * 100)));
     }
 
 }

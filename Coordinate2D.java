@@ -31,4 +31,8 @@ public class Coordinate2D {
         this.x = x;
         this.y = y;
     }
+
+    public void printCoords(){
+        System.out.println(this.getX() + " " + this.getY());
+    }
 }
