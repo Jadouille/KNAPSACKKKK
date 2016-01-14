@@ -1,2 +1,4 @@
-.idea/
+/.idea/uiDesigner.xml
 *.iml
+/.idea
+*.xml
