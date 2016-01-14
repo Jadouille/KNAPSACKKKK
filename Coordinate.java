@@ -68,7 +68,13 @@ public class Coordinate {
      * @param viewer is the coordinate in 3D from where we see the shape that's being projected
      */
     public double computeProjectedX(Coordinate viewer) {
-        return (((((viewer.z * this.x) - (viewer.x * this.z)) / (viewer.z - this.z))) / viewer.z);
+        double vx = viewer.getX();
+		double vz = viewer.getZ();
+		double px = this.x;
+		double py = this.y;
+		double pz = this.z;
+
+		return ((((((vz * px) - (vx * pz)) / (vz - pz))) / vz) + 5);
     }
 
     /**
@@ -77,7 +83,13 @@ public class Coordinate {
      * @param viewer is the coordinate in 3D from where we see the shape that's being projected
      */
     public double computeProjectedY(Coordinate viewer) {
-        return (((((viewer.z * this.y) - (viewer.y * this.z)) / (viewer.z - this.z))) / viewer.z);
+		double vy = viewer.getY();
+		double vz = viewer.getZ();
+		double px = this.x;
+		double py = this.y;
+		double pz = this.z;
+
+        return ((((((vz * py) - (vy * pz)) / (vz - pz))) / vz)+ 2);
     }
 
 }

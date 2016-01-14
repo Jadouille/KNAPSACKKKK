@@ -32,9 +32,8 @@ public class Parcel implements Comparable {
         return coords;
     }
 
-    public ArrayList<Coordinate> getCornerCoords(Coordinate initialCoord) {
-
-        this.cornerCoords.add(0, initialCoord);
+    public void setCornerCoords(Coordinate initialCoord) {
+		this.cornerCoords.add(0, initialCoord);
         this.cornerCoords.add(1, new Coordinate(initialCoord.getX(), initialCoord.getY() + height, initialCoord.getZ()));
         this.cornerCoords.add(2, new Coordinate(initialCoord.getX() + length, initialCoord.getY() + height, initialCoord.getZ()));
         this.cornerCoords.add(3, new Coordinate(initialCoord.getX() + length, initialCoord.getY(), initialCoord.getZ()));
@@ -42,8 +41,10 @@ public class Parcel implements Comparable {
         this.cornerCoords.add(5, new Coordinate(initialCoord.getX() + length, initialCoord.getY() + height, initialCoord.getZ() + width));
         this.cornerCoords.add(6, new Coordinate(initialCoord.getX(), initialCoord.getY(), initialCoord.getZ() + width));
         this.cornerCoords.add(7, new Coordinate(initialCoord.getX() + length, initialCoord.getY(), initialCoord.getZ() + width));
-        return cornerCoords;
+
     }
+
+	public ArrayList<Coordinate> getCornerCoords(){ return cornerCoords; }
 
     public int getLength() {
         return this.length;

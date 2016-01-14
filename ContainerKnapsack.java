@@ -43,6 +43,7 @@ public class ContainerKnapsack {
 			container.put(coord, new CellValues(toAdd, parcel.getType()));
 		}
 
+		parcel.setCornerCoords(cell);
 		parcels.add(parcel);
 	}
 
@@ -52,6 +53,10 @@ public class ContainerKnapsack {
 			container.put(coord, new CellValues(0, 0));
 		}
 		parcels.remove(parcel);
+	}
+
+	public void setParcels(ArrayList<Parcel> parcels){
+		this.parcels = parcels;
 	}
 
 	public boolean checkCollision(Parcel parcel, Coordinate coord) {

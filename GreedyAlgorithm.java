@@ -31,13 +31,15 @@ public class GreedyAlgorithm {
 
         System.out.println("Total container value: " + container.getTotalValue());
         System.out.println("Total number of parcels: " + container.getParcels().size());
+
+
     }
 
 
     public static ArrayList<Parcel> generateParcelDistribution(ArrayList<Parcel> parcelTypes) {
         ArrayList<Parcel> result = new ArrayList<Parcel>();
 
-        int amountOfParcelsPerType = 20;
+        int amountOfParcelsPerType = 50;
 
         for (Parcel curType : parcelTypes) {
             for (int curParcel = 0; curParcel < amountOfParcelsPerType; curParcel++) {
