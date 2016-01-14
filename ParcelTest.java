@@ -1,8 +1,19 @@
 import java.applet.Applet;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class ParcelTest extends Applet {
+public class ParcelTest extends Applet implements KeyListener {
+    private int x = 256;
+    private int y = 105;
+    private int zoom = 150;
+
+    public ParcelTest() {
+        setFocusable(true);
+        setSize(1000, 1000);
+        addKeyListener(this);
+    }
 
     public void paint(Graphics g){
 
@@ -20,10 +31,7 @@ public class ParcelTest extends Applet {
         GreedyAlgorithm.testGreedy(container, parcels);
         ArrayList<Parcel> containerParcels = container.getParcels();
 
-        Projector viewer = new Projector(new Coordinate(56, 15, 50));
-        Parcel debugParcel = new Parcel(10, 10, 15, 1, 1);
-        //debugParcel.setCornerCoords(new Coordinate(100, 100, 100));
-        //viewer.draw(g, debugParcel);
+        Projector viewer = new Projector(new Coordinate(x, y, zoom));
 
         for (Parcel curParcels : containerParcels){
             viewer.draw(g, curParcels);
@@ -31,6 +39,48 @@ public class ParcelTest extends Applet {
 
     }
 
+    public void keyTyped(KeyEvent e) {
+    }
 
 
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_LEFT) {
+            x -= 25;
+        }
+
+        if (key == KeyEvent.VK_RIGHT) {
+            x += 25;
+        }
+
+        if (key == KeyEvent.VK_UP) {
+            y -= 25;
+        }
+        if (key == KeyEvent.VK_DOWN) {
+            y += 25;
+        }
+
+        if (key == KeyEvent.VK_ADD) {
+            zoom -= 25;
+        }
+        if (key == KeyEvent.VK_SPACE) {
+            x = 256;
+            y = 105;
+            zoom = 150;
+        }
+        if (key == KeyEvent.VK_SUBTRACT) {
+            zoom += 25;
+        }
+
+        repaint();
+    }
+
+
+    public void keyReleased(KeyEvent e) {
+        System.out.println("x: " + x);
+        System.out.println("y: " + y);
+        System.out.println("zoom: " + zoom);
+        System.out.println();
+    }
 }
