@@ -8,14 +8,12 @@ public class ParcelTest extends Applet implements KeyListener {
     private int x = 256;
     private int y = 105;
     private int zoom = 150;
+    private ArrayList<Parcel> containerParcels;
 
     public ParcelTest() {
         setFocusable(true);
         setSize(1000, 1000);
         addKeyListener(this);
-    }
-
-    public void paint(Graphics g){
 
         Parcel typeA = new Parcel(10, 10, 20, 3, 1);
         Parcel typeB = new Parcel(10, 15, 20, 4, 2);
@@ -29,11 +27,16 @@ public class ParcelTest extends Applet implements KeyListener {
         ArrayList<Parcel> parcels = GreedyAlgorithm.generateParcelDistribution(parcelPrototypes);
         ContainerKnapsack container = new ContainerKnapsack(165, 40, 25);
         GreedyAlgorithm.testGreedy(container, parcels);
-        ArrayList<Parcel> containerParcels = container.getParcels();
+        containerParcels = container.getParcels();
+    }
+
+    public void paint(Graphics g){
+
 
         Projector viewer = new Projector(new Coordinate(x, y, zoom));
 
         for (Parcel curParcels : containerParcels){
+
             viewer.draw(g, curParcels);
         }
 
