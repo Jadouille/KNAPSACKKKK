@@ -8,6 +8,7 @@ public class Parcel implements Comparable {
 	private int type;
 
 	private ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
+	private ArrayList<Coordinate> cornerCoords = new ArrayList<Coordinate>();
 
 	public Parcel(int length, int height, int width, int value, int type) {
 		this.length = length;
@@ -28,6 +29,22 @@ public class Parcel implements Comparable {
 	}
 
 	public ArrayList<Coordinate> getCoords() { return coords; }
+
+	public ArrayList<Coordinate> getCornerCoords(Coordinate initialCoord){
+
+		this.cornerCoords.add(0,initialCoord);
+		this.cornerCoords.add(1, new Coordinate(initialCoord.getX(), initialCoord.getY() + height, initialCoord.getZ()));
+		this.cornerCoords.add(2, new Coordinate(initialCoord.getX() + length, initialCoord.getY() + height, initialCoord.getZ()));
+		this.cornerCoords.add(3, new Coordinate(initialCoord.getX() + length, initialCoord.getY(), initialCoord.getZ()));
+		this.cornerCoords.add(4, new Coordinate(initialCoord.getX(), initialCoord.getY() + height, initialCoord.getZ() + width));
+		this.cornerCoords.add(5, new Coordinate(initialCoord.getX() + length, initialCoord.getY() + height, initialCoord.getZ() + width));
+		this.cornerCoords.add(6, new Coordinate(initialCoord.getX(), initialCoord.getY(), initialCoord.getZ() + width));
+		this.cornerCoords.add(7, new Coordinate(initialCoord.getX() + length, initialCoord.getY(), initialCoord.getZ() + width));
+
+		return cornerCoords;
+
+
+	}
 
 	public int getLength() { return this.length; }
 

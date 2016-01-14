@@ -2,14 +2,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class Container {
+public class ContainerKnapsack {
 	private HashMap<Coordinate, CellValues> container = new HashMap<Coordinate, CellValues>();
 	private int width;
 	private int length;
 	private int height;
 	private ArrayList<Parcel> parcels = new ArrayList<Parcel>();
 
-	public Container(int length, int width, int height) {
+	public ContainerKnapsack(int length, int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.length = length;

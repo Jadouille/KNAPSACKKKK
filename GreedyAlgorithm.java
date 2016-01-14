@@ -15,11 +15,11 @@ public class GreedyAlgorithm {
         parcelPrototypes.add(typeC);
 
         ArrayList<Parcel> parcels = generateParcelDistribution(parcelPrototypes);
-        Container container = new Container(165, 40, 25);
+        ContainerKnapsack container = new ContainerKnapsack(165, 40, 25);
         testGreedy(container, parcels);
     }
 
-    public static void testGreedy(Container container, ArrayList<Parcel> parcels)
+    public static void testGreedy(ContainerKnapsack container, ArrayList<Parcel> parcels)
     {
         Collections.sort(parcels);
 

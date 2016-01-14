@@ -22,18 +22,17 @@ public class Projector {
     /** Gets the projected coordinate thanks to the computeProjectedX/Y method
      * 
      */
-    public Coordinate[] getProjection(Parcel p){
-        ArrayList<Coordinate> coordinates = p.getCoords();
-        Coordinate[] pCoords = new Coordinate[coordinates.size()];
-        for (int i =0;i<pCoords.length;i++){
-            pCoords[i] = new Coordinate(0,0,0);
+    public Coordinate2D[] getProjection(Parcel p){
+        ArrayList<Coordinate> coordinates = p.getCornerCoords(new Coordinate(0, 0, 0));
+        Coordinate2D[] projectedCoords = new Coordinate2D[coordinates.size()];
+        for (int i =0; i < projectedCoords.length; i++){
+            projectedCoords[i] = new Coordinate2D(0,0);
         }
-        for (int i =0;i<pCoords.length;i++) {
-            pCoords[i].setZ(0);
-            pCoords[i].setX((int)coordinates.get(i).computeProjectedX(viewer));
-            pCoords[i].setY((int)coordinates.get(i).computeProjectedY(viewer));
+        for (int i =0;i<projectedCoords.length;i++) {
+            projectedCoords[i].setX((coordinates.get(i).computeProjectedX(viewer)));
+            projectedCoords[i].setY(coordinates.get(i).computeProjectedY(viewer));
         }
-        return pCoords;
+        return projectedCoords;
     }
 
     
@@ -42,7 +41,7 @@ public class Projector {
      */
     public void draw(Graphics g, Parcel p){
         Graphics2D g2 = (Graphics2D) g;
-        Coordinate[] coordinates = this.getProjection(p);
+        Coordinate2D[] coordinates = this.getProjection(p);
         g2.setColor(Color.pink);
         g2.draw(new Line2D.Double((coordinates[0].getX()*100), (coordinates[0].getY()*100), (coordinates[1].getX()*100), (coordinates[1].getY()*100)));
         g2.setColor(Color.red);

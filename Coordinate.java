@@ -21,8 +21,7 @@ public class Coordinate {
 		return this.x;
 	}
 
-	public int getY(){
-		return this.y;
+	public int getY() { return this.y;
 	}
 
 	public int getZ(){
