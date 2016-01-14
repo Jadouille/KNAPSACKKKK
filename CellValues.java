@@ -1,5 +1,4 @@
-public class CellValues
-{
+public class CellValues {
     private int matrixValue = 0;
     private int type = 0;
 
@@ -8,6 +7,11 @@ public class CellValues
         type = inType;
     }
 
-    public int getMatrixValue() { return matrixValue; }
-    public int getType() { return type; }
+    public int getMatrixValue() {
+        return matrixValue;
+    }
+
+    public int getType() {
+        return type;
+    }
 }

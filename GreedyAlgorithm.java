@@ -19,15 +19,12 @@ public class GreedyAlgorithm {
         testGreedy(container, parcels);
     }
 
-    public static void testGreedy(ContainerKnapsack container, ArrayList<Parcel> parcels)
-    {
+    public static void testGreedy(ContainerKnapsack container, ArrayList<Parcel> parcels) {
         Collections.sort(parcels);
 
-        for (Parcel curParcel : parcels)
-        {
+        for (Parcel curParcel : parcels) {
             Coordinate emptyCell = container.findCellToFitParcel(curParcel);
-            if (emptyCell != null)
-            {
+            if (emptyCell != null) {
                 container.fillParcel(emptyCell, curParcel, 1);
             }
         }
