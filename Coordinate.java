@@ -1,55 +1,63 @@
 
 /** create a system of coordinates in 3D */
 public class Coordinate {
-	private double x;
-	private double y;
-	private double z;
-	
-	public Coordinate (double x, double y, double z){
+	private int x;
+	private int y;
+	private int z;
+
+	public Coordinate (int x, int y, int z){
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 	
-	public void setCoord(double x, double y, double z){
+	public void setCoord(int x, int y, int z){
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
-	
-	public void setX(double x){
-		this.x = x;
-	}
-	
-	public void setY(double y){
-		this.y = y;		
-	}
-	
-	public void setZ(double z){
-		this.z = z;
-	}
-	
-	public double getX(){
+
+	public int getX(){
 		return this.x;
 	}
-	
-	public double getY(){
+
+	public int getY(){
 		return this.y;
 	}
-	
-	public double getZ(){
+
+	public int getZ(){
 		return this.z;
 	}
 	
-	public void printCoord(){
-		System.out.println(this.x + " " + this.y + " " + this.z);
+	public void setX(int x){
+		this.x = x;
+	}
+	
+	public void setY(int y){
+		this.y = y;		
+	}
+	
+	public void setZ(int z){
+		this.z = z;
 	}
 
-	public Coordinate addCoordinates(Coordinate plus){
-		this.x = this.x + plus.x;
-		this.y = this.y + plus.y;
-		this.z = this.z + plus.z;
-		return this;
+	public int hashCode() {
+		return x * 10000000 + y * 100000 + z * 100000;
+	}
+
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if ((obj == null) || (obj.getClass() != this.getClass()))
+			return false;
+		// object must be Test at this point
+		Coordinate coord = (Coordinate) obj;
+		return x == coord.x && y == coord.y && z == coord.z;
+	}
+
+
+	public void printCoord(){
+		System.out.println(this.x + " " + this.y + " " + this.z);
 	}
 
 	/** compute the coordinate x in 2D using Thales

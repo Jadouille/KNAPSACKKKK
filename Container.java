@@ -1,225 +1,99 @@
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 
 public class Container {
-	
-	private Coordinate a;
-	private Coordinate b;
-	private Coordinate c;
-	private Coordinate d;
-	private Coordinate e;
-	private Coordinate f;
-	private Coordinate g;
-	private Coordinate h;
-	private double weight;
-	private double width;
-	private double length;
-	private double height;
-	private double value;
-	private ArrayList<Parcel> parcels = new ArrayList<Parcel>(2);
-	private static Coordinate lastEmptyCell;
-	private static Coordinate previousEmptyCell;
-	private int indexInTheArray = 0;
+	private HashMap<Coordinate, CellValues> container = new HashMap<Coordinate, CellValues>();
+	private int width;
+	private int length;
+	private int height;
+	private ArrayList<Parcel> parcels = new ArrayList<Parcel>();
 
-	public enum CoordinateName {
-		x, y, z
-	}
-	
-
-	/** Creates a container in which parcel will be stored
-	 */
-	public Container( double weight, double width, double length, double height) {
-		this.a = new Coordinate(0, 0, 0);
-		this.b = new Coordinate(a.getX(), a.getY() + height, a.getZ());
-		this.c = new Coordinate(a.getX() + length, a.getY() + height, a.getZ());
-		this.d = new Coordinate(a.getX() + length, a.getY(), a.getZ());
-		this.e = new Coordinate(a.getX(), a.getY() + height, a.getZ() + width);
-		this.f = new Coordinate(a.getX() + length, a.getY() + height, a.getZ() + width);
-		this.g = new Coordinate(a.getX(), a.getY(), a.getZ() + width);
-		this.h = new Coordinate(a.getX() + length, a.getY(), a.getZ() + width);
-		
-		this.weight = weight;
-		this.value = 0;
-		this.height = height;
+	public Container(int length, int width, int height) {
 		this.width = width;
+		this.height = height;
 		this.length = length;
-	}
 
-	public Parcel getParcel(int index){
-		return parcels.get(index);
-	}
-
-	public ArrayList<Parcel> getParcels(){
-		return parcels;
-	}
-
-	public double getWeight() {return weight;}
-
-	public double getValue() {return value;}
-
-	public Coordinate getA(){return a;}
-
-	public void setWeight(double weight){
-		this.weight = weight;
-	}
-
-	public void setValue(double value){
-		this.value = value;
-	}
-
-	public void setA(Coordinate a){
-		this.a = a;
-	}
-
-	public void printParcelsValue(){
-		for (Parcel curParcel : parcels){
-			System.out.println(curParcel.getValue());
-		}
-	}
-
-	public void moveContainer(Coordinate a){
-		this.setA(a);
-		for (Parcel curParcel : parcels){
-			curParcel.setA(getA().addCoordinates(a));
-		}
-	}
-
-	public void printAmountOfParcels(){
-		int length = 0;
-		for (Parcel curParcel : parcels)
-			length++;
-		System.out.println(length);
-
-	}
-
-	public void printParcels(){
-		for (Parcel curParcel : parcels){
-			curParcel.getA().printCoord();
-		}
-	}
-
-
-	/** Check whether a parcel is in the container or not by checking if all the corners lie in the container
-	 * @param p parcel that is checked
-	 * @return return true if p lies into the container, false otherwise
-	 */
-	public boolean liesInto(Parcel p){
-		boolean a = false;
-		boolean b = false;
-		boolean d = false;
-		boolean g = false;
-		
-		a = this.cornerIntoContainer(p.getA());
-		b = this.cornerIntoContainer(p.getB());
-		d = this.cornerIntoContainer(p.getD());
-		g = this.cornerIntoContainer(p.getG());
-		
-		if (a == true && b == true && d == true && g == true)
-			return true;
-		
-		return false;
-	}
-
-	/**public boolean addParcel(Parcel p){
-		 return this.parcels.add(p);
-		//this.indexInTheArray++;
-	}*/
-	
-	/** Is the corner of a parcel in the container
-	 * 
-	 * @param c the corner of a parcel
-	 * @return true if it lies into the container
-	 */
-	public boolean cornerIntoContainer(Coordinate c){
-		boolean x = true;
-		boolean y = true;
-		boolean z = true;
-		if (c.getX() < 0 || c.getX() > this.length)
-			x = false;
-			
-		if (c.getY() < 0 || c.getY() > this.height)
-			y = false;
-		
-		if (c.getZ() < 0 || c.getZ() > this.width)
-			z = false;
-
-		if (!x && !y && !z)
-			return false;
-
-		return true;
-	}
-
-	public boolean putParcel(Parcel p, Coordinate coord) {
-		boolean result = true;
-		p.moveToCoordinate(coord);
-		parcels.add(p);
-		return result;
-	}
-
-	public boolean removeParcel(Parcel p) {
-		boolean result = true;
-		parcels.remove(p);
-		return result;
-	}
-
-	public boolean checkCollision(Parcel p) {
-		for (Parcel curParcel : parcels) {
-			if (curParcel.checkCollision(p)) {
-				return true;
+		for (int x = 0; x < length; x++) {
+			for (int y = 0; y < height; y++) {
+				for (int z = 0; z < width; z++)
+					container.put(new Coordinate(x, y, z), new CellValues(0, 0));
 			}
 		}
-		if (!liesInto(p)) {
+	}
+
+	public int getLength() { return length; }
+	public int getHeight() { return height; }
+	public int getWidth() { return  width; }
+
+	public int getTotalValue() {
+		int result = 0;
+		for (Parcel curParcel : parcels) {
+			result += curParcel.getValue();
+		}
+
+		return result;
+	}
+
+	public ArrayList<Parcel> getParcels() { return parcels; }
+
+	public void fillParcel(Coordinate cell, Parcel parcel, int toAdd ){
+		for (Coordinate curCoord : parcel.getCoords()) {
+			Coordinate coord = new Coordinate(cell.getX() + curCoord.getX(), cell.getY() + curCoord.getY(), cell.getZ() + curCoord.getZ());
+			container.put(coord, new CellValues(toAdd, parcel.getType()));
+		}
+
+		parcels.add(parcel);
+	}
+
+	public void removeParcel(Coordinate cell, Parcel parcel) {
+		for (Coordinate curCoord : parcel.getCoords()) {
+			Coordinate coord = new Coordinate(cell.getX() + curCoord.getX(), cell.getY() + curCoord.getY(), cell.getZ() + curCoord.getZ());
+			container.put(coord, new CellValues(0, 0));
+		}
+		parcels.remove(parcel);
+	}
+
+	public boolean checkCollision(Parcel parcel, Coordinate coord) {
+
+		if (coord.getX() + parcel.getLength()  > length
+				|| coord.getY() + parcel.getHeight() > height
+				|| coord.getZ() + parcel.getWidth() > width)
 			return true;
+
+		for (Coordinate curCoord : parcel.getCoords()) {
+
+			try {
+				Coordinate checkCell = new Coordinate(curCoord.getX() + coord.getX(), curCoord.getY() + coord.getY(), curCoord.getZ() + coord.getZ());
+				if (container.get(checkCell).getMatrixValue() == 1)
+					return true;
+
+			} catch (Exception e){
+				e.printStackTrace();
+			}
 		}
 
 		return false;
+
 	}
 
-	/*
-	public Coordinate getFirstEmptyCoord() {
-		double max = 0;
-		for (Parcel parcel : parcels) {
-			if (parcel.getG().getY() == 0 && parcel.getG().getZ() == 0) {}
-		}
-	}
-	*/
+	public Coordinate findCellToFitParcel(Parcel parcel) {
 
-	public Coordinate getFirstEmptyCell(Coordinate lastEmptyCell){
-		Parcel unitCube = new Parcel(lastEmptyCell, 0, 0, 0.5, 0.5, 0.5);
-		boolean collision = false;
-		Coordinate returnCoord = new Coordinate(100,100,100);
+		Coordinate result = null;
 
-		for (Parcel parcel : parcels ){
-			collision = parcel.checkCollision(unitCube);
-			if (collision)
-				break;
+		for (int x = 0; x < length; x++) {
+			for (int y = 0; y < height; y++) {
+				for (int z = 0; z < width; z++) {
+					Coordinate coord = new Coordinate(x, y, z);
+					if (container.get(coord).getMatrixValue() == 0 && !checkCollision(parcel, coord)) {
+						result = new Coordinate(x, y, z);
+						return result;
+					}
+				}
+			}
 		}
-		if(!collision) {
-			previousEmptyCell = lastEmptyCell;
-			lastEmptyCell = unitCube.getA();
-			return unitCube.getA();
-		}
-		else if(unitCube.getA().getX()<(this.length-0.5)){
-			unitCube = unitCube.moveRight();
-			returnCoord = getFirstEmptyCell(unitCube.getA());
-			System.out.println("XMOOOVE");
-		}
-		else if(unitCube.getA().getZ()<(this.width-0.5)){
-			unitCube = unitCube.moveBackward();
-			unitCube.getA().setX(0);
-			System.out.println("ZSLIDE");
-			returnCoord = getFirstEmptyCell(unitCube.getA());
-		}
-		else if (unitCube.getA().getY()<(this.height-0.5)){
-			unitCube = unitCube.moveUp();
-			unitCube.getA().setX(0);
-			unitCube.getA().setZ(0);
-			System.out.println("YFLIED");
-			returnCoord = getFirstEmptyCell(unitCube.getA());
-		}
-		else System.out.println("no empty cells left");
-		return returnCoord;
+
+		return result;
 	}
 
 }
