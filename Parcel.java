@@ -34,6 +34,10 @@ public class Parcel implements Comparable {
 	public int getWidth(){ return this.width; }
 
 	public int getHeight() { return this.height; }
+	
+	public int getWeight(){ 
+		return (this.height * this.width * this.length);
+	}
 
 	public int getType() { return type; }
 
@@ -43,8 +47,9 @@ public class Parcel implements Comparable {
 	public int compareTo(Object compareToParcel) {
 
 		// descending order
-		int densityFirst = ((Parcel)compareToParcel).getValue() / (((Parcel)compareToParcel).getValue());
-		return  - this.getValue();
+		int densityFirst = ((Parcel) compareToParcel).getValue() / (((Parcel) compareToParcel).getWeight());
+		int densitySecond = this.getValue() / this.getWeight();
+		return  densityFirst - densitySecond ;
 	}
 
 	public Parcel clone() {
