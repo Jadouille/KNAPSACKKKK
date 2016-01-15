@@ -73,10 +73,19 @@ public class Parcel implements Comparable {
     @Override
     public int compareTo(Object compareToParcel) {
 
+		int result = 0;
         // descending order
-        int densityFirst = ((Parcel) compareToParcel).getValue() / (((Parcel) compareToParcel).getWeight());
-        int densitySecond = this.getValue() / this.getWeight();
-        return densityFirst - densitySecond;
+        double densityFirst = (double)((Parcel) compareToParcel).getValue() / (((Parcel) compareToParcel).getWeight());
+        double densitySecond = (double)this.getValue() / this.getWeight();
+		double diff = densityFirst - densitySecond;
+
+		if (diff > 0)
+			result = 1;
+		else if (diff < 0)
+			result = -1;
+
+
+        return result;
     }
 
     public Parcel clone() {

@@ -9,7 +9,7 @@ public class ContainerKnapsack {
 	private int height;
 	private ArrayList<Parcel> parcels = new ArrayList<Parcel>();
 
-	public ContainerKnapsack(int length, int width, int height) {
+	public ContainerKnapsack(int length, int height, int width) {
 		this.width = width;
 		this.height = height;
 		this.length = length;

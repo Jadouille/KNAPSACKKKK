@@ -24,7 +24,7 @@ public class ParcelTest extends Applet implements KeyListener {
         parcelPrototypes.add(typeB);
         parcelPrototypes.add(typeC);
 
-        ArrayList<Parcel> parcels = GreedyAlgorithm.generateParcelDistribution(parcelPrototypes);
+        ArrayList<Parcel> parcels = DistributionGenerator.generateEvenDistribution(ParcelTypes.get(), 20);
         ContainerKnapsack container = new ContainerKnapsack(165, 40, 25);
         GreedyAlgorithm.testGreedy(container, parcels);
         containerParcels = container.getParcels();
