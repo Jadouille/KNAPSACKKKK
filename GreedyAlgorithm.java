@@ -3,8 +3,10 @@ import java.util.Collections;
 
 public class GreedyAlgorithm {
 
+
     public static void main(String[] argv) {
-        ArrayList<Parcel> parcels = DistributionGenerator.generateEvenDistribution(ParcelTypes.get(), 20);
+        ParcelTypes parcelTypes = new ParcelTypes();
+        ArrayList<Parcel> parcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 20);
         ContainerKnapsack container = new ContainerKnapsack(165, 40, 25);
         testGreedy(container, parcels, false);
 

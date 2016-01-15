@@ -1,44 +1,46 @@
-import java.applet.Applet;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class ParcelTest extends Applet implements KeyListener {
+
+public class ParcelGUI extends JPanel implements KeyListener {
+    public boolean greedyAlgorithm = true;
+    public boolean geneticAlgorithm = false;
+    public boolean bruteForceAlgorithm = false;
     private int x = 256;
     private int y = 105;
-    private int zoom = 150;
+    private int zoom = 50;
+    private ParcelTypes parcelTypes = new ParcelTypes();
     private ArrayList<Parcel> containerParcels;
 
-    public ParcelTest() {
-        setFocusable(true);
-        setSize(1000, 1000);
+    public ParcelGUI() {
         addKeyListener(this);
-
-        Parcel typeA = new Parcel(10, 10, 20, 3, 1);
-        //Parcel typeB = new Parcel(10, 15, 20, 4, 2);
-        //Parcel typeC = new Parcel(15, 15, 15, 5, 3);
-
-        ArrayList<Parcel> parcelPrototypes = new ArrayList<>();
-        parcelPrototypes.add(typeA);
-        //parcelPrototypes.add(typeB);
-        //parcelPrototypes.add(typeC);
-
-        ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(ParcelTypes.get(), 10);
-        //rrayList<Parcel> unevenParcels = DistributionGenerator.generateUnevenDistribution(ParcelTypes.get(), );
+        ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 10);
 
         ContainerKnapsack container = new ContainerKnapsack(20, 20, 20);
-        GreedyAlgorithm.testGreedy(container, evenParcels, false);
+
+        containerParcels = container.getParcels();
+
+        if (greedyAlgorithm)
+            GreedyAlgorithm.testGreedy(container, evenParcels, false);
+
+        if (geneticAlgorithm)
+            System.out.println("execute genetic algorithm");
+
+        if (bruteForceAlgorithm)
+            System.out.println("execute bruteforce algorithm");
+
         containerParcels = container.getParcels();
     }
 
-    public void paint(Graphics g){
-
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
         Projector viewer = new Projector(new Coordinate(x, y, zoom));
 
         for (Parcel curParcels : containerParcels){
-
             viewer.draw(g, curParcels);
         }
 
@@ -66,15 +68,15 @@ public class ParcelTest extends Applet implements KeyListener {
             y += 25;
         }
 
-        if (key == KeyEvent.VK_ADD) {
+        if (key == KeyEvent.VK_CONTROL) {
             zoom -= 25;
         }
         if (key == KeyEvent.VK_SPACE) {
             x = 256;
             y = 105;
-            zoom = 150;
+            zoom = 50;
         }
-        if (key == KeyEvent.VK_SUBTRACT) {
+        if (key == KeyEvent.VK_ALT) {
             zoom += 25;
         }
 

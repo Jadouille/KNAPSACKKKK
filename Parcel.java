@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+
 public class Parcel implements Comparable {
     private int length;
     private int height;
@@ -32,18 +33,6 @@ public class Parcel implements Comparable {
         return coords;
     }
 
-    public void setCornerCoords(Coordinate initialCoord) {
-		this.cornerCoords.add(0, initialCoord);
-        this.cornerCoords.add(1, new Coordinate(initialCoord.getX(), initialCoord.getY() + height, initialCoord.getZ()));
-        this.cornerCoords.add(2, new Coordinate(initialCoord.getX() + length, initialCoord.getY() + height, initialCoord.getZ()));
-        this.cornerCoords.add(3, new Coordinate(initialCoord.getX() + length, initialCoord.getY(), initialCoord.getZ()));
-        this.cornerCoords.add(4, new Coordinate(initialCoord.getX(), initialCoord.getY() + height, initialCoord.getZ() + width));
-        this.cornerCoords.add(5, new Coordinate(initialCoord.getX() + length, initialCoord.getY() + height, initialCoord.getZ() + width));
-        this.cornerCoords.add(6, new Coordinate(initialCoord.getX(), initialCoord.getY(), initialCoord.getZ() + width));
-        this.cornerCoords.add(7, new Coordinate(initialCoord.getX() + length, initialCoord.getY(), initialCoord.getZ() + width));
-
-    }
-
     public Parcel rotateWidth() { return new Parcel(this.height, this.length, this.width, this.value, this.type); }
 
     public Parcel rotateLength() { return new Parcel(this.length, this.width, this.height, this.value, this.type); }
@@ -64,6 +53,18 @@ public class Parcel implements Comparable {
     }
 
 	public ArrayList<Coordinate> getCornerCoords(){ return cornerCoords; }
+
+    public void setCornerCoords(Coordinate initialCoord) {
+        this.cornerCoords.add(0, initialCoord);
+        this.cornerCoords.add(1, new Coordinate(initialCoord.getX(), initialCoord.getY() + height, initialCoord.getZ()));
+        this.cornerCoords.add(2, new Coordinate(initialCoord.getX() + length, initialCoord.getY() + height, initialCoord.getZ()));
+        this.cornerCoords.add(3, new Coordinate(initialCoord.getX() + length, initialCoord.getY(), initialCoord.getZ()));
+        this.cornerCoords.add(4, new Coordinate(initialCoord.getX(), initialCoord.getY() + height, initialCoord.getZ() + width));
+        this.cornerCoords.add(5, new Coordinate(initialCoord.getX() + length, initialCoord.getY() + height, initialCoord.getZ() + width));
+        this.cornerCoords.add(6, new Coordinate(initialCoord.getX(), initialCoord.getY(), initialCoord.getZ() + width));
+        this.cornerCoords.add(7, new Coordinate(initialCoord.getX() + length, initialCoord.getY(), initialCoord.getZ() + width));
+
+    }
 
     public int getLength() {
         return this.length;
