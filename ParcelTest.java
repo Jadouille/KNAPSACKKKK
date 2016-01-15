@@ -16,17 +16,19 @@ public class ParcelTest extends Applet implements KeyListener {
         addKeyListener(this);
 
         Parcel typeA = new Parcel(10, 10, 20, 3, 1);
-        Parcel typeB = new Parcel(10, 15, 20, 4, 2);
-        Parcel typeC = new Parcel(15, 15, 15, 5, 3);
+        //Parcel typeB = new Parcel(10, 15, 20, 4, 2);
+        //Parcel typeC = new Parcel(15, 15, 15, 5, 3);
 
         ArrayList<Parcel> parcelPrototypes = new ArrayList<>();
         parcelPrototypes.add(typeA);
-        parcelPrototypes.add(typeB);
-        parcelPrototypes.add(typeC);
+        //parcelPrototypes.add(typeB);
+        //parcelPrototypes.add(typeC);
 
-        ArrayList<Parcel> parcels = DistributionGenerator.generateEvenDistribution(ParcelTypes.get(), 20);
-        ContainerKnapsack container = new ContainerKnapsack(165, 40, 25);
-        GreedyAlgorithm.testGreedy(container, parcels);
+        ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(ParcelTypes.get(), 10);
+        //rrayList<Parcel> unevenParcels = DistributionGenerator.generateUnevenDistribution(ParcelTypes.get(), );
+
+        ContainerKnapsack container = new ContainerKnapsack(20, 20, 20);
+        GreedyAlgorithm.testGreedy(container, evenParcels, false);
         containerParcels = container.getParcels();
     }
 

@@ -7,12 +7,14 @@ public class ContainerKnapsack {
 	private int width;
 	private int length;
 	private int height;
+	private int weightLeft;
 	private ArrayList<Parcel> parcels = new ArrayList<Parcel>();
 
 	public ContainerKnapsack(int length, int height, int width) {
 		this.width = width;
 		this.height = height;
 		this.length = length;
+		this.weightLeft = getWeight();
 
 		for (int x = 0; x < length; x++) {
 			for (int y = 0; y < height; y++) {
@@ -25,6 +27,10 @@ public class ContainerKnapsack {
 	public int getLength() { return length; }
 	public int getHeight() { return height; }
 	public int getWidth() { return  width; }
+
+	public int getWeight() { return length * height * width; }
+
+	public int getWeightLeft() { return weightLeft; }
 
 	public int getTotalValue() {
 		int result = 0;
@@ -45,6 +51,7 @@ public class ContainerKnapsack {
 
 		parcel.setCornerCoords(cell);
 		parcels.add(parcel);
+		weightLeft -= parcel.getWeight();
 	}
 
 	public void removeParcel(Coordinate cell, Parcel parcel) {
@@ -53,6 +60,7 @@ public class ContainerKnapsack {
 			container.put(coord, new CellValues(0, 0));
 		}
 		parcels.remove(parcel);
+		weightLeft += parcel.getWeight();
 	}
 
 	public void setParcels(ArrayList<Parcel> parcels){

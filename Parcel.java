@@ -44,6 +44,25 @@ public class Parcel implements Comparable {
 
     }
 
+    public Parcel rotateWidth() { return new Parcel(this.height, this.length, this.width, this.value, this.type); }
+
+    public Parcel rotateLength() { return new Parcel(this.length, this.width, this.height, this.value, this.type); }
+
+    public Parcel rotateHeight()  {  return new Parcel(this.width, this.height, this.length, this.value, this.type); }
+
+    public ArrayList<Parcel> generateRotations() {
+        ArrayList<Parcel> result = new ArrayList<>();
+
+        result.add(this);
+        result.add(this.rotateWidth());
+        result.add(this.rotateHeight().rotateWidth());
+        result.add(this.rotateHeight());
+        result.add(this.rotateHeight().rotateLength());
+        result.add(this.rotateLength());
+
+        return  result;
+    }
+
 	public ArrayList<Coordinate> getCornerCoords(){ return cornerCoords; }
 
     public int getLength() {
@@ -86,6 +105,10 @@ public class Parcel implements Comparable {
 
 
         return result;
+    }
+
+    public void printDimensions() {
+        System.out.println("Length = " + this.length + " Height = " + this.height + " Width = " + this.width);
     }
 
     public Parcel clone() {

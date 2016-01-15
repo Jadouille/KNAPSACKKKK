@@ -17,5 +17,26 @@ public class DistributionGenerator {
         return result;
     }
 
+    public static ArrayList<Parcel> generateUnevenDistribution(ArrayList<Parcel> parcelTypes, int typeA, int typeB, int typeC) {
+        ArrayList<Parcel> result = new ArrayList<Parcel>();
+
+        for (Parcel curType : parcelTypes) {
+
+            for (int curParcel = 0; curParcel < typeA; curParcel++) {
+                result.add(curType.clone());
+            }
+
+            for (int curParcel = 0; curParcel < typeB; curParcel++) {
+                result.add(curType.clone());
+            }
+
+            for (int curParcel = 0; curParcel < typeC; curParcel++) {
+                result.add(curType.clone());
+            }
+
+        }
+
+        return result;
+    }
 
 }
