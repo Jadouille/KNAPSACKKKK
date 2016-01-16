@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+
 public class Parcel implements Comparable {
     private int length;
     private int height;
@@ -32,8 +33,29 @@ public class Parcel implements Comparable {
         return coords;
     }
 
+    public Parcel rotateWidth() { return new Parcel(this.height, this.length, this.width, this.value, this.type); }
+
+    public Parcel rotateLength() { return new Parcel(this.length, this.width, this.height, this.value, this.type); }
+
+    public Parcel rotateHeight()  {  return new Parcel(this.width, this.height, this.length, this.value, this.type); }
+
+    public ArrayList<Parcel> generateRotations() {
+        ArrayList<Parcel> result = new ArrayList<>();
+
+        result.add(this);
+        result.add(this.rotateWidth());
+        result.add(this.rotateHeight().rotateWidth());
+        result.add(this.rotateHeight());
+        result.add(this.rotateHeight().rotateLength());
+        result.add(this.rotateLength());
+
+        return  result;
+    }
+
+	public ArrayList<Coordinate> getCornerCoords(){ return cornerCoords; }
+
     public void setCornerCoords(Coordinate initialCoord) {
-		this.cornerCoords.add(0, initialCoord);
+        this.cornerCoords.add(0, initialCoord);
         this.cornerCoords.add(1, new Coordinate(initialCoord.getX(), initialCoord.getY() + height, initialCoord.getZ()));
         this.cornerCoords.add(2, new Coordinate(initialCoord.getX() + length, initialCoord.getY() + height, initialCoord.getZ()));
         this.cornerCoords.add(3, new Coordinate(initialCoord.getX() + length, initialCoord.getY(), initialCoord.getZ()));
@@ -43,8 +65,6 @@ public class Parcel implements Comparable {
         this.cornerCoords.add(7, new Coordinate(initialCoord.getX() + length, initialCoord.getY(), initialCoord.getZ() + width));
 
     }
-
-	public ArrayList<Coordinate> getCornerCoords(){ return cornerCoords; }
 
     public int getLength() {
         return this.length;
@@ -86,6 +106,10 @@ public class Parcel implements Comparable {
 
 
         return result;
+    }
+
+    public void printDimensions() {
+        System.out.println("Length = " + this.length + " Height = " + this.height + " Width = " + this.width);
     }
 
     public Parcel clone() {

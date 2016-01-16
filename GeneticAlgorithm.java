@@ -1,12 +1,16 @@
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class GeneticAlgorithm {
+    private ParcelTypes parcelTypes = new ParcelTypes();
+    private int numberOfGenerations = 0;
+    private ArrayList<ParcelOrdering> population = new ArrayList<>();
+    private Recombinator recombinator;
+
     public GeneticAlgorithm(int populationSize,
                             int numberOfGenerations,
                             Recombinator recombinator) {
-        ArrayList<Parcel> ordering = DistributionGenerator.generateEvenDistribution(ParcelTypes.get(), 5);
+        ArrayList<Parcel> ordering = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 5);
 
         for (int curIndividual = 0; curIndividual < populationSize; curIndividual++) {
             Collections.shuffle(ordering);
@@ -52,11 +56,5 @@ public class GeneticAlgorithm {
 
         return result;
     }
-
-
-
-    private int numberOfGenerations = 0;
-    private ArrayList<ParcelOrdering> population  = new ArrayList<>();
-    private Recombinator recombinator;
 
 }
