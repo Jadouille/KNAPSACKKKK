@@ -2,17 +2,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class Container {
+public class ContainerKnapsack {
 	private HashMap<Coordinate, CellValues> container = new HashMap<Coordinate, CellValues>();
 	private int width;
 	private int length;
 	private int height;
+	private int weightLeft;
 	private ArrayList<Parcel> parcels = new ArrayList<Parcel>();
 
-	public Container(int length, int width, int height) {
+	public ContainerKnapsack(int length, int height, int width) {
 		this.width = width;
 		this.height = height;
 		this.length = length;
+		this.weightLeft = getWeight();
 
 		for (int x = 0; x < length; x++) {
 			for (int y = 0; y < height; y++) {
@@ -25,6 +27,10 @@ public class Container {
 	public int getLength() { return length; }
 	public int getHeight() { return height; }
 	public int getWidth() { return  width; }
+
+	public int getWeight() { return length * height * width; }
+
+	public int getWeightLeft() { return weightLeft; }
 
 	public int getTotalValue() {
 		int result = 0;
@@ -43,7 +49,9 @@ public class Container {
 			container.put(coord, new CellValues(toAdd, parcel.getType()));
 		}
 
+		parcel.setCornerCoords(cell);
 		parcels.add(parcel);
+		weightLeft -= parcel.getWeight();
 	}
 
 	public void removeParcel(Coordinate cell, Parcel parcel) {
@@ -52,6 +60,11 @@ public class Container {
 			container.put(coord, new CellValues(0, 0));
 		}
 		parcels.remove(parcel);
+		weightLeft += parcel.getWeight();
+	}
+
+	public void setParcels(ArrayList<Parcel> parcels){
+		this.parcels = parcels;
 	}
 
 	public boolean checkCollision(Parcel parcel, Coordinate coord) {

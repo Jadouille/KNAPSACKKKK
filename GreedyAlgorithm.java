@@ -3,51 +3,52 @@ import java.util.Collections;
 
 public class GreedyAlgorithm {
 
+
     public static void main(String[] argv) {
+        ParcelTypes parcelTypes = new ParcelTypes();
+        ArrayList<Parcel> parcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 20);
+        ContainerKnapsack container = new ContainerKnapsack(165, 40, 25);
+        testGreedy(container, parcels, false);
 
-        Parcel typeA = new Parcel(10, 10, 20, 3, 1);
-        Parcel typeB = new Parcel(10, 15, 20, 4, 2);
-        Parcel typeC = new Parcel(15, 15, 15, 5, 3);
-
-        ArrayList<Parcel> parcelPrototypes = new ArrayList<>();
-        parcelPrototypes.add(typeA);
-        parcelPrototypes.add(typeB);
-        parcelPrototypes.add(typeC);
-
-        ArrayList<Parcel> parcels = generateParcelDistribution(parcelPrototypes);
-        Container container = new Container(165, 40, 25);
-        testGreedy(container, parcels);
     }
 
-    public static void testGreedy(Container container, ArrayList<Parcel> parcels)
-    {
+    public static void testGreedy(ContainerKnapsack container, ArrayList<Parcel> parcels, boolean useRotations) {
         Collections.sort(parcels);
 
-        for (Parcel curParcel : parcels)
-        {
-            Coordinate emptyCell = container.findCellToFitParcel(curParcel);
-            if (emptyCell != null)
-            {
-                container.fillParcel(emptyCell, curParcel, 1);
+        for (Parcel curParcel : parcels) {
+
+            if (container.getWeightLeft() == 0)
+                break;
+
+            if (useRotations) {
+                ArrayList<Parcel> rotations = curParcel.generateRotations();
+                for (Parcel curRotation : rotations) {
+                    Coordinate emptyCell = container.findCellToFitParcel(curRotation);
+                    if (emptyCell != null) {
+                        container.fillParcel(emptyCell, curRotation, 1);
+                        break;
+                    }
+                }
+            }
+            else {
+                Coordinate emptyCell = container.findCellToFitParcel(curParcel);
+                if (emptyCell != null)
+                    container.fillParcel(emptyCell, curParcel, 1);
             }
         }
 
         System.out.println("Total container value: " + container.getTotalValue());
         System.out.println("Total number of parcels: " + container.getParcels().size());
+
+
+    }
+
+    public static void testGreedyBacktrack(ContainerKnapsack container, ArrayList<Parcel> parcels) {
+
+
+
     }
 
 
-    public static ArrayList<Parcel> generateParcelDistribution(ArrayList<Parcel> parcelTypes) {
-        ArrayList<Parcel> result = new ArrayList<Parcel>();
 
-        int amountOfParcelsPerType = 20;
-
-        for (Parcel curType : parcelTypes) {
-            for (int curParcel = 0; curParcel < amountOfParcelsPerType; curParcel++) {
-                result.add(curType.clone());
-            }
-        }
-
-        return result;
-    }
 }
