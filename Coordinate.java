@@ -64,32 +64,15 @@ public class Coordinate {
 
     /**
      * compute the coordinate x in 2D using Thales
-     *
-     * @param viewer is the coordinate in 3D from where we see the shape that's being projected
      */
-    public double computeProjectedX(Coordinate viewer) {
-        double vx = viewer.getX();
-		double vz = viewer.getZ();
-		double px = this.x;
-		double py = this.y;
-		double pz = this.z;
 
-		return ((((((vz * px) - (vx * pz)) / (vz - pz))) / vz) + 5);
-    }
 
-    /**
-     * compute the coordinate y in 2D using Thales
-     *
-     * @param viewer is the coordinate in 3D from where we see the shape that's being projected
-     */
-    public double computeProjectedY(Coordinate viewer) {
-		double vy = viewer.getY();
-		double vz = viewer.getZ();
-		double px = this.x;
-		double py = this.y;
-		double pz = this.z;
+    public Coordinate2D computeProjectedCoordinate(double initialPosition){
+        double x = this.getX();
+        double y = this.getY();
+        double z = this.getZ();
 
-        return ((((((vz * py) - (vy * pz)) / (vz - pz))) / vz)+ 2);
+        return new Coordinate2D(((x * 0.3) + (z * 0.2) + initialPosition),((y * 0.3) + (z * 0.1) + initialPosition) );
     }
 
 }

@@ -7,6 +7,7 @@ public class Parcel implements Comparable {
     private int width;
     private int value;
     private int type;
+    private static ArrayList<Coordinate3D> rotatedCornerCoords;
 
     private ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
     private ArrayList<Coordinate> cornerCoords = new ArrayList<Coordinate>();
@@ -66,6 +67,8 @@ public class Parcel implements Comparable {
 
     }
 
+    public void setCornerCoords(ArrayList<Coordinate> coords){ this.cornerCoords = coords;}
+
     public int getLength() {
         return this.length;
     }
@@ -114,6 +117,86 @@ public class Parcel implements Comparable {
 
     public Parcel clone() {
         return new Parcel(length, height, width, value, type);
+    }
+
+    public ArrayList<Coordinate3D> multiplyArrays(double[][] rotationMatrix){
+        ArrayList<Coordinate3D> arrayMultiplied = new ArrayList<Coordinate3D>();
+
+        double productX;
+        double productY;
+        double productZ;
+
+        for (int i = 0; i < cornerCoords.size() ; i++){
+            productX = (int) ((this.cornerCoords.get(i).getX() * rotationMatrix[0][0]) + (this.cornerCoords.get(i).getY() * rotationMatrix[1][0]) + (this.cornerCoords.get(i).getZ() * rotationMatrix[2][0]));
+            productY = (int) ((this.cornerCoords.get(i).getX() * rotationMatrix[0][1]) + (this.cornerCoords.get(i).getY() * rotationMatrix[1][1]) + (this.cornerCoords.get(i).getZ() * rotationMatrix[2][1]));
+            productZ = (int) ((this.cornerCoords.get(i).getX() * rotationMatrix[0][2]) + (this.cornerCoords.get(i).getY() * rotationMatrix[1][2]) + (this.cornerCoords.get(i).getZ() * rotationMatrix[2][2]));
+            arrayMultiplied.add(i, new Coordinate3D(productX, productY, productZ));
+        }
+        
+       return arrayMultiplied;
+    }
+
+    public ArrayList<Coordinate2D> rotateAroundX(double angle){
+        double[][] rotationMatrix = new double[3][3];
+        rotationMatrix[0][0] = 1;
+        rotationMatrix[0][1] = 0;
+        rotationMatrix[0][2] = 0;
+        rotationMatrix[1][0] = 0;
+        rotationMatrix[1][1] = Math.cos(angle);
+        rotationMatrix[1][2] = - (Math.sin(angle));
+        rotationMatrix[2][0] = 0;
+        rotationMatrix[2][1] = Math.sin(angle);
+        rotationMatrix[2][2] = Math.cos(angle);
+
+        ArrayList<Coordinate3D> newCornerCoords = this.multiplyArrays(rotationMatrix);
+        ArrayList<Coordinate2D> rotatedProjected = new ArrayList<Coordinate2D>();
+        for (int i = 0; i < newCornerCoords.size(); i++){
+            rotatedProjected.add(i, newCornerCoords.get(i).computeProjectedCoordinate(5));
+        }
+        return rotatedProjected;
+    }
+
+    public ArrayList<Coordinate2D> rotateAroundY(double angle){
+        double[][] rotationMatrix = new double[3][3];
+        rotationMatrix[0][0] = Math.cos(angle);
+        rotationMatrix[0][1] = 0;
+        rotationMatrix[0][2] = Math.sin(angle);
+        rotationMatrix[1][0] = 0;
+        rotationMatrix[1][1] = 1;
+        rotationMatrix[1][2] = 0;
+        rotationMatrix[2][0] = - (Math.sin(angle));
+        rotationMatrix[2][1] = 0;
+        rotationMatrix[2][2] = Math.cos(angle);
+
+        ArrayList<Coordinate3D> newCornerCoords = this.multiplyArrays(rotationMatrix);
+        ArrayList<Coordinate2D> rotatedProjected = new ArrayList<Coordinate2D>();
+        for (int i = 0; i < newCornerCoords.size(); i++){
+            rotatedProjected.add(i, newCornerCoords.get(i).computeProjectedCoordinate(5));
+        }
+        return rotatedProjected;
+
+    }
+
+    public ArrayList<Coordinate2D> rotateAroundZ(double angle){
+        double[][] rotationMatrix = new double[3][3];
+        //double angle = ((Math.PI) / 2);
+        rotationMatrix[0][0] = Math.cos(angle);
+        rotationMatrix[0][1] = - (Math.sin(angle));
+        rotationMatrix[0][2] = 0;
+        rotationMatrix[1][0] = Math.sin(angle);
+        rotationMatrix[1][1] = Math.cos(angle);
+        rotationMatrix[1][2] = 0;
+        rotationMatrix[2][0] = 0;
+        rotationMatrix[2][1] = 0;
+        rotationMatrix[2][2] = 1;
+
+        ArrayList<Coordinate3D> newCornerCoords = this.multiplyArrays(rotationMatrix);
+        ArrayList<Coordinate2D> rotatedProjected = new ArrayList<Coordinate2D>();
+        for (int i = 0; i < newCornerCoords.size(); i++){
+            rotatedProjected.add(i, newCornerCoords.get(i).computeProjectedCoordinate(5));
+        }
+        return rotatedProjected;
+
     }
 }
 

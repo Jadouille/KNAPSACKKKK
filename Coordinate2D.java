@@ -27,12 +27,12 @@ public class Coordinate2D {
         this.y = y;
     }
 
-    public void setCoord(double x, double y) {
+    public void setCoords(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public void printCoords(){
+     public void printCoords(){
         System.out.println(this.getX() + " " + this.getY());
     }
 }

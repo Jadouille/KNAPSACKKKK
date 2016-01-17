@@ -14,6 +14,12 @@ public class ParcelGUI extends JPanel implements KeyListener {
     private int zoom = 50;
     private ParcelTypes parcelTypes = new ParcelTypes();
     private ArrayList<Parcel> containerParcels;
+    private boolean rotateAroundX = false;
+    private boolean rotateAroundY = false;
+    private boolean rotateAroundZ = false;
+    private int senseOfRotationX = 0;
+    private int senseOfRotationY = 0;
+    private int senseOfRotationZ = 0;
 
     public ParcelGUI() {
         addKeyListener(this);
@@ -24,7 +30,7 @@ public class ParcelGUI extends JPanel implements KeyListener {
         containerParcels = container.getParcels();
 
         if (greedyAlgorithm)
-            GreedyAlgorithm.testGreedy(container, evenParcels, false);
+            GreedyAlgorithm.testGreedy(container, evenParcels, true);
 
         if (geneticAlgorithm)
             System.out.println("execute genetic algorithm");
@@ -38,11 +44,12 @@ public class ParcelGUI extends JPanel implements KeyListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Projector viewer = new Projector(new Coordinate(x, y, zoom));
+        Projector viewer = new Projector(5);
 
         for (Parcel curParcels : containerParcels){
-            viewer.draw(g, curParcels);
+            viewer.draw(g, curParcels, rotateAroundX, senseOfRotationX, rotateAroundY, senseOfRotationY, rotateAroundZ, senseOfRotationZ);
         }
+
 
     }
 
@@ -54,18 +61,33 @@ public class ParcelGUI extends JPanel implements KeyListener {
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT) {
-            x -= 25;
+            rotateAroundX = false;
+            rotateAroundZ = false;
+            rotateAroundY = true;
+            senseOfRotationY = +1;
+            repaint();
         }
 
         if (key == KeyEvent.VK_RIGHT) {
-            x += 25;
+            rotateAroundX = false;
+            rotateAroundZ = false;
+            rotateAroundY = true;
+            senseOfRotationY = -1;
+            repaint();
         }
 
         if (key == KeyEvent.VK_UP) {
-            y -= 25;
+            rotateAroundY = false;
+            rotateAroundZ = false;
+            rotateAroundX = true;
+            senseOfRotationX = +1;
+            repaint();
         }
         if (key == KeyEvent.VK_DOWN) {
-            y += 25;
+            rotateAroundY = false;
+            rotateAroundZ = false;
+           rotateAroundX = true;
+            senseOfRotationX = -1;
         }
 
         if (key == KeyEvent.VK_CONTROL) {
@@ -81,6 +103,7 @@ public class ParcelGUI extends JPanel implements KeyListener {
         }
 
         repaint();
+
     }
 
 

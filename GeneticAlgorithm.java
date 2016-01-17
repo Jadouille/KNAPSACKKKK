@@ -46,7 +46,7 @@ public class GeneticAlgorithm {
         return  elitist;
     }
 
-    public ArrayList<ParcelOrdering> getOffspings(ArrayList<ParcelOrdering> ancestors) {
+    public ArrayList<ParcelOrdering> getOffsprings(ArrayList<ParcelOrdering> ancestors) {
         ArrayList<ParcelOrdering> result = new ArrayList<>();
         for (int cPair = 0; cPair < ancestors.size() - 1; cPair += 2)
         {
