@@ -1,33 +1,35 @@
+import java.math.BigDecimal;
+
 /**
  * Created by Jade on 14-01-16.
  */
 public class Coordinate2D {
 
-    private double x;
-    private double y;
+    private BigDecimal x;
+    private BigDecimal y;
 
-    public Coordinate2D(double x, double y) {
+    public Coordinate2D(BigDecimal x, BigDecimal y) {
         this.x = x;
         this.y = y;
     }
 
-    public double getX() {
+    public BigDecimal getX() {
         return x;
     }
 
-    public double getY() {
+    public BigDecimal getY() {
         return y;
     }
 
-    public void setX(double x) {
+    public void setX(BigDecimal x) {
         this.x = x;
     }
 
-    public void setY(double y) {
+    public void setY(BigDecimal y) {
         this.y = y;
     }
 
-    public void setCoords(double x, double y) {
+    public void setCoords(BigDecimal x, BigDecimal y) {
         this.x = x;
         this.y = y;
     }

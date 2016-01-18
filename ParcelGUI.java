@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 
@@ -20,8 +21,11 @@ public class ParcelGUI extends JPanel implements KeyListener {
     private int senseOfRotationX = 0;
     private int senseOfRotationY = 0;
     private int senseOfRotationZ = 0;
+    private int counter = 0;
+    private final int maxCounter=100;
 
     public ParcelGUI() {
+
         addKeyListener(this);
         ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 10);
 
@@ -44,7 +48,7 @@ public class ParcelGUI extends JPanel implements KeyListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Projector viewer = new Projector(5);
+        Projector viewer = new Projector(new BigDecimal(5));
 
         for (Parcel curParcels : containerParcels){
             viewer.draw(g, curParcels, rotateAroundX, senseOfRotationX, rotateAroundY, senseOfRotationY, rotateAroundZ, senseOfRotationZ);
@@ -61,19 +65,45 @@ public class ParcelGUI extends JPanel implements KeyListener {
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT) {
-            rotateAroundX = false;
-            rotateAroundZ = false;
-            rotateAroundY = true;
-            senseOfRotationY = +1;
-            repaint();
+
+                rotateAroundX = false;
+                rotateAroundZ = false;
+                rotateAroundY = true;
+                senseOfRotationY = +1;
+
+            if(counter<=100) {
+                repaint();
+                try {
+
+                    Robot robot = new Robot();
+                    // Creates the delay of 5 sec so that you can open notepad before
+                    // Robot start writting
+
+                    robot.keyPress(KeyEvent.VK_LEFT);
+
+
+                } catch (AWTException ex) {
+                    ex.printStackTrace();
+                }
+                counter++;
+            }
+            if(counter==maxCounter){
+                counter=0;
+
+            }
+
         }
 
         if (key == KeyEvent.VK_RIGHT) {
-            rotateAroundX = false;
-            rotateAroundZ = false;
-            rotateAroundY = true;
-            senseOfRotationY = -1;
-            repaint();
+
+                rotateAroundX = false;
+                rotateAroundZ = false;
+                rotateAroundY = true;
+                senseOfRotationY = -1;
+
+                repaint();
+
+
         }
 
         if (key == KeyEvent.VK_UP) {
@@ -86,7 +116,7 @@ public class ParcelGUI extends JPanel implements KeyListener {
         if (key == KeyEvent.VK_DOWN) {
             rotateAroundY = false;
             rotateAroundZ = false;
-           rotateAroundX = true;
+            rotateAroundX = true;
             senseOfRotationX = -1;
         }
 
