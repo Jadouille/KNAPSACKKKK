@@ -7,12 +7,17 @@ public class Coordinate {
     private int x;
     private int y;
     private int z;
+    private Config config = new Config();
+    private double zoom = config.zoom;
 
     public Coordinate(int x, int y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
+    /*public Coordinate( double zoom){
+        this.zoom=zoom;
+    }*/
 
     public void setCoord(int x, int y, int z) {
         this.x = x;
@@ -24,20 +29,20 @@ public class Coordinate {
         return this.x;
     }
 
-    public int getY() {
-        return this.y;
-    }
-
-    public int getZ() {
-        return this.z;
-    }
-
     public void setX(int x) {
         this.x = x;
     }
 
+    public int getY() {
+        return this.y;
+    }
+
     public void setY(int y) {
         this.y = y;
+    }
+
+    public int getZ() {
+        return this.z;
     }
 
     public void setZ(int z) {
@@ -74,19 +79,20 @@ public class Coordinate {
         BigDecimal z = BigDecimal.valueOf(this.getZ()).stripTrailingZeros();
 
 
-        BigDecimal value1 = x.multiply(new BigDecimal(0.3));
+        BigDecimal value1 = x.multiply(new BigDecimal(zoom));
         BigDecimal value2 = z.multiply(new BigDecimal(0.2));
-        BigDecimal value3 = y.multiply(new BigDecimal(0.3));
+        BigDecimal value3 = y.multiply(new BigDecimal(zoom));
         BigDecimal value4 = z.multiply(new BigDecimal(0.1));
 
 
         BigDecimal coordinate1 = value1.add(value2);
         coordinate1 = coordinate1.add(initialPosition);
+        coordinate1 = coordinate1.add(new BigDecimal(4));
 
         BigDecimal coordinate2 = value3.add(value4);
         coordinate2 = coordinate2.add(initialPosition);
 
-        return new Coordinate2D( coordinate1, coordinate2);
+        return new Coordinate2D(coordinate1, coordinate2);
     }
 
 }

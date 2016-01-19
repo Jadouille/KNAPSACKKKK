@@ -3,14 +3,13 @@ import java.util.ArrayList;
 
 
 public class Parcel implements Comparable {
+    private static ArrayList<Coordinate3D> rotatedCornerCoords;
+    private final int initialPositionInt = 5;
     private int length;
     private int height;
     private int width;
     private int value;
     private int type;
-    private static ArrayList<Coordinate3D> rotatedCornerCoords;
-    private final int initialPositionInt=5;
-
     private ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
     private ArrayList<Coordinate> cornerCoords = new ArrayList<Coordinate>();
 
@@ -65,6 +64,10 @@ public class Parcel implements Comparable {
         return cornerCoords;
     }
 
+    public void setCornerCoords(ArrayList<Coordinate> coords) {
+        this.cornerCoords = coords;
+    }
+
     public void setCornerCoords(Coordinate initialCoord) {
         this.cornerCoords.add(0, initialCoord);
         this.cornerCoords.add(1, new Coordinate(initialCoord.getX(), initialCoord.getY() + height, initialCoord.getZ()));
@@ -75,10 +78,6 @@ public class Parcel implements Comparable {
         this.cornerCoords.add(6, new Coordinate(initialCoord.getX(), initialCoord.getY(), initialCoord.getZ() + width));
         this.cornerCoords.add(7, new Coordinate(initialCoord.getX() + length, initialCoord.getY(), initialCoord.getZ() + width));
 
-    }
-
-    public void setCornerCoords(ArrayList<Coordinate> coords) {
-        this.cornerCoords = coords;
     }
 
     public int getLength() {
@@ -149,7 +148,6 @@ public class Parcel implements Comparable {
     }
 
     public ArrayList<Coordinate2D> rotateAroundX(double angle) {
-        System.out.println("test");
         double[][] rotationMatrix = new double[3][3];
         rotationMatrix[0][0] = 1;
         rotationMatrix[0][1] = 0;

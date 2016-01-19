@@ -9,14 +9,17 @@ import java.util.ArrayList;
 
 public class Projector {
 
-    private BigDecimal viewer;
     private static double angleX = 0.0;
     private static double angleY = 0.0;
     private static double angleZ = 0.0;
+    private BigDecimal viewer;
+    private Config config = new Config();
+    private double angleRotation = config.angle;
+
     /**
      * Creates a projector that will help us to transforms 2D coordinates in 2D coordinates
      *
-     * @param viewer is the cordinate in 3D from where we see the shape that's being projected
+     * @param viewer is the coordinate in 3D from where we see the shape that's being projected
      */
 
     public Projector(BigDecimal viewer) {
@@ -33,12 +36,12 @@ public class Projector {
             System.out.println("2");
             if (senseOfRotationX > 0) {
                 System.out.println("3");
-                angleX += 0.05;
+                angleX += angleRotation;
                 return p.rotateAroundX(angleX);
             }
             if (senseOfRotationX < 0) {
                 System.out.println("4");
-                angleX -= 0.05;
+                angleX -= angleRotation;
                 return p.rotateAroundX(angleX);
             }
 
@@ -46,22 +49,22 @@ public class Projector {
 
         else if (rotateAroundY) {
             if (senseOfRotationY > 0) {
-                angleY += 0.0008;
+                angleY += angleRotation;
                 return p.rotateAroundY(angleY);
             }
             if (senseOfRotationY < 0) {
-                angleY -= 0.0008;
+                angleY -= angleRotation;
                 return p.rotateAroundY(angleY);
             }
         }
 
         else if (rotateAroundZ) {
             if (senseOfRotationZ > 0){
-                angleZ += 0.001;
+                angleZ += angleRotation;
             return p.rotateAroundZ(angleZ);
             }
             if (senseOfRotationZ < 0){
-                angleZ -= 0.001;
+                angleZ -= angleRotation;
                 return p.rotateAroundZ(angleZ);
             }
         }
