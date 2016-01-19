@@ -30,7 +30,6 @@ public class ParcelTypes {
     }
 
     public ArrayList<Parcel> getParcelProtoTypes() {
-
         return parcelPrototypes;
     }
 
@@ -39,5 +38,4 @@ public class ParcelTypes {
         parcelPrototypes.add(getParcelType(2));
         parcelPrototypes.add(getParcelType(3));
     }
-
 }

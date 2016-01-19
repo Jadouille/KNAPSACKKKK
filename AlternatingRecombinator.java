@@ -7,6 +7,8 @@ public class AlternatingRecombinator implements Recombinator {
     public ParcelOrdering recombine (ParcelOrdering p1, ParcelOrdering p2) {
         ParcelOrdering result = new ParcelOrdering();
 
+        result.set(p1.get());
+
         for (int curParcel = 0; curParcel < p1.getSize(); curParcel++) {
             if (curParcel % 2 == 0)
                 result.add(p1.get(curParcel));

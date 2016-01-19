@@ -38,7 +38,7 @@ public class ParcelGUI extends JPanel implements KeyListener {
         containerParcels = container.getParcels();
 
         if (greedyAlgorithm)
-            GreedyAlgorithm.testGreedy(container, evenParcels, true);
+            GreedyAlgorithm.testGreedy(container, evenParcels, true, false);
 
         if (geneticAlgorithm)
             System.out.println("execute genetic algorithm");

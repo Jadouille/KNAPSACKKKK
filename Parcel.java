@@ -10,10 +10,15 @@ public class Parcel implements Comparable {
     private int width;
     private int value;
     private int type;
+    private ArrayList<Parcel> rotations = new ArrayList<>();
     private ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
     private ArrayList<Coordinate> cornerCoords = new ArrayList<Coordinate>();
 
     public Parcel(int length, int height, int width, int value, int type) {
+        this(length, height, width, value, type, true);
+    }
+
+    public Parcel(int length, int height, int width, int value, int type, boolean fillRotations) {
         this.length = length;
         this.height = height;
         this.width = width;
@@ -29,22 +34,26 @@ public class Parcel implements Comparable {
                 }
             }
         }
+        if (fillRotations)
+            generateRotations();
     }
 
     public ArrayList<Coordinate> getCoords() {
         return coords;
     }
 
+	public ArrayList<Parcel> getRotations() { return rotations; }
+
     public Parcel rotateWidth() {
-        return new Parcel(this.height, this.length, this.width, this.value, this.type);
+        return new Parcel(this.height, this.length, this.width, this.value, this.type, false);
     }
 
     public Parcel rotateLength() {
-        return new Parcel(this.length, this.width, this.height, this.value, this.type);
+        return new Parcel(this.length, this.width, this.height, this.value, this.type, false);
     }
 
     public Parcel rotateHeight() {
-        return new Parcel(this.width, this.height, this.length, this.value, this.type);
+        return new Parcel(this.width, this.height, this.length, this.value, this.type, false);
     }
 
     public ArrayList<Parcel> generateRotations() {
@@ -79,6 +88,8 @@ public class Parcel implements Comparable {
         this.cornerCoords.add(7, new Coordinate(initialCoord.getX() + length, initialCoord.getY(), initialCoord.getZ() + width));
 
     }
+
+
 
     public int getLength() {
         return this.length;
@@ -119,6 +130,7 @@ public class Parcel implements Comparable {
             result = -1;
 
 
+		//return ((Parcel) compareToParcel).getValue() - this.getValue();
         return result;
     }
 
@@ -210,8 +222,3 @@ public class Parcel implements Comparable {
 
     }
 }
-
-	
-	
-
-

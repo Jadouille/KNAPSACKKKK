@@ -71,8 +71,6 @@ public class Coordinate {
     /**
      * compute the coordinate x in 2D using Thales
      */
-
-
     public Coordinate2D computeProjectedCoordinate(BigDecimal initialPosition) {
         BigDecimal x = BigDecimal.valueOf(this.getX()).stripTrailingZeros();
         BigDecimal y = BigDecimal.valueOf(this.getY()).stripTrailingZeros();
