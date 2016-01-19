@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class ParcelGUI extends JPanel implements KeyListener {
     private final int maxCounter = 100;
-    public boolean greedyAlgorithm = true;
-    public boolean geneticAlgorithm = false;
+    public boolean greedyAlgorithm = false;
+    public boolean geneticAlgorithm = true;
     public boolean bruteForceAlgorithm = false;
     private int x = 256;
     private int y = 105;
@@ -26,22 +26,28 @@ public class ParcelGUI extends JPanel implements KeyListener {
     private int counter = 0;
     private boolean rotating = true;
 
+    private ContainerKnapsack container;
+
 
     public ParcelGUI() {
 
         addKeyListener(this);
         //this.zoom=0.1;
-        ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 10);
 
-        ContainerKnapsack container = new ContainerKnapsack(config.containerWidth, config.containerHeight, config.containerDepth);
+
+        container = new ContainerKnapsack(config.containerWidth, config.containerHeight, config.containerDepth);
 
         containerParcels = container.getParcels();
 
-        if (greedyAlgorithm)
+        if (greedyAlgorithm) {
+            ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 10);
             GreedyAlgorithm.testGreedy(container, evenParcels, true, false);
+        }
 
-        if (geneticAlgorithm)
-            System.out.println("execute genetic algorithm");
+        if (geneticAlgorithm) {
+            ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 10);
+            GeneticAlgorithm.testGenetic(container, evenParcels);
+        }
 
         if (bruteForceAlgorithm)
             System.out.println("execute bruteforce algorithm");

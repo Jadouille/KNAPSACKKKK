@@ -10,7 +10,7 @@ public class ParcelTypes {
     private Parcel typeC;
 
     public ParcelTypes() {
-        typeA = new Parcel(10, 10, 10, 3, 1, true);
+        typeA = new Parcel(10, 10, 20, 3, 1, true);
         typeB = new Parcel(10, 15, 20, 4, 2, true);
         typeC = new Parcel(15, 15, 15, 5, 3, true);
         setParcelTypes();

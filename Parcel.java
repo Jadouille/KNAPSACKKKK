@@ -135,9 +135,6 @@ public class Parcel implements Comparable {
     }
 
     public Parcel clone() {
-        if (getRotations().size() > 0)
-            return new Parcel(length, height, width, value, type, true);
-        else
             return new Parcel(length, height, width, value, type);
     }
 

@@ -17,7 +17,7 @@ public class GeneticAlgorithm {
                             Mutator mutator,
                             ContainerKnapsack container) {
         ParcelTypes types = new ParcelTypes();
-        ArrayList<Parcel> ordering = DistributionGenerator.generateEvenDistributionWithRotations(types.getParcelProtoTypes(), 10);
+        ArrayList<Parcel> ordering = DistributionGenerator.generateEvenDistributionWithRotations(types.getParcelProtoTypes(), 5);
 
         for (int curIndividual = 0; curIndividual < populationSize; curIndividual++) {
             Collections.shuffle(ordering);
