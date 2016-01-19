@@ -74,7 +74,7 @@ public class Coordinate {
 		double py = this.y;
 		double pz = this.z;
 
-		return ((((((vz * px) - (vx * pz)) / (vz - pz))) / vz) + 5);
+		return ((((((vz * px) - (vx * pz)) / (vz - pz))) / vz) + 3);
     }
 
     /**

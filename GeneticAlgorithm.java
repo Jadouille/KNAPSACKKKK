@@ -3,41 +3,106 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class GeneticAlgorithm {
+
+    public static void main(String[] argv) {
+        ArrayList<Parcel> parcels = DistributionGenerator.generateEvenDistribution(ParcelTypes.get(), 20);
+        ContainerKnapsack container = new ContainerKnapsack(165, 40, 25);
+        testGenetic(container, parcels);
+
+    }
+
     public GeneticAlgorithm(int populationSize,
                             int numberOfGenerations,
-                            Recombinator recombinator) {
-        ArrayList<Parcel> ordering = DistributionGenerator.generateEvenDistribution(ParcelTypes.get(), 5);
+                            Recombinator recombinator,
+                            Mutator mutator,
+                            ContainerKnapsack container) {
+        ArrayList<Parcel> ordering = DistributionGenerator.generateEvenDistributionWithRotations(ParcelTypes.get(), 10);
 
         for (int curIndividual = 0; curIndividual < populationSize; curIndividual++) {
             Collections.shuffle(ordering);
-            population.add(new ParcelOrdering(ordering));
+            population.add(new ParcelOrdering(ordering, container));
         }
 
         this.numberOfGenerations = numberOfGenerations;
         this.recombinator = recombinator;
+        this.mutator = mutator;
+        this.container = container;
     }
 
-    public ArrayList<ParcelOrdering> evolve() {
+    public static void testGenetic(ContainerKnapsack container, ArrayList<Parcel> parcels) {
 
+        long timeStart = System.currentTimeMillis();
 
-        ArrayList<ParcelOrdering> result = null; //population.clone();
+        Recombinator recombinator = new AlternatingRecombinator();
+        Mutator mutator = new ConstantMutator(0.1);
+        int numberOfGenerations = 200;
+        GeneticAlgorithm ga = new GeneticAlgorithm(50, numberOfGenerations, recombinator, mutator, container);
 
-        /*
+        ArrayList<ParcelOrdering> result = ga.evolve(container);
+        Collections.sort(result, Collections.reverseOrder());
+
+        result.get(0).printWholeOrdering();
+        ga.printGeneration(numberOfGenerations, result);
+
+        long timeEnd = System.currentTimeMillis();
+
+        System.out.println("Total container value: " + container.getTotalValue());
+        System.out.println("Total number of parcels: " + container.getParcels().size());
+        System.out.println("Time of execution: " + (timeEnd - timeStart));
+
+    }
+
+    public ArrayList<ParcelOrdering> evolve(ContainerKnapsack container) {
+
+        ArrayList<ParcelOrdering> result = new ArrayList<ParcelOrdering>(population);
+
         for (int curGeneration = 0; curGeneration < numberOfGenerations; curGeneration++) {
-            ArrayList<ParcelOrdering> elitist = getElitists(0.5f, population);
-            ArrayList<ParcelOrdering> offspings = getOffspings(elitist);
 
+            System.out.println("Before sorting: ");
+            printGeneration(curGeneration, result);
+
+            Collections.sort(result, Collections.reverseOrder());
+
+            System.out.println("After sorting: ");
+            printGeneration(curGeneration, result);
+
+            result.get(0).printFittedParcels();
+
+
+
+            ArrayList<ParcelOrdering> elitist = getElitists(0.5f, result);
+            ArrayList<ParcelOrdering> offspingsFirst = getOffspings(elitist);
+            ArrayList<ParcelOrdering> offspingsSecond = getOffspings(elitist);
+            ArrayList<ParcelOrdering> mutatedOffspringsFirst = mutate(offspingsFirst);
+            ArrayList<ParcelOrdering> mutatedOffspringsSecond = mutate(offspingsSecond);
+
+            result.clear();
+
+            result.addAll(elitist);
+            result.addAll(mutatedOffspringsFirst);
+            result.addAll(mutatedOffspringsSecond);
+
+            printGeneration(curGeneration, result);
         }
-        */
 
         return  result;
     }
+
+    public void printGeneration(int curGeneration, ArrayList<ParcelOrdering> result) {
+        System.out.println("Generation " + curGeneration + ": ");
+
+        for (ParcelOrdering curOrdering : result) {
+            System.out.println(curOrdering.calculateFitness());
+        }
+
+    }
+
 
     public ArrayList<ParcelOrdering> getElitists(float ratio, ArrayList<ParcelOrdering> population) {
         Collections.sort(population, Collections.reverseOrder());
 
         int toIndex = (int)(population.size() * ratio);
-        ArrayList<ParcelOrdering> elitist = (ArrayList<ParcelOrdering>)population.subList(0, toIndex);
+        ArrayList<ParcelOrdering> elitist = new ArrayList<ParcelOrdering>(population.subList(0, toIndex));
 
         return  elitist;
     }
@@ -53,10 +118,22 @@ public class GeneticAlgorithm {
         return result;
     }
 
+    public ArrayList<ParcelOrdering> mutate(ArrayList<ParcelOrdering> offsprings) {
+        ArrayList<ParcelOrdering> result = new ArrayList<>();
+
+        for (ParcelOrdering curOrdering : offsprings) {
+            result.add(mutator.mutate(curOrdering));
+        }
+
+        return result;
+    }
+
 
 
     private int numberOfGenerations = 0;
     private ArrayList<ParcelOrdering> population  = new ArrayList<>();
     private Recombinator recombinator;
+    private Mutator mutator;
+    private ContainerKnapsack container;
 
 }

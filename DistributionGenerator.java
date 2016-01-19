@@ -17,6 +17,23 @@ public class DistributionGenerator {
         return result;
     }
 
+
+    public static ArrayList<Parcel> generateEvenDistributionWithRotations(ArrayList<Parcel> parcelTypes, int amountOfParcelsPerType) {
+        ArrayList<Parcel> result = new ArrayList<Parcel>();
+
+        for (Parcel curType : parcelTypes) {
+            Parcel parcel = curType.clone();
+            for (int curParcel = 0; curParcel < amountOfParcelsPerType; curParcel++) {
+                ArrayList<Parcel> rotations = parcel.getRotations();
+                for (Parcel curRotation : rotations) {
+                    result.add(curRotation);
+                }
+            }
+        }
+
+        return result;
+    }
+
     public static ArrayList<Parcel> generateUnevenDistribution(ArrayList<Parcel> parcelTypes, int typeA, int typeB, int typeC) {
         ArrayList<Parcel> result = new ArrayList<Parcel>();
 

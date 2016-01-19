@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class ContainerKnapsack {
@@ -16,12 +17,18 @@ public class ContainerKnapsack {
 		this.length = length;
 		this.weightLeft = getWeight();
 
+		clear();
+	}
+
+	public void clear() {
 		for (int x = 0; x < length; x++) {
 			for (int y = 0; y < height; y++) {
 				for (int z = 0; z < width; z++)
 					container.put(new Coordinate(x, y, z), new CellValues(0, 0));
 			}
 		}
+
+		parcels.clear();
 	}
 
 	public int getLength() { return length; }
@@ -108,5 +115,6 @@ public class ContainerKnapsack {
 
 		return result;
 	}
+
 
 }

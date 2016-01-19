@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by Michael on 15.01.2016.
  */
@@ -6,16 +8,32 @@ public class ConstantMutator extends Mutator {
         this.mutationRate = mutationRate;
     }
 
-    public void mutate(ParcelOrdering ordering)
+    public ParcelOrdering mutate(ParcelOrdering ordering)
     {
-     /*   char[] chrom = i.getChromosome();
-        for (int curGene = 0; curGene < i.getChromosome().length; curGene++) {
+        ParcelOrdering result = new ParcelOrdering();
+
+        result.set(ordering.get());
+
+        ArrayList<Parcel> prototypes = ParcelTypes.get();
+
+
+        for (int curParcel = 0; curParcel < ordering.getSize(); curParcel++) {
+            result.add(ordering.get(curParcel));
             if (Math.random() <= mutationRate) {
-                int letter = (int) (Math.random() * GeneticAlgorithm.alphabet.length);
-                chrom[curGene] = GeneticAlgorithm.alphabet[letter];
+
+                int randomType = (int) (Math.random() * prototypes.size());
+                Parcel mutatedParcel = prototypes.get(randomType);
+
+                ArrayList<Parcel> rotations = mutatedParcel.getRotations();
+                int randRotation = (int)(Math.random() * rotations.size() + 1);
+
+                Parcel randomRotation = rotations.get(randRotation - 1);
+
+                result.set(randomRotation, curParcel);
             }
         }
-        */
+
+        return result;
     }
 
 

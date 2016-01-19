@@ -9,27 +9,20 @@ public class ParcelTest extends Applet implements KeyListener {
     private int y = 105;
     private int zoom = 150;
     private ArrayList<Parcel> containerParcels;
+    private ContainerKnapsack container;
 
     public ParcelTest() {
         setFocusable(true);
         setSize(1000, 1000);
         addKeyListener(this);
 
-        Parcel typeA = new Parcel(10, 10, 20, 3, 1);
-        //Parcel typeB = new Parcel(10, 15, 20, 4, 2);
-        //Parcel typeC = new Parcel(15, 15, 15, 5, 3);
+        ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(ParcelTypes.get(), 60);
+        //ArrayList<Parcel> unevenParcels = DistributionGenerator.generateUnevenDistribution(ParcelTypes.get(), );
 
-        ArrayList<Parcel> parcelPrototypes = new ArrayList<>();
-        parcelPrototypes.add(typeA);
-        //parcelPrototypes.add(typeB);
-        //parcelPrototypes.add(typeC);
-
-        ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(ParcelTypes.get(), 10);
-        //rrayList<Parcel> unevenParcels = DistributionGenerator.generateUnevenDistribution(ParcelTypes.get(), );
-
-        ContainerKnapsack container = new ContainerKnapsack(20, 20, 20);
-        GreedyAlgorithm.testGreedy(container, evenParcels, false);
-        containerParcels = container.getParcels();
+        this.container = new ContainerKnapsack(165, 40, 25);
+       // GreedyAlgorithm.testGreedy(this.container, evenParcels, true, false);
+        GeneticAlgorithm.testGenetic(container, evenParcels);
+        containerParcels = this.container.getParcels();
     }
 
     public void paint(Graphics g){
@@ -41,6 +34,9 @@ public class ParcelTest extends Applet implements KeyListener {
 
             viewer.draw(g, curParcels);
         }
+
+        viewer.drawBorders(g, this.container);
+
 
     }
 

@@ -6,11 +6,16 @@ public class Parcel implements Comparable {
     private int width;
     private int value;
     private int type;
+    private ArrayList<Parcel> rotations = new ArrayList<>();
 
     private ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
     private ArrayList<Coordinate> cornerCoords = new ArrayList<Coordinate>();
 
     public Parcel(int length, int height, int width, int value, int type) {
+        this(length, height, width, value, type, true);
+    }
+
+    public Parcel(int length, int height, int width, int value, int type, boolean fillRotations) {
         this.length = length;
         this.height = height;
         this.width = width;
@@ -26,11 +31,16 @@ public class Parcel implements Comparable {
                 }
             }
         }
+
+        if (fillRotations)
+            generateRotations();
     }
 
     public ArrayList<Coordinate> getCoords() {
         return coords;
     }
+
+    public ArrayList<Parcel> getRotations() { return rotations; }
 
     public void setCornerCoords(Coordinate initialCoord) {
 		this.cornerCoords.add(0, initialCoord);
@@ -44,23 +54,19 @@ public class Parcel implements Comparable {
 
     }
 
-    public Parcel rotateWidth() { return new Parcel(this.height, this.length, this.width, this.value, this.type); }
+    public Parcel rotateWidth() { return new Parcel(this.height, this.length, this.width, this.value, this.type, false); }
 
-    public Parcel rotateLength() { return new Parcel(this.length, this.width, this.height, this.value, this.type); }
+    public Parcel rotateLength() { return new Parcel(this.length, this.width, this.height, this.value, this.type, false); }
 
-    public Parcel rotateHeight()  {  return new Parcel(this.width, this.height, this.length, this.value, this.type); }
+    public Parcel rotateHeight()  {  return new Parcel(this.width, this.height, this.length, this.value, this.type, false); }
 
-    public ArrayList<Parcel> generateRotations() {
-        ArrayList<Parcel> result = new ArrayList<>();
-
-        result.add(this);
-        result.add(this.rotateWidth());
-        result.add(this.rotateHeight().rotateWidth());
-        result.add(this.rotateHeight());
-        result.add(this.rotateHeight().rotateLength());
-        result.add(this.rotateLength());
-
-        return  result;
+    public void generateRotations() {
+        rotations.add(this);
+        rotations.add(this.rotateWidth());
+        rotations.add(this.rotateHeight().rotateWidth());
+        rotations.add(this.rotateHeight());
+        rotations.add(this.rotateHeight().rotateLength());
+        rotations.add(this.rotateLength());
     }
 
 	public ArrayList<Coordinate> getCornerCoords(){ return cornerCoords; }
@@ -104,6 +110,7 @@ public class Parcel implements Comparable {
 			result = -1;
 
 
+        //return ((Parcel) compareToParcel).getValue() - this.getValue();
         return result;
     }
 

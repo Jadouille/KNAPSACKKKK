@@ -49,6 +49,12 @@ public class Projector {
         }
     }
 
+    public void drawBorders(Graphics g, ContainerKnapsack c){
+        Parcel p = new Parcel(c.getLength(), c.getHeight(), c.getWidth(), 0, 0);
+        p.setCornerCoords(new Coordinate(0,0,0));
+        this.draw(g, p);
+    }
+
 
     /**
      * Draw a parcel
