@@ -1,11 +1,11 @@
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class GeneticAlgorithm {
 
     public static void main(String[] argv) {
-        ArrayList<Parcel> parcels = DistributionGenerator.generateEvenDistribution(ParcelTypes.get(), 20);
+        ParcelTypes types = new ParcelTypes();
+        ArrayList<Parcel> parcels = DistributionGenerator.generateEvenDistribution(types.getParcelProtoTypes(), 20);
         ContainerKnapsack container = new ContainerKnapsack(165, 40, 25);
         testGenetic(container, parcels);
 
@@ -16,7 +16,8 @@ public class GeneticAlgorithm {
                             Recombinator recombinator,
                             Mutator mutator,
                             ContainerKnapsack container) {
-        ArrayList<Parcel> ordering = DistributionGenerator.generateEvenDistributionWithRotations(ParcelTypes.get(), 10);
+        ParcelTypes types = new ParcelTypes();
+        ArrayList<Parcel> ordering = DistributionGenerator.generateEvenDistributionWithRotations(types.getParcelProtoTypes(), 10);
 
         for (int curIndividual = 0; curIndividual < populationSize; curIndividual++) {
             Collections.shuffle(ordering);
@@ -71,8 +72,8 @@ public class GeneticAlgorithm {
 
 
             ArrayList<ParcelOrdering> elitist = getElitists(0.5f, result);
-            ArrayList<ParcelOrdering> offspingsFirst = getOffspings(elitist);
-            ArrayList<ParcelOrdering> offspingsSecond = getOffspings(elitist);
+            ArrayList<ParcelOrdering> offspingsFirst = getOffsprings(elitist);
+            ArrayList<ParcelOrdering> offspingsSecond = getOffsprings(elitist);
             ArrayList<ParcelOrdering> mutatedOffspringsFirst = mutate(offspingsFirst);
             ArrayList<ParcelOrdering> mutatedOffspringsSecond = mutate(offspingsSecond);
 
@@ -107,7 +108,7 @@ public class GeneticAlgorithm {
         return  elitist;
     }
 
-    public ArrayList<ParcelOrdering> getOffspings(ArrayList<ParcelOrdering> ancestors) {
+    public ArrayList<ParcelOrdering> getOffsprings(ArrayList<ParcelOrdering> ancestors) {
         ArrayList<ParcelOrdering> result = new ArrayList<>();
         for (int cPair = 0; cPair < ancestors.size() - 1; cPair += 2)
         {
@@ -117,6 +118,7 @@ public class GeneticAlgorithm {
 
         return result;
     }
+
 
     public ArrayList<ParcelOrdering> mutate(ArrayList<ParcelOrdering> offsprings) {
         ArrayList<ParcelOrdering> result = new ArrayList<>();

@@ -14,8 +14,9 @@ public class ConstantMutator extends Mutator {
 
         result.set(ordering.get());
 
-        ArrayList<Parcel> prototypes = ParcelTypes.get();
+        ParcelTypes types = new ParcelTypes();
 
+        ArrayList<Parcel> prototypes = types.getParcelProtoTypes();
 
         for (int curParcel = 0; curParcel < ordering.getSize(); curParcel++) {
             result.add(ordering.get(curParcel));
