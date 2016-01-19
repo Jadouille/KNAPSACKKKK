@@ -47,9 +47,9 @@ public class Coordinate3D {
 
 
         BigDecimal value1 = x.multiply(new BigDecimal(zoom));
-        BigDecimal value2 = z.multiply(new BigDecimal(0.2));
+        BigDecimal value2 = z.multiply(new BigDecimal(config.zmultiply1));
         BigDecimal value3 = y.multiply(new BigDecimal(zoom));
-        BigDecimal value4 = z.multiply(new BigDecimal(0.1));
+        BigDecimal value4 = z.multiply(new BigDecimal(config.zmultiply2));
 
 
         BigDecimal coordinate1 = value1.add(value2);

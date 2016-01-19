@@ -8,31 +8,41 @@ public class Config {
     public int containerHeight = 40;
     public int containerDepth = 25;
 
-    public double zoom = 0.01;
-    public double angle = 0.0008;
+    public double zoom = 0.036;
+    public double zmultiply1 = 0.027;
+    public double zmultiply2 = 0.027;
+    public double angle = 0.0006;
 
-    public boolean greedy = true;
+    public boolean greedy = false;
     public boolean randomRotations = false;
-    public boolean genetic = false;
+    public boolean genetic = true;
     public boolean bruteForce = false;
     public boolean pentominoParcels = false;
 
+    public String algorithmNames[] = {"Greedy Algorithm", "Genetic Algorithm", "Brute Force"};
+
     public void setGreedyAlgorithm() {
-        boolean greedy = true;
-        boolean genetic = false;
-        boolean bruteForce = false;
+        greedy = true;
+        genetic = false;
+        bruteForce = false;
     }
 
     public void setGeneticAlgorithm() {
-        boolean greedy = false;
-        boolean genetic = true;
-        boolean bruteForce = false;
+        greedy = false;
+        genetic = true;
+        bruteForce = false;
     }
 
     public void setBruteForceAlgorithm() {
-        boolean greedy = false;
-        boolean genetic = false;
-        boolean bruteForce = true;
+        greedy = false;
+        genetic = false;
+        bruteForce = true;
+    }
+
+    public void printBooleans() {
+        System.out.println(greedy);
+        System.out.println(genetic);
+        System.out.println(bruteForce);
     }
 
 }

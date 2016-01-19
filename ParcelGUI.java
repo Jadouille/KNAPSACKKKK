@@ -7,13 +7,9 @@ import java.util.ArrayList;
 
 
 public class ParcelGUI extends JPanel implements KeyListener {
-    private final int maxCounter = 100;
-    public boolean greedyAlgorithm = false;
-    public boolean geneticAlgorithm = true;
-    public boolean bruteForceAlgorithm = false;
+    public Config config = new Config();
     private int x = 256;
     private int y = 105;
-    private Config config = new Config();
     private double zoom = config.zoom;
     private ParcelTypes parcelTypes = new ParcelTypes();
     private ArrayList<Parcel> containerParcels;
@@ -23,42 +19,51 @@ public class ParcelGUI extends JPanel implements KeyListener {
     private int senseOfRotationX = 0;
     private int senseOfRotationY = 0;
     private int senseOfRotationZ = 0;
-    private int counter = 0;
     private boolean rotating = true;
 
     private ContainerKnapsack container;
 
 
     public ParcelGUI() {
-
         addKeyListener(this);
-        //this.zoom=0.1;
+        init();
+    }
+
+    public void init() {
+        ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 10);
 
 
         container = new ContainerKnapsack(config.containerWidth, config.containerHeight, config.containerDepth);
 
         containerParcels = container.getParcels();
 
-        if (greedyAlgorithm) {
-            ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 10);
+        if (config.greedy) {
             GreedyAlgorithm.testGreedy(container, evenParcels, true, false);
+            repaint();
         }
 
-        if (geneticAlgorithm) {
-            ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 10);
+
+        if (config.genetic) {
             GeneticAlgorithm.testGenetic(container, evenParcels);
+            repaint();
         }
 
-        if (bruteForceAlgorithm)
+
+        if (config.bruteForce) {
             System.out.println("execute bruteforce algorithm");
+            repaint();
+        }
+
 
         containerParcels = container.getParcels();
+
+
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Projector viewer = new Projector(new BigDecimal(4));
+        Projector viewer = new Projector(new BigDecimal(2));
 
         for (Parcel curParcels : containerParcels) {
             viewer.draw(g, curParcels, rotateAroundX, senseOfRotationX, rotateAroundY, senseOfRotationY, rotateAroundZ, senseOfRotationZ);
@@ -81,6 +86,7 @@ public class ParcelGUI extends JPanel implements KeyListener {
             rotateAroundZ = false;
             senseOfRotationY = +1;
             repaint();
+
             if (rotating) {
 
                 try {
