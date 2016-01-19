@@ -56,17 +56,13 @@ public class Parcel implements Comparable {
         return new Parcel(this.width, this.height, this.length, this.value, this.type, false);
     }
 
-    public ArrayList<Parcel> generateRotations() {
-        ArrayList<Parcel> result = new ArrayList<>();
-
-        result.add(this);
-        result.add(this.rotateWidth());
-        result.add(this.rotateHeight().rotateWidth());
-        result.add(this.rotateHeight());
-        result.add(this.rotateHeight().rotateLength());
-        result.add(this.rotateLength());
-
-        return result;
+    public void generateRotations() {
+        rotations.add(this);
+        rotations.add(this.rotateWidth());
+        rotations.add(this.rotateHeight().rotateWidth());
+        rotations.add(this.rotateHeight());
+        rotations.add(this.rotateHeight().rotateLength());
+        rotations.add(this.rotateLength());
     }
 
     public ArrayList<Coordinate> getCornerCoords() {
@@ -139,7 +135,10 @@ public class Parcel implements Comparable {
     }
 
     public Parcel clone() {
-        return new Parcel(length, height, width, value, type);
+        if (getRotations().size() > 0)
+            return new Parcel(length, height, width, value, type, true);
+        else
+            return new Parcel(length, height, width, value, type);
     }
 
     public ArrayList<Coordinate3D> multiplyArrays(double[][] rotationMatrix) {

@@ -4,11 +4,11 @@
 public class Config {
 
     public int numberOfParcels = 20;
-    public int containerWidth = 20;
-    public int containerHeight = 20;
-    public int containerDepth = 20;
+    public int containerWidth = 165;
+    public int containerHeight = 40;
+    public int containerDepth = 25;
 
-    public double zoom = 0.08;
+    public double zoom = 0.01;
     public double angle = 0.0008;
 
     public boolean greedy = true;
