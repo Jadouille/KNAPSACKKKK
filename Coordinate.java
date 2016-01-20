@@ -8,7 +8,8 @@ public class Coordinate {
     private int y;
     private int z;
     private Config config = new Config();
-    private double zoom = config.zoom;
+    // private double zoom = config.zoom;
+
 
     public Coordinate(int x, int y, int z) {
         this.x = x;
@@ -65,7 +66,7 @@ public class Coordinate {
 
 
     public void printCoord() {
-        System.out.println(this.x + " " + this.y + " " + this.z);
+        //  System.out.println(this.x + " " + this.y + " " + this.z);
     }
 
     /**
@@ -77,9 +78,9 @@ public class Coordinate {
         BigDecimal z = BigDecimal.valueOf(this.getZ()).stripTrailingZeros();
 
 
-        BigDecimal value1 = x.multiply(new BigDecimal(zoom));
+        BigDecimal value1 = x.multiply(new BigDecimal(config.zoom));
         BigDecimal value2 = z.multiply(new BigDecimal(config.zmultiply1));
-        BigDecimal value3 = y.multiply(new BigDecimal(zoom));
+        BigDecimal value3 = y.multiply(new BigDecimal(config.zoom));
         BigDecimal value4 = z.multiply(new BigDecimal(config.zmultiply2));
 
 

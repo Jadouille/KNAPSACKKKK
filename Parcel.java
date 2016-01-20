@@ -69,10 +69,6 @@ public class Parcel implements Comparable {
         return cornerCoords;
     }
 
-    public void setCornerCoords(ArrayList<Coordinate> coords) {
-        this.cornerCoords = coords;
-    }
-
     public void setCornerCoords(Coordinate initialCoord) {
         this.cornerCoords.add(0, initialCoord);
         this.cornerCoords.add(1, new Coordinate(initialCoord.getX(), initialCoord.getY() + height, initialCoord.getZ()));
@@ -85,7 +81,9 @@ public class Parcel implements Comparable {
 
     }
 
-
+    public void setCornerCoords(ArrayList<Coordinate> coords) {
+        this.cornerCoords = coords;
+    }
 
     public int getLength() {
         return this.length;
@@ -131,7 +129,7 @@ public class Parcel implements Comparable {
     }
 
     public void printDimensions() {
-        System.out.println("Length = " + this.length + " Height = " + this.height + " Width = " + this.width);
+        //System.out.println("Length = " + this.length + " Height = " + this.height + " Width = " + this.width);
     }
 
     public Parcel clone() {

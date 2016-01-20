@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 
 public class ContainerKnapsack {
@@ -50,6 +49,10 @@ public class ContainerKnapsack {
 
 	public ArrayList<Parcel> getParcels() { return parcels; }
 
+	public void setParcels(ArrayList<Parcel> parcels) {
+		this.parcels = parcels;
+	}
+
 	public void fillParcel(Coordinate cell, Parcel parcel, int toAdd ){
 		for (Coordinate curCoord : parcel.getCoords()) {
 			Coordinate coord = new Coordinate(cell.getX() + curCoord.getX(), cell.getY() + curCoord.getY(), cell.getZ() + curCoord.getZ());
@@ -68,10 +71,6 @@ public class ContainerKnapsack {
 		}
 		parcels.remove(parcel);
 		weightLeft += parcel.getWeight();
-	}
-
-	public void setParcels(ArrayList<Parcel> parcels){
-		this.parcels = parcels;
 	}
 
 	public boolean checkCollision(Parcel parcel, Coordinate coord) {

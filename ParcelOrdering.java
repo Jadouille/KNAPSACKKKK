@@ -5,6 +5,13 @@ import java.util.ArrayList;
  */
 public class ParcelOrdering implements Comparable {
 
+    private ArrayList<Parcel> ordering = new ArrayList<>();
+    private ContainerKnapsack container = null;//new ContainerKnapsack(165, 40, 25);
+    private int fitness = -1;
+    private int typeA = 0;
+    private int typeB = 0;
+    private int typeC = 0;
+
     public ParcelOrdering() {}
 
     public ParcelOrdering(ArrayList<Parcel> value, ContainerKnapsack container) {
@@ -37,7 +44,7 @@ public class ParcelOrdering implements Comparable {
 
     public void printWholeOrdering() {
         for (Parcel curParcel : ordering) {
-            System.out.println("Parcel type: " + curParcel.getType() + ", value: " + curParcel.getValue()  + ", length: " + curParcel.getLength() + " height: " + curParcel.getHeight() + " width: " + curParcel.getWidth());
+            //System.out.println("Parcel type: " + curParcel.getType() + ", value: " + curParcel.getValue()  + ", length: " + curParcel.getLength() + " height: " + curParcel.getHeight() + " width: " + curParcel.getWidth());
         }
     }
 
@@ -78,11 +85,4 @@ public class ParcelOrdering implements Comparable {
     public ParcelOrdering clone() {
         return new ParcelOrdering(this.ordering, this.container);
     }
-
-    private ArrayList<Parcel> ordering = new ArrayList<>();
-    private ContainerKnapsack container = null;//new ContainerKnapsack(165, 40, 25);
-    private int fitness = -1;
-    private int typeA = 0;
-    private int typeB = 0;
-    private int typeC = 0;
 }

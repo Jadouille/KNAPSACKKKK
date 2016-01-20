@@ -17,12 +17,12 @@ public class Coordinate2D {
         return x;
     }
 
-    public BigDecimal getY() {
-        return y;
-    }
-
     public void setX(BigDecimal x) {
         this.x = x;
+    }
+
+    public BigDecimal getY() {
+        return y;
     }
 
     public void setY(BigDecimal y) {
@@ -35,6 +35,6 @@ public class Coordinate2D {
     }
 
      public void printCoords(){
-        System.out.println(this.getX() + " " + this.getY());
+        //System.out.println(this.getX() + " " + this.getY());
     }
 }

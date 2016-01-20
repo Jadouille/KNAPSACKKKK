@@ -30,17 +30,13 @@ public class Projector {
      * Gets the projected coordinate thanks to the computeProjectedX/Y method
      */
     public ArrayList<Coordinate2D> getProjection(Parcel p, boolean rotateAroundX, int senseOfRotationX, boolean rotateAroundY, int senseOfRotationY, boolean rotateAroundZ, int senseOfRotationZ) {
-        System.out.println("1");
         ArrayList<Coordinate2D> projectedCoords = new ArrayList<>();
         if (rotateAroundX){
-            System.out.println("2");
             if (senseOfRotationX > 0) {
-                System.out.println("3");
                 angleX += angleRotation;
                 return p.rotateAroundX(angleX);
             }
             if (senseOfRotationX < 0) {
-                System.out.println("4");
                 angleX -= angleRotation;
                 return p.rotateAroundX(angleX);
             }
@@ -101,7 +97,7 @@ public class Projector {
 
         Graphics2D g2 = (Graphics2D) g;
         ArrayList<Coordinate2D> coordinates = this.getProjection(p, rotateAroundX,senseOfRotationX, rotateAroundY, senseOfRotationY, rotateAroundZ, senseOfRotationZ );
-        System.out.println("siza" + coordinates.size());
+        // System.out.println("siza" + coordinates.size());
         g2.setColor(Color.pink);
         g2.draw(new Line2D.Double(coordinates.get(0).getX().multiply(new BigDecimal(100)).doubleValue(), (coordinates.get(0).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(1).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(1).getY().multiply(new BigDecimal(100)).doubleValue())));
         g2.setColor(Color.red);

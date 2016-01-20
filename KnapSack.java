@@ -6,13 +6,16 @@ import java.awt.event.ActionListener;
 /**
  * Created by Anthony on 15/01/2016.
  */
-public class KnapSack {
-
+public class KnapSack extends JFrame {
     public static void main(String[] args) {
-        ParcelGUI parcelGUI = new ParcelGUI();
+
+        final ParcelGUI parcelGUI = new ParcelGUI();
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int screenWidth = gd.getDisplayMode().getWidth();
+        int screenHeight = gd.getDisplayMode().getHeight();
+
         parcelGUI.setFocusable(true);
         JFrame j = new JFrame();
-
 
         JComboBox selectAlgorithm = new JComboBox(parcelGUI.config.algorithmNames);
         if (parcelGUI.config.greedy)
@@ -22,7 +25,6 @@ public class KnapSack {
         if (parcelGUI.config.bruteForce)
             selectAlgorithm.setSelectedIndex(2);
 
-        selectAlgorithm.setPreferredSize(new Dimension(1080, 50));
         selectAlgorithm.setFocusable(false);
         selectAlgorithm.addActionListener(new ActionListener() {
             @Override
@@ -51,16 +53,22 @@ public class KnapSack {
                         System.out.println("bruteforce");
                         parcelGUI.init();
                     }
+                } else if (selectedAlgorithm.equals(parcelGUI.config.algorithmNames[3])) {
+                    ConfigGUI2 configGUI2 = new ConfigGUI2();
+                    parcelGUI.config.containerWidth = configGUI2.parcelGUI.config.containerWidth;
+                    parcelGUI.config.containerHeight = configGUI2.parcelGUI.config.containerHeight;
+                    parcelGUI.config.containerDepth = configGUI2.parcelGUI.config.containerDepth;
+                    parcelGUI.init();
+                    parcelGUI.repaint();
                 }
             }
         });
 
         j.add(selectAlgorithm, BorderLayout.NORTH);
         j.add(parcelGUI);
-        j.setSize(1920, 1080);
+        j.setSize(screenWidth, screenHeight);
         j.setVisible(true);
-
-
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 }

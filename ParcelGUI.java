@@ -20,9 +20,7 @@ public class ParcelGUI extends JPanel implements KeyListener {
     private int senseOfRotationY = 0;
     private int senseOfRotationZ = 0;
     private boolean rotating = true;
-
     private ContainerKnapsack container;
-
 
     public ParcelGUI() {
         addKeyListener(this);
@@ -31,21 +29,27 @@ public class ParcelGUI extends JPanel implements KeyListener {
 
     public void init() {
         ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 10);
-
-
+        System.out.println(" parcelgui container width: " + config.containerWidth);
+        System.out.println(" parcelgui container height: " + config.containerHeight);
+        System.out.println(" parcelgui container depth: " + config.containerDepth);
+        if (config.containerWidth == 20)
+            System.out.println("make container");
         container = new ContainerKnapsack(config.containerWidth, config.containerHeight, config.containerDepth);
 
         containerParcels = container.getParcels();
 
         if (config.greedy) {
+            if (config.containerWidth != 20)
             GreedyAlgorithm.testGreedy(container, evenParcels, true, false);
+            if (config.containerWidth == 20)
+                GreedyAlgorithm.testGreedy(container, evenParcels, true, false);
             repaint();
         }
 
 
         if (config.genetic) {
-            GeneticAlgorithm.testGenetic(container, evenParcels);
-            repaint();
+            //GeneticAlgorithm.testGenetic(container, evenParcels);
+            //repaint();
         }
 
 
@@ -57,8 +61,9 @@ public class ParcelGUI extends JPanel implements KeyListener {
 
         containerParcels = container.getParcels();
 
-
+        repaint();
     }
+
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -197,9 +202,5 @@ public class ParcelGUI extends JPanel implements KeyListener {
     }
 
     public void keyReleased(KeyEvent e) {
-        System.out.println("x: " + x);
-        System.out.println("y: " + y);
-        System.out.println("zoom: " + zoom);
-        System.out.println();
     }
 }

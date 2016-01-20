@@ -13,13 +13,13 @@ public class Config {
     public double zmultiply2 = 0.027;
     public double angle = 0.0006;
 
-    public boolean greedy = false;
+    public boolean greedy = true;
     public boolean randomRotations = false;
-    public boolean genetic = true;
+    public boolean genetic = false;
     public boolean bruteForce = false;
     public boolean pentominoParcels = false;
 
-    public String algorithmNames[] = {"Greedy Algorithm", "Genetic Algorithm", "Brute Force"};
+    public String algorithmNames[] = {"Greedy Algorithm", "Genetic Algorithm", "Brute Force", "Config"};
 
     public void setGreedyAlgorithm() {
         greedy = true;
