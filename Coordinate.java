@@ -7,20 +7,15 @@ public class Coordinate {
     private int x;
     private int y;
     private int z;
-    private static Config config = new Config();
-    // private double zoom = config.zoom;
-
-    public static int counter = 0;
+    public double zoom = Config.zoom;
+    public double zmultiply1 = Config.zmultiply1;
+    public double zmultiply2 = Config.zmultiply2;
 
     public Coordinate(int x, int y, int z) {
-    	//System.out.println("coord created: " + counter++);
         this.x = x;
         this.y = y;
         this.z = z;
     }
-    /*public Coordinate( double zoom){
-        this.zoom=zoom;
-    }*/
 
     public void setCoord(int x, int y, int z) {
         this.x = x;
@@ -82,7 +77,7 @@ public class Coordinate {
 
 
     public void printCoord() {
-        //  System.out.println(this.x + " " + this.y + " " + this.z);
+        System.out.println(this.x + " " + this.y + " " + this.z);
     }
 
     /**
@@ -94,10 +89,10 @@ public class Coordinate {
         BigDecimal z = BigDecimal.valueOf(this.getZ()).stripTrailingZeros();
 
 
-        BigDecimal value1 = x.multiply(new BigDecimal(config.zoom));
-        BigDecimal value2 = z.multiply(new BigDecimal(config.zmultiply1));
-        BigDecimal value3 = y.multiply(new BigDecimal(config.zoom));
-        BigDecimal value4 = z.multiply(new BigDecimal(config.zmultiply2));
+        BigDecimal value1 = x.multiply(new BigDecimal(zoom));
+        BigDecimal value2 = z.multiply(new BigDecimal(zmultiply1));
+        BigDecimal value3 = y.multiply(new BigDecimal(zoom));
+        BigDecimal value4 = z.multiply(new BigDecimal(zmultiply2));
 
 
         BigDecimal coordinate1 = value1.add(value2);

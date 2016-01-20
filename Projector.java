@@ -68,7 +68,7 @@ public class Projector {
             else {
             ArrayList<Coordinate> coordinates = p.getCornerCoords();
             for (Coordinate curcoord : coordinates) {
-                curcoord.printCoord();
+                //curcoord.printCoord();
             }
 
 

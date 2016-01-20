@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Parcel implements Comparable {
     private static ArrayList<Coordinate3D> rotatedCornerCoords;
-    private final int initialPositionInt = 5;
+    private final int initialPositionInt = Config.centerPosition;
     private int length;
     private int height;
     private int width;

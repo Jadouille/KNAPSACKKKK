@@ -2,15 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class GeneticAlgorithm {
-
-    public static void main(String[] argv) {
-        ParcelTypes types = new ParcelTypes();
-        ArrayList<Parcel> parcels = DistributionGenerator.generateEvenDistribution(types.getParcelProtoTypes(), 20);
-        ContainerKnapsack container = new ContainerKnapsack(165, 40, 25);
-        testGenetic(container, parcels);
-
-    }
-
+    private int max = 0;
     public GeneticAlgorithm(int populationSize,
                             int numberOfGenerations,
                             Recombinator recombinator,
@@ -30,20 +22,20 @@ public class GeneticAlgorithm {
         this.container = container;
     }
 
-    public static void testGenetic(ContainerKnapsack container, ArrayList<Parcel> parcels) {
+    public static void testGenetic(ContainerKnapsack container, ArrayList<Parcel> parcels, ParcelGUI parcelGUI) {
 
         long timeStart = System.currentTimeMillis();
 
         Recombinator recombinator = new AlternatingRecombinator();
-        Mutator mutator = new ConstantMutator(0.1);
-        int numberOfGenerations = 200;
-        GeneticAlgorithm ga = new GeneticAlgorithm(50, numberOfGenerations, recombinator, mutator, container);
+        Mutator mutator = new ConstantMutator(Config.mutationRate);
+        GeneticAlgorithm ga = new GeneticAlgorithm(Config.populationSize, Config.numberOfGenerations, recombinator, mutator, container);
+        ga.setParcelGUI(parcelGUI);
 
         ArrayList<ParcelOrdering> result = ga.evolve(container);
         Collections.sort(result, Collections.reverseOrder());
 
         result.get(0).printWholeOrdering();
-        ga.printGeneration(numberOfGenerations, result);
+        ga.printGeneration(Config.numberOfGenerations, result);
 
         long timeEnd = System.currentTimeMillis();
 
@@ -59,8 +51,12 @@ public class GeneticAlgorithm {
 
         for (int curGeneration = 0; curGeneration < numberOfGenerations; curGeneration++) {
 
+
+
+            container.clear();
             System.out.println("Before sorting: ");
             printGeneration(curGeneration, result);
+
 
             Collections.sort(result, Collections.reverseOrder());
 
@@ -77,13 +73,14 @@ public class GeneticAlgorithm {
             ArrayList<ParcelOrdering> mutatedOffspringsFirst = mutate(offspingsFirst);
             ArrayList<ParcelOrdering> mutatedOffspringsSecond = mutate(offspingsSecond);
 
+
             result.clear();
 
             result.addAll(elitist);
             result.addAll(mutatedOffspringsFirst);
             result.addAll(mutatedOffspringsSecond);
 
-            printGeneration(curGeneration, result);
+           // printGeneration(curGeneration, result);
         }
 
         return  result;
@@ -93,7 +90,13 @@ public class GeneticAlgorithm {
         System.out.println("Generation " + curGeneration + ": ");
 
         for (ParcelOrdering curOrdering : result) {
-            System.out.println(curOrdering.calculateFitness());
+            int fitness = curOrdering.calculateFitness();
+            System.out.println(fitness);
+            if (max < fitness) {
+                max = fitness;
+                System.out.println("found better value combination");
+                parcelGUI.repaint();
+            }
         }
 
     }
@@ -130,6 +133,10 @@ public class GeneticAlgorithm {
         return result;
     }
 
+    public void setParcelGUI(ParcelGUI parcelGUI) {
+        this.parcelGUI = parcelGUI;
+   }
+
 
 
     private int numberOfGenerations = 0;
@@ -137,5 +144,6 @@ public class GeneticAlgorithm {
     private Recombinator recombinator;
     private Mutator mutator;
     private ContainerKnapsack container;
+    private ParcelGUI parcelGUI;
 
 }

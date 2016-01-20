@@ -48,6 +48,8 @@ public class ParcelOrdering implements Comparable {
         }
     }
 
+    public ArrayList<Parcel> getOrdering() { return ordering; }
+
     public int calculateFitness()
     {
         if (fitness == -1) {
@@ -69,7 +71,7 @@ public class ParcelOrdering implements Comparable {
 
             fitness = container.getTotalValue();
 
-            container.clear();
+            //container.clear();
 
             return fitness;
         }

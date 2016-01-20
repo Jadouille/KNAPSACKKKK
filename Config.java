@@ -3,69 +3,76 @@
  */
 public class Config {
 
-    public int numberOfParcels = 20;
-    public int containerWidth = 165;
-    private int containerHeight = 40;
-    public int containerDepth = 25;
 
-    public double zoom = 0.036;
-    public double zmultiply1 = 0.027;
-    public double zmultiply2 = 0.027;
-    public double angle = 0.0006;
+    public static int containerWidth = 165;
+    public static int containerHeight = 40;
+    public static int containerDepth = 25;
+    public static int centerPosition = 0;
+    public static int initialpositionX=15;
+    public static int initialpositionY=5;
 
-    public boolean greedy = true;
-    public boolean randomRotations = false;
-    public boolean genetic = false;
-    public boolean bruteForce = false;
-    public boolean pentominoParcels = false;
-    public boolean configOpen = false;
+    /* Genetic Algorithm Configurations */
+    public static int numberOfGenerations=50;
+    public static int populationSize=50;
+    public static double mutationRate=0.1;
+
+    /* Greedy Algorithm Configurations */
+    public static int numberOfParcels = 20;
+    public static boolean randomRotations = false;
+
+    public static double zoom = 0.036;
+    public static double zmultiply1 = 0.027;
+    public static double zmultiply2 = 0.027;
+    public static double angle = 0.0006;
+
+    public static boolean greedy = true;
+    public static boolean genetic = false;
+    public static boolean bruteForce = false;
+
+    public static boolean pentominoParcels = false;
 
     public Config() {
-    	System.out.println("Making new config!");
     }
-    public String algorithmNames[] = {"Greedy Algorithm", "Genetic Algorithm", "Brute Force", "Config"};
 
-    public void setGreedyAlgorithm() {
+
+    public static void setGreedyAlgorithm() {
         greedy = true;
         genetic = false;
         bruteForce = false;
     }
 
-    public void setGeneticAlgorithm() {
+    public static void setGeneticAlgorithm() {
         greedy = false;
         genetic = true;
         bruteForce = false;
     }
 
-    public void setConfig() {
+    public static void setConfig() {
         greedy = false;
         genetic = false;
         bruteForce = false;
     }
     
-    public boolean isConfig() {
+    public static boolean isConfig() {
     	return !greedy && !genetic && !bruteForce;
     }
 
-    public void setBruteForceAlgorithm() {
+    public static void setBruteForceAlgorithm() {
         greedy = false;
         genetic = false;
         bruteForce = true;
     }
 
-    public void printBooleans() {
+    public static void printBooleans() {
         System.out.println(greedy);
         System.out.println(genetic);
         System.out.println(bruteForce);
     }
 
-	public int getContainerHeight() {
+	public static int getContainerHeight() {
 		return containerHeight;
 	}
 
-	public void setContainerHeight(int containerHeight) {
-		System.out.println("container height is being set!");
-		this.containerHeight = containerHeight;
-	}
+
 
 }

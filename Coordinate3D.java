@@ -7,8 +7,7 @@ public class Coordinate3D {
     private double x;
     private double y;
     private double z;
-    private static Config config = new Config();
-    private double zoom = config.zoom;
+    private double zoom = Config.zoom;
 
     public Coordinate3D(double x, double y, double z) {
         this.x = x;
@@ -47,17 +46,17 @@ public class Coordinate3D {
 
 
         BigDecimal value1 = x.multiply(new BigDecimal(zoom));
-        BigDecimal value2 = z.multiply(new BigDecimal(config.zmultiply1));
+        BigDecimal value2 = z.multiply(new BigDecimal(Config.zmultiply1));
         BigDecimal value3 = y.multiply(new BigDecimal(zoom));
-        BigDecimal value4 = z.multiply(new BigDecimal(config.zmultiply2));
+        BigDecimal value4 = z.multiply(new BigDecimal(Config.zmultiply2));
 
 
         BigDecimal coordinate1 = value1.add(value2);
-        coordinate1 = coordinate1.add(initialPosition);
-        coordinate1 = coordinate1.add(new BigDecimal(4));
+        coordinate1 = coordinate1.add(initialPosition.add(new BigDecimal(Config.initialpositionX)));
+        //coordinate1 = coordinate1.add(new BigDecimal(4));
 
         BigDecimal coordinate2 = value3.add(value4);
-        coordinate2 = coordinate2.add(initialPosition);
+        coordinate2 = coordinate2.add(initialPosition.add(new BigDecimal(Config.initialpositionY)));
 
         return new Coordinate2D( coordinate1, coordinate2);
     }
