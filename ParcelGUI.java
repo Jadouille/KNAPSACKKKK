@@ -52,10 +52,16 @@ public class ParcelGUI extends JPanel implements KeyListener {
         }
 
 
-        /*if (config.bruteForce) {
+        if (config.bruteForce) {
             System.out.println("execute bruteforce algorithm");
-            repaint();
-        }*/
+            ArrayList<Parcel> usedParcesl = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 1);
+            ArrayList<Integer> max = new ArrayList<>();
+            max.add(50);
+            max.add(50);
+            max.add(50);
+            BruteForceAlgorithm.bruteForce(container, usedParcesl, max);
+            //repaint();
+        }
 
         if(!config.isConfig())
         containerParcels = container.getParcels();

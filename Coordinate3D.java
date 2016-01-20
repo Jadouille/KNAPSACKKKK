@@ -7,7 +7,7 @@ public class Coordinate3D {
     private double x;
     private double y;
     private double z;
-    private Config config = new Config();
+    private static Config config = new Config();
     private double zoom = config.zoom;
 
     public Coordinate3D(double x, double y, double z) {
