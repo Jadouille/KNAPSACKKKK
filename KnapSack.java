@@ -10,6 +10,7 @@ public class KnapSack extends JFrame {
     public static void main(String[] args) {
 
         final ParcelGUI parcelGUI = new ParcelGUI();
+
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         int screenWidth = gd.getDisplayMode().getWidth();
         int screenHeight = gd.getDisplayMode().getHeight();
@@ -31,6 +32,7 @@ public class KnapSack extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 JComboBox<String> combo = (JComboBox<String>) event.getSource();
                 String selectedAlgorithm = (String) combo.getSelectedItem();
+
 
                 if (selectedAlgorithm.equals(parcelGUI.config.algorithmNames[0])) {
                     if (!parcelGUI.config.greedy) {
@@ -54,10 +56,12 @@ public class KnapSack extends JFrame {
                         parcelGUI.init();
                     }
                 } else if (selectedAlgorithm.equals(parcelGUI.config.algorithmNames[3])) {
+                    //parcelGUI.config.noAlgorithm();
                     ConfigGUI2 configGUI2 = new ConfigGUI2();
                     parcelGUI.config.containerWidth = configGUI2.parcelGUI.config.containerWidth;
                     parcelGUI.config.containerHeight = configGUI2.parcelGUI.config.containerHeight;
                     parcelGUI.config.containerDepth = configGUI2.parcelGUI.config.containerDepth;
+
                     parcelGUI.init();
                     parcelGUI.repaint();
                 }

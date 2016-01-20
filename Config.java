@@ -18,6 +18,7 @@ public class Config {
     public boolean genetic = false;
     public boolean bruteForce = false;
     public boolean pentominoParcels = false;
+    public boolean configOpen = false;
 
     public String algorithmNames[] = {"Greedy Algorithm", "Genetic Algorithm", "Brute Force", "Config"};
 
@@ -30,6 +31,12 @@ public class Config {
     public void setGeneticAlgorithm() {
         greedy = false;
         genetic = true;
+        bruteForce = false;
+    }
+
+    public void noAlgorithm() {
+        greedy = false;
+        genetic = false;
         bruteForce = false;
     }
 

@@ -29,20 +29,13 @@ public class ParcelGUI extends JPanel implements KeyListener {
 
     public void init() {
         ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 10);
-        System.out.println(" parcelgui container width: " + config.containerWidth);
-        System.out.println(" parcelgui container height: " + config.containerHeight);
-        System.out.println(" parcelgui container depth: " + config.containerDepth);
-        if (config.containerWidth == 20)
-            System.out.println("make container");
+
         container = new ContainerKnapsack(config.containerWidth, config.containerHeight, config.containerDepth);
 
         containerParcels = container.getParcels();
 
         if (config.greedy) {
-            if (config.containerWidth != 20)
             GreedyAlgorithm.testGreedy(container, evenParcels, true, false);
-            if (config.containerWidth == 20)
-                GreedyAlgorithm.testGreedy(container, evenParcels, true, false);
             repaint();
         }
 
@@ -53,10 +46,10 @@ public class ParcelGUI extends JPanel implements KeyListener {
         }
 
 
-        if (config.bruteForce) {
+        /*if (config.bruteForce) {
             System.out.println("execute bruteforce algorithm");
             repaint();
-        }
+        }*/
 
 
         containerParcels = container.getParcels();
