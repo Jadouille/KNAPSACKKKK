@@ -1,11 +1,9 @@
+import java.awt.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
 
 public class Parcel implements Comparable {
-	
-	public static int counter = 0;
-	
     private static ArrayList<Coordinate3D> rotatedCornerCoords;
     private final int initialPositionInt = 5;
     private int length;
@@ -22,7 +20,6 @@ public class Parcel implements Comparable {
     }
 
     public Parcel(int length, int height, int width, int value, int type, boolean fillRotations) {
-    	//System.out.println("Parcel created: " + counter++);
         this.length = length;
         this.height = height;
         this.width = width;
@@ -30,7 +27,6 @@ public class Parcel implements Comparable {
         this.value = value;
         this.type = type;
 
-        //System.out.println("Adding amount of coords: " + length*height*width);
         for (int x = 0; x < length; x++) {
             for (int y = 0; y < height; y++) {
                 for (int z = 0; z < width; z++) {
@@ -74,6 +70,10 @@ public class Parcel implements Comparable {
         return cornerCoords;
     }
 
+    public void setCornerCoords(ArrayList<Coordinate> coords) {
+        this.cornerCoords = coords;
+    }
+
     public void setCornerCoords(Coordinate initialCoord) {
         this.cornerCoords.add(0, initialCoord);
         this.cornerCoords.add(1, new Coordinate(initialCoord.getX(), initialCoord.getY() + height, initialCoord.getZ()));
@@ -86,9 +86,7 @@ public class Parcel implements Comparable {
 
     }
 
-    public void setCornerCoords(ArrayList<Coordinate> coords) {
-        this.cornerCoords = coords;
-    }
+
 
     public int getLength() {
         return this.length;
@@ -134,7 +132,7 @@ public class Parcel implements Comparable {
     }
 
     public void printDimensions() {
-        //System.out.println("Length = " + this.length + " Height = " + this.height + " Width = " + this.width);
+        System.out.println("Length = " + this.length + " Height = " + this.height + " Width = " + this.width);
     }
 
     public Parcel clone() {

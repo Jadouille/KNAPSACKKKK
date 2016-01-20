@@ -1,7 +1,16 @@
+import javax.sound.midi.SysexMessage;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class GreedyAlgorithm {
+
+    public static void main(String[] args) {
+        ParcelTypes parcelTypes = new ParcelTypes();
+        ArrayList<Parcel> parcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 20);
+        ContainerKnapsack container = new ContainerKnapsack(165, 40, 25);
+        testGreedy(container, parcels, false, false);
+
+    }
 
     public static void testGreedy(ContainerKnapsack container, ArrayList<Parcel> parcels, boolean useRotations, boolean randomize) {
 
@@ -80,4 +89,67 @@ public class GreedyAlgorithm {
 
 
     }
+
+    public static void testGreedyPentomino(ContainerKnapsack container, int max1, int max2, int max3) {
+
+        long timeStart = System.currentTimeMillis();
+
+        lParcel l = new lParcel(3,1);
+        pParcel p = new pParcel(4,2);
+        tParcel t = new tParcel(5,3);
+
+        int amount1 = 0;
+        int amount2 = 0;
+        int amount3 = 0;
+        boolean coulPut = true;
+        while ((amount1 < max1) && coulPut){
+            Coordinate cell = container.findCellToFitTPentomino(t);
+            if (cell != null) {
+                container.fillTParcel(cell, t, 1, 1);
+                amount1++;
+            }
+            else coulPut = false;
+        }
+        coulPut = true;
+        while (amount2 < max2 && coulPut){
+            Coordinate cell = container.findCellToFitPPentomino(p);
+            if (cell != null) {
+                container.fillPParcel(cell, p, 1, 1);
+                amount2++;
+            }
+            else coulPut = false;
+        }
+        coulPut = true;
+        while (amount3 < max3 && coulPut){
+            Coordinate cell = container.findCellToFitLPentomino(l);
+            if (cell != null) {
+                container.fillLParcel(cell, l, 1, 1);
+                amount3++;
+            }
+            else coulPut = false;
+        }
+
+
+
+
+        long timeEnd = System.currentTimeMillis();
+
+        System.out.println("Total container value: " + ((amount1 * 5) + (amount2 * 4) + (amount3 * 3)));
+        System.out.println("Total number of parcels: " + container.getParcels().size());
+        System.out.println("Time of execution: " + (timeEnd - timeStart));
+        System.out.println("T Pentomino: " + amount1);
+        System.out.println("P Pentomino: " + amount2);
+        System.out.println("L Pentomino: " + amount3);
+
+
+    }
+
+    public static void testGreedyBacktrack(ContainerKnapsack container, ArrayList<Parcel> parcels) {
+
+
+
+    }
+
+
+
 }

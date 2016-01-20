@@ -41,6 +41,33 @@ public class tParcel {
         return coords;
     }
 
+    public int getLength(){
+        int max = 0;
+        for (Coordinate coord : coords){
+            if (coord.getX() > max)
+                max = coord.getX();
+        }
+        return max;
+    }
+
+    public int getHeight(){
+        int max = 0;
+        for (Coordinate coord : coords){
+            if (coord.getY() > max)
+                max = coord.getY();
+        }
+        return max;
+    }
+
+    public int getWidth(){
+        int max = 0;
+        for (Coordinate coord : coords){
+            if (coord.getZ() > max)
+                max = coord.getZ();
+        }
+        return max;
+    }
+
     public void setCornerCoords(Coordinate initialCoord, int cubeUnit){
         this.cornerCoords.add(0, initialCoord);
         this.cornerCoords.add(1, new Coordinate(initialCoord.getX(), initialCoord.getY(), initialCoord.getZ() + (2 * cubeUnit)));
@@ -59,14 +86,42 @@ public class tParcel {
         this.cornerCoords.add(14, new Coordinate(initialCoord.getX() + cubeUnit, initialCoord.getY() + cubeUnit, initialCoord.getZ() + (2 * cubeUnit)));
         this.cornerCoords.add(15, new Coordinate(initialCoord.getX() + cubeUnit, initialCoord.getY() + cubeUnit, initialCoord.getZ()));
 
+    }
 
-
+    public Coordinate calculateConnection(int i, int j, int unit){
+        int x = 0;
+        int y = 0;
+        int z = 0;
+        if (coords.get(i).getX() != coords.get(j).getX()){
+            if (coords.get(i).getX() > coords.get(j).getX())
+                x = coords.get(i).getX() + unit;
+            if (coords.get(i).getX() < coords.get(j).getX())
+                x = coords.get(i).getX() - unit;
+        }
+        if (coords.get(i).getY() != coords.get(j).getY()){
+            if (coords.get(i).getY() > coords.get(j).getY())
+                y = coords.get(i).getY() + unit;
+            if (coords.get(i).getY() < coords.get(j).getY())
+                y = coords.get(i).getY() - unit;
+        }
+        if (coords.get(i).getZ() != coords.get(j).getZ()){
+            if (coords.get(i).getZ() > coords.get(j).getZ())
+                z = coords.get(i).getX() + unit;
+            if (coords.get(i).getZ() < coords.get(j).getZ())
+                z = coords.get(i).getZ() - unit;
+        }
+        return new Coordinate(x,y,z);
     }
 
     public ArrayList<Coordinate> getCornerCoords(){ return cornerCoords;}
 
     public int getValue(){ return value;}
     public int getType(){ return type;}
+    public int getWeight(int unit) {return unit*unit*unit*5;}
+
+    public ArrayList<tParcel> getRotations() {
+        return rotations;
+    }
 
     public void setCornerCoords(ArrayList<Coordinate> cornerCoords) {
         this.cornerCoords = cornerCoords;
