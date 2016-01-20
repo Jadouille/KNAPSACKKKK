@@ -64,6 +64,36 @@ public class ContainerKnapsack {
 		weightLeft -= parcel.getWeight();
 	}
 
+	public void fillLParcel(Coordinate cell, lParcel l, int toAdd, int unit){
+		Parcel fill1 = new Parcel(unit,unit,unit,l.getValue(),l.getType());
+		Parcel fill2 = new Parcel(unit,unit,unit,0,0);
+		this.fillParcel(cell, fill1, toAdd);
+		this.fillParcel(cell.addCoords(l.getCoords().get(1).multiplyByInt(unit)),fill2,toAdd);
+		this.fillParcel(cell.addCoords(l.getCoords().get(2).multiplyByInt(unit)),fill2,toAdd);
+		this.fillParcel(cell.addCoords(l.getCoords().get(3).multiplyByInt(unit)),fill2,toAdd);
+		this.fillParcel(cell.addCoords(l.getCoords().get(4).multiplyByInt(unit)),fill2,toAdd);
+	}
+
+	public void fillPParcel(Coordinate cell, pParcel p, int toAdd, int unit){
+		Parcel fill1 = new Parcel(unit,unit,unit,p.getValue(),p.getType());
+		Parcel fill2 = new Parcel(unit,unit,unit,0,0);
+		this.fillParcel(cell, fill1, toAdd);
+		this.fillParcel(cell.addCoords(p.getCoords().get(1).multiplyByInt(unit)),fill2,toAdd);
+		this.fillParcel(cell.addCoords(p.getCoords().get(2).multiplyByInt(unit)),fill2,toAdd);
+		this.fillParcel(cell.addCoords(p.getCoords().get(3).multiplyByInt(unit)),fill2,toAdd);
+		this.fillParcel(cell.addCoords(p.getCoords().get(4).multiplyByInt(unit)),fill2,toAdd);
+	}
+
+	public void fillTParcel(Coordinate cell, tParcel t, int toAdd, int unit){
+		Parcel fill1 = new Parcel(unit,unit,unit,t.getValue(),t.getType());
+		Parcel fill2 = new Parcel(unit,unit,unit,0,0);
+		this.fillParcel(cell, fill1, toAdd);
+		this.fillParcel(cell.addCoords(t.getCoords().get(1).multiplyByInt(unit)),fill2,toAdd);
+		this.fillParcel(cell.addCoords(t.getCoords().get(2).multiplyByInt(unit)),fill2,toAdd);
+		this.fillParcel(cell.addCoords(t.getCoords().get(3).multiplyByInt(unit)),fill2,toAdd);
+		this.fillParcel(cell.addCoords(t.getCoords().get(4).multiplyByInt(unit)),fill2,toAdd);
+	}
+
 	public void removeParcel(Coordinate cell, Parcel parcel) {
 		for (Coordinate curCoord : parcel.getCoords()) {
 			Coordinate coord = new Coordinate(cell.getX() + curCoord.getX(), cell.getY() + curCoord.getY(), cell.getZ() + curCoord.getZ());
@@ -71,6 +101,20 @@ public class ContainerKnapsack {
 		}
 		parcels.remove(parcel);
 		weightLeft += parcel.getWeight();
+	}
+
+	public void removeLastParcel(Coordinate cell){
+		Parcel toRemove = parcels.get(parcels.size()-1).clone();
+		for (Coordinate curCoord : toRemove.getCoords()) {
+			Coordinate coord = new Coordinate(cell.getX() + curCoord.getX(), cell.getY() + curCoord.getY(), cell.getZ() + curCoord.getZ());
+			container.put(coord, new CellValues(0, 0));
+		}
+		parcels.remove(parcels.size()-1);
+		weightLeft += toRemove.getWeight();
+	}
+
+	public void setParcels(ArrayList<Parcel> parcels){
+		this.parcels = parcels;
 	}
 
 	public boolean checkCollision(Parcel parcel, Coordinate coord) {
@@ -94,6 +138,54 @@ public class ContainerKnapsack {
 
 		return false;
 
+	}
+
+	public boolean checkLCollision(lParcel l, Coordinate cell, int unit){
+		Parcel check = new Parcel(unit,unit,unit,0,0);
+		if (this.checkCollision(check, cell))
+			return true;
+		if (this.checkCollision(check, cell.addCoords(l.getCoords().get(1).multiplyByInt(unit))))
+			return true;
+		if (this.checkCollision(check, cell.addCoords(l.getCoords().get(2).multiplyByInt(unit))))
+			return true;
+		if (this.checkCollision(check, cell.addCoords(l.getCoords().get(3).multiplyByInt(unit))))
+			return true;
+		if (this.checkCollision(check, cell.addCoords(l.getCoords().get(4).multiplyByInt(unit))))
+			return true;
+
+		return false;
+	}
+
+	public boolean checkPCollision(pParcel p, Coordinate cell, int unit){
+		Parcel check = new Parcel(unit,unit,unit,0,0);
+		if (this.checkCollision(check, cell))
+			return true;
+		if (this.checkCollision(check, cell.addCoords(p.getCoords().get(1).multiplyByInt(unit))))
+			return true;
+		if (this.checkCollision(check, cell.addCoords(p.getCoords().get(2).multiplyByInt(unit))))
+			return true;
+		if (this.checkCollision(check, cell.addCoords(p.getCoords().get(3).multiplyByInt(unit))))
+			return true;
+		if (this.checkCollision(check, cell.addCoords(p.getCoords().get(4).multiplyByInt(unit))))
+			return true;
+
+		return false;
+	}
+
+	public boolean checkTCollision(tParcel t, Coordinate cell, int unit){
+		Parcel check = new Parcel(unit,unit,unit,0,0);
+		if (this.checkCollision(check, cell))
+			return true;
+		if (this.checkCollision(check, cell.addCoords(t.getCoords().get(1).multiplyByInt(unit))))
+			return true;
+		if (this.checkCollision(check, cell.addCoords(t.getCoords().get(2).multiplyByInt(unit))))
+			return true;
+		if (this.checkCollision(check, cell.addCoords(t.getCoords().get(3).multiplyByInt(unit))))
+			return true;
+		if (this.checkCollision(check, cell.addCoords(t.getCoords().get(4).multiplyByInt(unit))))
+			return true;
+
+		return false;
 	}
 
 	public Coordinate findCellToFitParcel(Parcel parcel) {

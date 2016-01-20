@@ -6,8 +6,7 @@ import java.util.ArrayList;
 public class lParcel {
     private int value;
     private int type;
-
-
+    private ArrayList<lParcel> rotations = new ArrayList<>();
     private ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
     private ArrayList<Coordinate> cornerCoords = new ArrayList<Coordinate>();
 
@@ -21,6 +20,33 @@ public class lParcel {
         Coordinate coord4 = (new Coordinate(0, 3, 0)); coords.add(coord4);
         Coordinate coord5 = (new Coordinate(1, 0, 0)); coords.add(coord5);
 
+    }
+
+    public void generateRotations(){
+        rotations.add(this.clone());
+        this.setCoords(this.rotateAroundX()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundY()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundY()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundY()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundY()); this.setCoords(this.rotateAroundX()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundY()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundY()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundY()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundY()); this.setCoords(this.rotateAroundX()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundY()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundY()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundY()); rotations.add(this.clone());
+        this.setCoords(rotations.get(0).getCoords()); this.setCoords(this.rotateAroundY()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundY()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundY()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundY()); this.setCoords(this.rotateAroundZ()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundZ()); this.setCoords(this.rotateAroundZ()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundZ()); this.setCoords(this.rotateAroundX()); this.setCoords(this.rotateAroundZ()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundZ()); this.setCoords(this.rotateAroundZ()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundZ()); this.setCoords(this.rotateAroundX()); this.setCoords(this.rotateAroundZ()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundZ()); this.setCoords(this.rotateAroundZ()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundZ()); this.setCoords(this.rotateAroundX()); this.setCoords(this.rotateAroundZ()); rotations.add(this.clone());
+        this.setCoords(this.rotateAroundZ()); this.setCoords(this.rotateAroundZ()); rotations.add(this.clone());
     }
 
     public ArrayList<Coordinate> getCoords(){
@@ -43,6 +69,20 @@ public class lParcel {
 
 
 
+    }
+
+    public void setCornerCoords(ArrayList<Coordinate> cornerCoords) {
+        this.cornerCoords = cornerCoords;
+    }
+
+    public void setCoords(ArrayList<Coordinate> coords) {
+        this.coords = coords;
+    }
+
+    public void setCoords(Coordinate[] coords){
+        for (int i = 0; i < coords.length; i++){
+            this.coords.set(i,coords[i]);
+        }
     }
 
     public ArrayList<Coordinate> getCornerCoords(){ return cornerCoords;}
@@ -68,7 +108,10 @@ public class lParcel {
     }
 
     public lParcel clone(){
-        return new lParcel(this.value, this.type);
+        lParcel rParcel = new lParcel(this.value, this.type);
+        rParcel.setCoords(this.coords);
+        rParcel.setCornerCoords(this.cornerCoords);
+        return rParcel;
     }
 
     public Coordinate[] multiplyArrays(double[][] rotationMatrix){

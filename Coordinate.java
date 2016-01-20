@@ -64,6 +64,20 @@ public class Coordinate {
         return x == coord.x && y == coord.y && z == coord.z;
     }
 
+    public Coordinate addCoords(Coordinate toAdd){
+        int x = this.getX() + toAdd.getX();
+        int y = this.getY() + toAdd.getY();
+        int z = this.getZ() + toAdd.getZ();
+        return new Coordinate(x,y,z);
+    }
+
+    public Coordinate multiplyByInt(int i){
+        int x = this.getX() * i;
+        int y = this.getY() * i;
+        int z = this.getZ() * i;
+        return new Coordinate(x,y,z);
+    }
+
 
     public void printCoord() {
         //  System.out.println(this.x + " " + this.y + " " + this.z);
