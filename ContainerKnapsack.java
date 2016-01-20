@@ -113,10 +113,6 @@ public class ContainerKnapsack {
 		weightLeft += toRemove.getWeight();
 	}
 
-	public void setParcels(ArrayList<Parcel> parcels){
-		this.parcels = parcels;
-	}
-
 	public boolean checkCollision(Parcel parcel, Coordinate coord) {
 
 		if (coord.getX() + parcel.getLength()  > length
