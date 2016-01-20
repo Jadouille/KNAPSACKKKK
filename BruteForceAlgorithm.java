@@ -39,11 +39,13 @@ public class BruteForceAlgorithm {
         }
     }
 
-    public static void bruteForce(ContainerKnapsack container, ArrayList<Parcel> parcels, ArrayList<Integer> max){
+    public static boolean bruteForce(ContainerKnapsack container, ArrayList<Parcel> parcels, ArrayList<Integer> max) {
         for (Parcel curParcel : parcels){
             curParcel.generateRotations();
         }
-        ArrayList<Integer> amount = new ArrayList<>(max.size());
+        ArrayList<Integer> amount = new ArrayList<>();
+        for (int i = 0; i < max.size(); i++)
+            amount.add(0);
         ContainerKnapsack result = new ContainerKnapsack(container.getLength(), container.getHeight(), container.getWidth());
         boolean run = true;
         ArrayList<Integer> type = new ArrayList<>();
@@ -60,6 +62,7 @@ public class BruteForceAlgorithm {
         int backTrack = 0;
         boolean backTrackPut = false;
         boolean full = false;
+        int cntr = 0;
 
         while (run){
             backTrackPut = false;
@@ -67,7 +70,8 @@ public class BruteForceAlgorithm {
                 if (amount.get(i) < max.get(i)){
                     for (int j = 0; j < parcels.get(i).getRotations().size(); j++){
                         Coordinate cell = container.findCellToFitParcel(parcels.get(i).getRotations().get(j));
-                        if (!container.checkCollision(parcels.get(i).getRotations().get(j), cell)){
+                        if (cell != null) {
+                            System.out.println("parcel added");
                             container.fillParcel(cell,parcels.get(i).getRotations().get(j),1);
                             amount.set(i,amount.get(1) + 1);
                             type.add(i);
@@ -101,6 +105,9 @@ public class BruteForceAlgorithm {
                             for (int j = lastRotation; j < parcels.get(i).getRotations().size(); j++){
                                 Coordinate cell = container.findCellToFitParcel(parcels.get(i).getRotations().get(j));
                                 if (!container.checkCollision(parcels.get(i).getRotations().get(j), cell)){
+                                    cntr++;
+                                    System.out.println("posibilities tried: " + cntr);
+                                    System.out.println("parcel removed");
                                     container.fillParcel(cell,parcels.get(i).getRotations().get(j),1);
                                     amount.set(i,amount.get(1) + 1);
                                     type.add(i);
@@ -121,6 +128,7 @@ public class BruteForceAlgorithm {
             } else {
                 result.setParcels(new ArrayList<>(container.getParcels()));
                 run = false;
+                full = true;
             }
         }
         container.setParcels(result.getParcels());
@@ -144,6 +152,7 @@ public class BruteForceAlgorithm {
         for (int i = 0; i < resultType.size(); i++) {
             System.out.println("Parcel " + (i + 1) + " = " + resultType.get(i) + "in rotation = " + resultRotation.get(i));
         }
+        return full;
     }
 
     public static void BruteForcePentominoes(){

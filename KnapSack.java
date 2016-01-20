@@ -57,7 +57,7 @@ public class KnapSack extends JFrame {
                     }
                 } else if (selectedAlgorithm.equals(parcelGUI.config.algorithmNames[3])) {
                     //parcelGUI.config.noAlgorithm();
-                    ConfigGUI2 configGUI2 = new ConfigGUI2();
+                    ConfigGUI configGUI = new ConfigGUI();
                     parcelGUI.init();
                     parcelGUI.repaint();
                 }
