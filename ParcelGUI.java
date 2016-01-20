@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -28,15 +29,20 @@ public class ParcelGUI extends JPanel implements KeyListener {
     }
 
     public void init() {
-        ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 10);
-
-        container = new ContainerKnapsack(config.containerWidth, config.containerHeight, config.containerDepth);
-
-        containerParcels = container.getParcels();
-
+    	
+        System.out.println("even parcels loaded");
+        if(!config.isConfig()) {
+	        container = new ContainerKnapsack(config.containerWidth, config.getContainerHeight(), config.containerDepth);
+	        System.out.println("container loaded");
+	        containerParcels = container.getParcels();
+        }
+        System.out.println("getparcels");
         if (config.greedy) {
+        	System.out.println("greedy = true");
+        	 ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 10);
             GreedyAlgorithm.testGreedy(container, evenParcels, true, false);
             repaint();
+            System.out.println("greedy algo done");
         }
 
 
@@ -51,10 +57,11 @@ public class ParcelGUI extends JPanel implements KeyListener {
             repaint();
         }*/
 
-
+        if(!config.isConfig())
         containerParcels = container.getParcels();
-
+        System.out.println("get parcelsagain");
         repaint();
+        System.out.println("repaint");
     }
 
 

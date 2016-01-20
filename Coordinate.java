@@ -7,11 +7,13 @@ public class Coordinate {
     private int x;
     private int y;
     private int z;
-    private Config config = new Config();
+    private static Config config = new Config();
     // private double zoom = config.zoom;
 
+    public static int counter = 0;
 
     public Coordinate(int x, int y, int z) {
+    	//System.out.println("coord created: " + counter++);
         this.x = x;
         this.y = y;
         this.z = z;

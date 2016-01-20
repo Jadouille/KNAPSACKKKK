@@ -7,10 +7,11 @@ public class DistributionGenerator {
 
     public static ArrayList<Parcel> generateEvenDistribution(ArrayList<Parcel> parcelTypes, int amountOfParcelsPerType) {
         ArrayList<Parcel> result = new ArrayList<Parcel>();
-
+        
         for (Parcel curType : parcelTypes) {
             for (int curParcel = 0; curParcel < amountOfParcelsPerType; curParcel++) {
                 result.add(curType.clone());
+                System.out.println("Adding parcel type " + result.size());
             }
         }
 

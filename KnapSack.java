@@ -56,10 +56,12 @@ public class KnapSack extends JFrame {
                         parcelGUI.init();
                     }
                 } else if (selectedAlgorithm.equals(parcelGUI.config.algorithmNames[3])) {
-                    //parcelGUI.config.noAlgorithm();
+                    parcelGUI.config.setConfig();
                     ConfigGUI2 configGUI2 = new ConfigGUI2();
                     parcelGUI.init();
+                    System.out.println("inited");
                     parcelGUI.repaint();
+                    System.out.println("repainted");
                 }
             }
         });

@@ -5,7 +5,7 @@ public class Config {
 
     public int numberOfParcels = 20;
     public int containerWidth = 165;
-    public int containerHeight = 40;
+    private int containerHeight = 40;
     public int containerDepth = 25;
 
     public double zoom = 0.036;
@@ -20,6 +20,9 @@ public class Config {
     public boolean pentominoParcels = false;
     public boolean configOpen = false;
 
+    public Config() {
+    	System.out.println("Making new config!");
+    }
     public String algorithmNames[] = {"Greedy Algorithm", "Genetic Algorithm", "Brute Force", "Config"};
 
     public void setGreedyAlgorithm() {
@@ -34,10 +37,14 @@ public class Config {
         bruteForce = false;
     }
 
-    public void noAlgorithm() {
+    public void setConfig() {
         greedy = false;
         genetic = false;
         bruteForce = false;
+    }
+    
+    public boolean isConfig() {
+    	return !greedy && !genetic && !bruteForce;
     }
 
     public void setBruteForceAlgorithm() {
@@ -51,5 +58,14 @@ public class Config {
         System.out.println(genetic);
         System.out.println(bruteForce);
     }
+
+	public int getContainerHeight() {
+		return containerHeight;
+	}
+
+	public void setContainerHeight(int containerHeight) {
+		System.out.println("container height is being set!");
+		this.containerHeight = containerHeight;
+	}
 
 }
