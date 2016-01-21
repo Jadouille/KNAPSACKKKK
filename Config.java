@@ -10,6 +10,7 @@ public class Config {
     public static int centerPosition = 0;
     public static int initialpositionX=15;
     public static int initialpositionY=5;
+    public static int maxScore=0;
 
     /* Genetic Algorithm Configurations */
     public static int numberOfGenerations=50;

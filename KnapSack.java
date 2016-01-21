@@ -31,10 +31,11 @@ public class KnapSack {
         startButton.setFocusable(false);
         configButton.setFocusable(false);
 
+
         j.add(configButton, BorderLayout.NORTH);
         j.add(startButton, BorderLayout.SOUTH);
         j.add(parcelGUI, BorderLayout.CENTER);
-        j.add(infoGUI, BorderLayout.EAST);
+        //j.add(maxValue, BorderLayout.EAST);
         j.setSize(screenWidth, screenHeight);
         j.setVisible(true);
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

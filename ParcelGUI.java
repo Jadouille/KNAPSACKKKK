@@ -19,19 +19,33 @@ public class ParcelGUI extends JPanel implements KeyListener {
     private int senseOfRotationY = 0;
     private int senseOfRotationZ = 0;
     private boolean rotating = true;
+    private boolean rotatingRight;
+    private boolean rotatingLeft;
+    private boolean rotatingUp;
+    private boolean rotatingDown;
     private ContainerKnapsack container;
-
+    private JTextArea maxValue = new JTextArea();
+    Font font = new Font("Verdana", Font.BOLD, 36);
 
     public ParcelGUI() {
         addKeyListener(this);
         container = new ContainerKnapsack(Config.containerWidth, Config.containerHeight, Config.containerDepth);
         containerParcels = container.getParcels();
+        maxValue.setEditable(false);
+        maxValue.setFocusable(false);
+        maxValue.setFont(font);
+        this.add(maxValue);
     }
 
     public void init() {
+
         ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), Config.numberOfParcels);
         if (Config.greedy) {
-            GreedyAlgorithm.testGreedy(container, evenParcels, true, Config.randomRotations);
+            ParcelGUI parcelGUI = this;
+            Thread t = new Thread(() -> {
+                GreedyAlgorithm.testGreedy(container, evenParcels, true, Config.randomRotations, parcelGUI);
+            });
+            t.start();
         }
 
 
@@ -57,11 +71,12 @@ public class ParcelGUI extends JPanel implements KeyListener {
 
 
         }
-        repaint();
+        //repaint();
     }
 
 
     public void paintComponent(Graphics g) {
+        paintScore();
         super.paintComponent(g);
 
         Projector viewer = new Projector(new BigDecimal(Config.initialpositionY));
@@ -80,6 +95,10 @@ public class ParcelGUI extends JPanel implements KeyListener {
 
 
     }
+    public void paintScore(){
+        maxValue.setText("Value Container: " + Integer.toString(Config.maxScore));
+    }
+
 
     public void keyTyped(KeyEvent e) {
     }
@@ -88,49 +107,22 @@ public class ParcelGUI extends JPanel implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_LEFT) {
-            rotateAroundX = false;
-            rotateAroundY = true;
-            rotateAroundZ = false;
-            senseOfRotationY = +1;
-            repaint();
-
-            if (rotating) {
-
-                try {
-
-                    Robot robot = new Robot();
-                    // Creates the delay of 5 sec so that you can open notepad before
-                    // Robot start writting
-
-                    robot.keyPress(KeyEvent.VK_LEFT);
-
-
-                } catch (AWTException ex) {
-                    ex.printStackTrace();
-                }
-
-            }
-        }
-
         if (key == KeyEvent.VK_RIGHT) {
+            rotatingLeft=false;
+            rotatingUp=false;
+            rotatingDown=false;
+
 
             rotateAroundX = false;
             rotateAroundY = true;
             rotateAroundZ = false;
             senseOfRotationY = -1;
             repaint();
-            if (rotating) {
+            if (rotating && rotatingRight) {
 
                 try {
-
                     Robot robot = new Robot();
-                    // Creates the delay of 5 sec so that you can open notepad before
-                    // Robot start writting
-
                     robot.keyPress(KeyEvent.VK_RIGHT);
-
-
                 } catch (AWTException ex) {
                     ex.printStackTrace();
                 }
@@ -139,24 +131,46 @@ public class ParcelGUI extends JPanel implements KeyListener {
 
 
         }
+        if (key == KeyEvent.VK_LEFT) {
+            rotatingRight=false;
+            rotatingUp=false;
+            rotatingDown=false;
+
+            rotateAroundX = false;
+            rotateAroundY = true;
+            rotateAroundZ = false;
+            senseOfRotationY = +1;
+            repaint();
+
+            if (rotating && rotatingLeft) {
+
+                try {
+                    Robot robot = new Robot();
+                    robot.keyPress(KeyEvent.VK_LEFT);
+                } catch (AWTException ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+        }
+
+
 
         if (key == KeyEvent.VK_UP) {
+            rotatingRight=false;
+            rotatingLeft=false;
+            rotatingDown=false;
+
             rotateAroundX = true;
             rotateAroundY = false;
             rotateAroundZ = false;
             senseOfRotationX = +1;
             repaint();
-            if (rotating) {
+            if (rotating && rotatingUp) {
 
                 try {
-
                     Robot robot = new Robot();
-                    // Creates the delay of 5 sec so that you can open notepad before
-                    // Robot start writting
-
                     robot.keyPress(KeyEvent.VK_UP);
-
-
                 } catch (AWTException ex) {
                     ex.printStackTrace();
                 }
@@ -164,22 +178,19 @@ public class ParcelGUI extends JPanel implements KeyListener {
             }
         }
         if (key == KeyEvent.VK_DOWN) {
+            rotatingRight=false;
+            rotatingLeft=false;
+            rotatingUp=false;
+
             rotateAroundX = true;
             rotateAroundY = false;
             rotateAroundZ = false;
             senseOfRotationX = -1;
             repaint();
-            if (rotating) {
-
+            if (rotating && rotatingDown) {
                 try {
-
                     Robot robot = new Robot();
-                    // Creates the delay of 5 sec so that you can open notepad before
-                    // Robot start writting
-
                     robot.keyPress(KeyEvent.VK_DOWN);
-
-
                 } catch (AWTException ex) {
                     ex.printStackTrace();
                 }
@@ -193,14 +204,33 @@ public class ParcelGUI extends JPanel implements KeyListener {
             rotating ^= true;
         }
         if (key == KeyEvent.VK_ALT) {
-            System.out.println(Config.containerWidth);
-            System.out.println(Config.containerHeight);
             init();
             repaint();
         }
     }
 
     public void keyReleased(KeyEvent e) {
+
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_LEFT) {
+            rotatingLeft = true;
+        }
+        if (key == KeyEvent.VK_RIGHT) {
+            rotatingRight = true;
+        }
+        if (key == KeyEvent.VK_UP) {
+            rotatingUp = true;
+        }
+        if (key == KeyEvent.VK_DOWN) {
+            rotatingDown = true;
+        }
+    }
+    public void setRotatingDirectionsFalse(){
+        rotatingLeft=false;
+        rotatingRight=false;
+        rotatingUp=false;
+        rotatingDown=false;
     }
 
 }

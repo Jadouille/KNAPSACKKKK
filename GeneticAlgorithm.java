@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class GeneticAlgorithm {
-    private int max = 0;
+    private static int max = 0;
     public GeneticAlgorithm(int populationSize,
                             int numberOfGenerations,
                             Recombinator recombinator,
@@ -95,7 +95,9 @@ public class GeneticAlgorithm {
             if (max < fitness) {
                 max = fitness;
                 System.out.println("found better value combination");
+                Config.maxScore = max;
                 parcelGUI.repaint();
+
             }
         }
 

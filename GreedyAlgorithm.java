@@ -3,16 +3,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class GreedyAlgorithm {
+    private ParcelGUI parcelGUI;
 
-    public static void main(String[] args) {
-        ParcelTypes parcelTypes = new ParcelTypes();
-        ArrayList<Parcel> parcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 20);
-        ContainerKnapsack container = new ContainerKnapsack(165, 40, 25);
-        testGreedy(container, parcels, false, false);
-
-    }
-
-    public static void testGreedy(ContainerKnapsack container, ArrayList<Parcel> parcels, boolean useRotations, boolean randomize) {
+    public static void testGreedy(ContainerKnapsack container, ArrayList<Parcel> parcels, boolean useRotations, boolean randomize, ParcelGUI parcelGUI) {
+        GreedyAlgorithm ga = new GreedyAlgorithm();
+            ga.setParcelGUI(parcelGUI);
 
         long timeStart = System.currentTimeMillis();
 
@@ -77,6 +72,8 @@ public class GreedyAlgorithm {
                     container.fillParcel(emptyCell, curParcel, 1);
             }
         }
+        Config.maxScore=container.getTotalValue();
+        parcelGUI.repaint();
 
         long timeEnd = System.currentTimeMillis();
 
@@ -133,7 +130,7 @@ public class GreedyAlgorithm {
 
 
         long timeEnd = System.currentTimeMillis();
-
+        //Config.maxScore=((amount1 * 5) + (amount2 * 4) + (amount3 * 3));
         System.out.println("Total container value: " + ((amount1 * 5) + (amount2 * 4) + (amount3 * 3)));
         System.out.println("Total number of parcels: " + container.getParcels().size());
         System.out.println("Time of execution: " + (timeEnd - timeStart));
@@ -149,7 +146,9 @@ public class GreedyAlgorithm {
 
 
     }
-
+    public void setParcelGUI(ParcelGUI parcelGUI) {
+        this.parcelGUI = parcelGUI;
+    }
 
 
 }
