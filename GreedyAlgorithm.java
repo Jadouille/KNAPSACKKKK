@@ -73,6 +73,7 @@ public class GreedyAlgorithm {
             }
         }
         Config.maxScore=container.getTotalValue();
+        Config.loading=false;
         parcelGUI.repaint();
 
         long timeEnd = System.currentTimeMillis();

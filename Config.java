@@ -29,6 +29,7 @@ public class Config {
     public static boolean greedy = true;
     public static boolean genetic = false;
     public static boolean bruteForce = false;
+    public static boolean loading=false;
 
     public static boolean pentominoParcels = false;
 

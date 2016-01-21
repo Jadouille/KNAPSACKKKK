@@ -42,6 +42,8 @@ public class ParcelGUI extends JPanel implements KeyListener {
         ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), Config.numberOfParcels);
         if (Config.greedy) {
             ParcelGUI parcelGUI = this;
+            Config.loading=true;
+            Config.maxScore=0;
             Thread t = new Thread(() -> {
                 GreedyAlgorithm.testGreedy(container, evenParcels, true, Config.randomRotations, parcelGUI);
             });
@@ -50,6 +52,8 @@ public class ParcelGUI extends JPanel implements KeyListener {
 
 
         if (Config.genetic) {
+            Config.loading=true;
+            Config.maxScore=0;
             ParcelGUI parcelGUI = this;
             Thread t = new Thread(() -> {
                 GeneticAlgorithm.testGenetic(container, evenParcels, parcelGUI);
@@ -59,6 +63,8 @@ public class ParcelGUI extends JPanel implements KeyListener {
 
 
         if (Config.bruteForce) {
+            Config.loading=true;
+            Config.maxScore=0;
             Thread t = new Thread(() -> {
                 ArrayList<Parcel> usedParcesl = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), 1);
                 ArrayList<Integer> max = new ArrayList<>();
@@ -96,7 +102,14 @@ public class ParcelGUI extends JPanel implements KeyListener {
 
     }
     public void paintScore(){
+        if(Config.maxScore>0)
         maxValue.setText("Value Container: " + Integer.toString(Config.maxScore));
+
+        if(Config.maxScore==0 && !Config.loading)
+            maxValue.setText("Start Algorithm!");
+
+        if(Config.loading)
+            maxValue.setText("Loading...");
     }
 
 

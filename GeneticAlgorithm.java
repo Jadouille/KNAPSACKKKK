@@ -96,6 +96,7 @@ public class GeneticAlgorithm {
                 max = fitness;
                 System.out.println("found better value combination");
                 Config.maxScore = max;
+                Config.loading=false;
                 parcelGUI.repaint();
 
             }
