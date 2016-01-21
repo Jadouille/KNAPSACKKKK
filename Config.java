@@ -7,24 +7,27 @@ public class Config {
     public static int containerWidth = 165;
     public static int containerHeight = 40;
     public static int containerDepth = 25;
-    public static int centerPosition = 0;
-    public static int initialpositionX=15;
-    public static int initialpositionY=5;
+    public static int centerPosition = 0; //todo
+    public static int initialpositionX=15; //todo
+    public static int initialpositionY=5; //todo
     public static int maxScore=0;
 
     /* Genetic Algorithm Configurations */
-    public static int numberOfGenerations=50;
-    public static int populationSize=50;
-    public static double mutationRate=0.1;
+    public static int numberOfGenerations=50; //todo
+    public static int populationSize=50; //todo
+    public static double mutationRate=0.1; //todo
 
     /* Greedy Algorithm Configurations */
-    public static int numberOfParcels = 20;
+    public static int numberOfParcels = 20; //todo
     public static boolean randomRotations = false;
+    public static int numberOfPentominos1 = 50; //todo
+    public static int numberOfPentominos2 = 50; //todo
+    public static int numberOfPentominos3 = 50; //todo
 
     public static double zoom = 0.036;
     public static double zmultiply1 = 0.027;
     public static double zmultiply2 = 0.027;
-    public static double angle = 0.0006;
+    public static double angle = 0.0006; //todo
 
     public static boolean greedy = true;
     public static boolean genetic = false;
@@ -41,7 +44,16 @@ public class Config {
         greedy = true;
         genetic = false;
         bruteForce = false;
+        pentominoParcels = false;
     }
+    public static double getZoomLevel(){
+        if(pentominoParcels)
+            return 5*zoom;
+        else{
+            return zoom;
+        }
+    }
+
 
     public static void setGeneticAlgorithm() {
         greedy = false;

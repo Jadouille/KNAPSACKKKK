@@ -7,7 +7,7 @@ public class Coordinate {
     private int x;
     private int y;
     private int z;
-    public double zoom = Config.zoom;
+    public double zoom = Config.getZoomLevel();
     public double zmultiply1 = Config.zmultiply1;
     public double zmultiply2 = Config.zmultiply2;
 

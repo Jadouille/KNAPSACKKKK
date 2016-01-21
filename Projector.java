@@ -96,32 +96,53 @@ public class Projector {
     public void draw(Graphics g, Parcel p, boolean rotateAroundX, int senseOfRotationX, boolean rotateAroundY, int senseOfRotationY, boolean rotateAroundZ, int senseOfRotationZ) {
 
         Graphics2D g2 = (Graphics2D) g;
-        ArrayList<Coordinate2D> coordinates = this.getProjection(p, rotateAroundX,senseOfRotationX, rotateAroundY, senseOfRotationY, rotateAroundZ, senseOfRotationZ );
-        // System.out.println("siza" + coordinates.size());
-        g2.setColor(Color.pink);
-        g2.draw(new Line2D.Double(coordinates.get(0).getX().multiply(new BigDecimal(100)).doubleValue(), (coordinates.get(0).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(1).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(1).getY().multiply(new BigDecimal(100)).doubleValue())));
-        g2.setColor(Color.red);
-        g2.draw(new Line2D.Double((coordinates.get(1).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(1).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(2).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(2).getY().multiply(new BigDecimal(100)).doubleValue())));
-        g2.setColor(Color.black);
-        g2.draw(new Line2D.Double((coordinates.get(2).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(2).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(3).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(3).getY().multiply(new BigDecimal(100)).doubleValue())));
-        g2.setColor(Color.yellow);
-        g2.draw(new Line2D.Double((coordinates.get(0).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(0).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(3).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(3).getY().multiply(new BigDecimal(100)).doubleValue())));
-        g2.setColor(Color.orange);
-        g2.draw(new Line2D.Double((coordinates.get(3).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(3).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(7).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(7).getY().multiply(new BigDecimal(100)).doubleValue())));
-        g2.setColor(Color.green);
-        g2.draw(new Line2D.Double((coordinates.get(6).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(6).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(4).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(4).getY().multiply(new BigDecimal(100)).doubleValue())));
-        g2.setColor(Color.blue);
-        g2.draw(new Line2D.Double((coordinates.get(2).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(2).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(5).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(5).getY().multiply(new BigDecimal(100)).doubleValue())));
-        g2.setColor(Color.gray);
-        g2.draw(new Line2D.Double((coordinates.get(6).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(6).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(7).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(7).getY().multiply(new BigDecimal(100)).doubleValue())));
-        g2.setColor(Color.magenta);
-        g2.draw(new Line2D.Double((coordinates.get(7).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(7).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(5).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(5).getY().multiply(new BigDecimal(100)).doubleValue())));
-        g2.setColor(Color.cyan);
-        g2.draw(new Line2D.Double((coordinates.get(5).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(5).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(4).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(4).getY().multiply(new BigDecimal(100)).doubleValue())));
-        g2.setColor(Color.darkGray);
-        g2.draw(new Line2D.Double((coordinates.get(0).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(0).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(6).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(6).getY().multiply(new BigDecimal(100)).doubleValue())));
-        g2.setColor(new Color(128, 183, 180));
-        g2.draw(new Line2D.Double((coordinates.get(4).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(4).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(1).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(1).getY().multiply(new BigDecimal(100)).doubleValue())));
+        if (Config.maxScore != 0) {
+            if (Config.pentominoParcels) {
+                if (p.getType() == 1)
+                    g2.setColor(Color.RED);
+                else if (p.getType() == 2)
+                    g2.setColor(Color.YELLOW);
+                else if (p.getType() == 3)
+                    g2.setColor(Color.GREEN);
+            }
+            ArrayList<Coordinate2D> coordinates = this.getProjection(p, rotateAroundX, senseOfRotationX, rotateAroundY, senseOfRotationY, rotateAroundZ, senseOfRotationZ);
+            // System.out.println("siza" + coordinates.size());
+            if (!Config.pentominoParcels)
+                g2.setColor(Color.pink);
+            g2.draw(new Line2D.Double(coordinates.get(0).getX().multiply(new BigDecimal(100)).doubleValue(), (coordinates.get(0).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(1).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(1).getY().multiply(new BigDecimal(100)).doubleValue())));
+            if (!Config.pentominoParcels)
+                g2.setColor(Color.red);
+            g2.draw(new Line2D.Double((coordinates.get(1).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(1).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(2).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(2).getY().multiply(new BigDecimal(100)).doubleValue())));
+            if (!Config.pentominoParcels)
+                g2.setColor(Color.black);
+            g2.draw(new Line2D.Double((coordinates.get(2).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(2).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(3).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(3).getY().multiply(new BigDecimal(100)).doubleValue())));
+            if (!Config.pentominoParcels)
+                g2.setColor(Color.yellow);
+            g2.draw(new Line2D.Double((coordinates.get(0).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(0).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(3).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(3).getY().multiply(new BigDecimal(100)).doubleValue())));
+            if (!Config.pentominoParcels)
+                g2.setColor(Color.orange);
+            g2.draw(new Line2D.Double((coordinates.get(3).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(3).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(7).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(7).getY().multiply(new BigDecimal(100)).doubleValue())));
+            if (!Config.pentominoParcels)
+                g2.setColor(Color.green);
+            g2.draw(new Line2D.Double((coordinates.get(6).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(6).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(4).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(4).getY().multiply(new BigDecimal(100)).doubleValue())));
+            if (!Config.pentominoParcels)
+                g2.setColor(Color.blue);
+            g2.draw(new Line2D.Double((coordinates.get(2).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(2).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(5).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(5).getY().multiply(new BigDecimal(100)).doubleValue())));
+            if (!Config.pentominoParcels)
+                g2.setColor(Color.gray);
+            g2.draw(new Line2D.Double((coordinates.get(6).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(6).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(7).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(7).getY().multiply(new BigDecimal(100)).doubleValue())));
+            if (!Config.pentominoParcels)
+                g2.setColor(Color.magenta);
+            g2.draw(new Line2D.Double((coordinates.get(7).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(7).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(5).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(5).getY().multiply(new BigDecimal(100)).doubleValue())));
+            if (!Config.pentominoParcels)
+                g2.setColor(Color.cyan);
+            g2.draw(new Line2D.Double((coordinates.get(5).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(5).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(4).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(4).getY().multiply(new BigDecimal(100)).doubleValue())));
+            if (!Config.pentominoParcels)
+                g2.setColor(Color.darkGray);
+            g2.draw(new Line2D.Double((coordinates.get(0).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(0).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(6).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(6).getY().multiply(new BigDecimal(100)).doubleValue())));
+            if (!Config.pentominoParcels)
+                g2.setColor(new Color(128, 183, 180));
+            g2.draw(new Line2D.Double((coordinates.get(4).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(4).getY().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(1).getX().multiply(new BigDecimal(100)).doubleValue()), (coordinates.get(1).getY().multiply(new BigDecimal(100)).doubleValue())));
+        }
     }
-
 }

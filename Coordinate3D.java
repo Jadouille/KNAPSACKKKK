@@ -7,7 +7,7 @@ public class Coordinate3D {
     private double x;
     private double y;
     private double z;
-    private double zoom = Config.zoom;
+    private double zoom = Config.getZoomLevel();
 
     public Coordinate3D(double x, double y, double z) {
         this.x = x;

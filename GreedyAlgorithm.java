@@ -88,7 +88,9 @@ public class GreedyAlgorithm {
 
     }
 
-    public static void testGreedyPentomino(ContainerKnapsack container, int max1, int max2, int max3) {
+    public static void testGreedyPentomino(ContainerKnapsack container, int max1, int max2, int max3, ParcelGUI parcelGUI) {
+        GreedyAlgorithm ga = new GreedyAlgorithm();
+        ga.setParcelGUI(parcelGUI);
 
         long timeStart = System.currentTimeMillis();
 
@@ -131,7 +133,8 @@ public class GreedyAlgorithm {
 
 
         long timeEnd = System.currentTimeMillis();
-        //Config.maxScore=((amount1 * 5) + (amount2 * 4) + (amount3 * 3));
+        Config.maxScore=((amount1 * 5) + (amount2 * 4) + (amount3 * 3));
+        parcelGUI.repaint();
         System.out.println("Total container value: " + ((amount1 * 5) + (amount2 * 4) + (amount3 * 3)));
         System.out.println("Total number of parcels: " + container.getParcels().size());
         System.out.println("Time of execution: " + (timeEnd - timeStart));

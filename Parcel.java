@@ -45,6 +45,10 @@ public class Parcel implements Comparable {
 
 	public ArrayList<Parcel> getRotations() { return rotations; }
 
+    public void setValue(int value) {
+        this.value = value;
+    }
+
     public Parcel rotateWidth() {
         return new Parcel(this.height, this.length, this.width, this.value, this.type, false);
     }

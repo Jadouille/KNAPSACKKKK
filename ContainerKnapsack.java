@@ -62,29 +62,44 @@ public class ContainerKnapsack {
 	}
 
 	public void fillLParcel(Coordinate cell, lParcel l, int toAdd, int unit){
+		int cntr = 0;
 		for (Coordinate curCoord : l.getCoords()) {
 			Coordinate coord = new Coordinate(cell.getX() + curCoord.getX(), cell.getY() + curCoord.getY(), cell.getZ() + curCoord.getZ());
 			container.put(coord, new CellValues(toAdd, l.getType()));
 			Parcel toFill = new Parcel(1,1,1,3,1);
+			if (cntr == 0){
+				toFill.setValue(3);
+			} else toFill.setValue(0);
 			fillParcel(coord, toFill, 1);
+			cntr++;
 		}
 	}
 
 	public void fillPParcel(Coordinate cell, pParcel p, int toAdd, int unit){
+		int cntr = 0;
 		for (Coordinate curCoord : p.getCoords()) {
 			Coordinate coord = new Coordinate(cell.getX() + curCoord.getX(), cell.getY() + curCoord.getY(), cell.getZ() + curCoord.getZ());
 			container.put(coord, new CellValues(toAdd, p.getType()));
 			Parcel toFill = new Parcel(1,1,1,4,2);
+			if (cntr == 0){
+				toFill.setValue(4);
+			} else toFill.setValue(0);
 			fillParcel(coord, toFill, 1);
+			cntr++;
 		}
 	}
 
 	public void fillTParcel(Coordinate cell, tParcel t, int toAdd, int unit){
+		int cntr = 0;
 		for (Coordinate curCoord : t.getCoords()) {
 			Coordinate coord = new Coordinate(cell.getX() + curCoord.getX(), cell.getY() + curCoord.getY(), cell.getZ() + curCoord.getZ());
 			container.put(coord, new CellValues(toAdd, t.getType()));
 			Parcel toFill = new Parcel(1,1,1,5,3);
+			if (cntr == 0){
+				toFill.setValue(5);
+			} else toFill.setValue(0);
 			fillParcel(coord, toFill, 1);
+			cntr++;
 		}
 	}
 

@@ -29,8 +29,7 @@ public class ParcelGUI extends JPanel implements KeyListener {
 
     public ParcelGUI() {
         addKeyListener(this);
-        container = new ContainerKnapsack(Config.containerWidth, Config.containerHeight, Config.containerDepth);
-        containerParcels = container.getParcels();
+
         maxValue.setEditable(false);
         maxValue.setFocusable(false);
         maxValue.setFont(font);
@@ -38,14 +37,25 @@ public class ParcelGUI extends JPanel implements KeyListener {
     }
 
     public void init() {
-
+        container = new ContainerKnapsack(Config.containerWidth, Config.containerHeight, Config.containerDepth);
+        containerParcels = container.getParcels();
         ArrayList<Parcel> evenParcels = DistributionGenerator.generateEvenDistribution(parcelTypes.getParcelProtoTypes(), Config.numberOfParcels);
-        if (Config.greedy) {
+        if (Config.greedy && !Config.pentominoParcels) {
             ParcelGUI parcelGUI = this;
             Config.loading=true;
             Config.maxScore=0;
             Thread t = new Thread(() -> {
                 GreedyAlgorithm.testGreedy(container, evenParcels, true, Config.randomRotations, parcelGUI);
+            });
+            t.start();
+
+        }
+        else if(Config.greedy && Config.pentominoParcels){
+            ParcelGUI parcelGUI = this;
+            Config.loading=true;
+            Config.maxScore=0;
+            Thread t = new Thread(() -> {
+                GreedyAlgorithm.testGreedyPentomino(container, Config.numberOfPentominos1, Config.numberOfPentominos2, Config.numberOfPentominos3, parcelGUI);
             });
             t.start();
         }
