@@ -12,18 +12,18 @@ public class KnapSack {
     public static void main(String[] args) {
 
         final ParcelGUI parcelGUI = new ParcelGUI();
-        final InfoGUI infoGUI = new InfoGUI();
 
         parcelGUI.setFocusable(true);
 
         ConfigGUI configGUI = new ConfigGUI();
+        configGUI.setVisible(false);
         configGUI.parcelgui = parcelGUI;
 
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         int screenWidth = gd.getDisplayMode().getWidth();
         int screenHeight = gd.getDisplayMode().getHeight() - 100;
 
-        configGUI.setVisible(false);
+
 
         JFrame j = new JFrame();
         JButton configButton = new JButton("config");

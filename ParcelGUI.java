@@ -77,7 +77,6 @@ public class ParcelGUI extends JPanel implements KeyListener {
 
 
         }
-        //repaint();
     }
 
 

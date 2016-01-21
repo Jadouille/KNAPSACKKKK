@@ -104,21 +104,24 @@ public class ConfigGUI extends JFrame {
                 if (greedy.isSelected()) {
                     Config.setGreedyAlgorithm();
                     System.out.println("set to greedy algorithm");
-                    parcelgui.init();
+                    //parcelgui.init();
                 } else if (genetic.isSelected()) {
                     Config.setGeneticAlgorithm();
                     System.out.println("set to genetic algorithm");
-                    parcelgui.init();
+                    //parcelgui.init();
                 } else if (bruteForce.isSelected()) {
                     Config.setBruteForceAlgorithm();
-                    parcelgui.init();
+                    //parcelgui.init();
                 }
 
                 JOptionPane.showMessageDialog(null, disp);
-                parcelgui.init();
-                parcelgui.repaint();
-                System.out.println("Config changed set to true!");
                 dispose();
+                System.out.println("Config changed set to true!");
+                if(Config.genetic)
+                Config.maxScore=0;
+                parcelgui.repaint();
+
+
             }
 
         }
