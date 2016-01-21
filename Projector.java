@@ -101,7 +101,7 @@ public class Projector {
                 if (p.getType() == 1)
                     g2.setColor(Color.RED);
                 else if (p.getType() == 2)
-                    g2.setColor(Color.YELLOW);
+                    g2.setColor(Color.BLUE);
                 else if (p.getType() == 3)
                     g2.setColor(Color.GREEN);
             }

@@ -48,7 +48,7 @@ public class Config {
     }
     public static double getZoomLevel(){
         if(pentominoParcels)
-            return 5*zoom;
+            return 2*zoom;
         else{
             return zoom;
         }
