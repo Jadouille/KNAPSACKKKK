@@ -1,8 +1,5 @@
-import javax.sound.midi.MidiDevice;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Created by Anthony on 15/01/2016.
@@ -15,9 +12,9 @@ public class KnapSack {
 
         parcelGUI.setFocusable(true);
 
-        ConfigGUI configGUI = new ConfigGUI();
-        configGUI.setVisible(false);
-        configGUI.parcelgui = parcelGUI;
+        GUIConfig GUIConfig = new GUIConfig();
+        GUIConfig.setVisible(false);
+        GUIConfig.parcelgui = parcelGUI;
 
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         int screenWidth = gd.getDisplayMode().getWidth();
@@ -41,8 +38,8 @@ public class KnapSack {
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         configButton.addActionListener(e -> {
-            configGUI.setFocusable(true);
-            configGUI.setVisible(true);
+            GUIConfig.setFocusable(true);
+            GUIConfig.setVisible(true);
 
         });
 
