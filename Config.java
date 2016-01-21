@@ -8,8 +8,8 @@ public class Config {
     public static int containerHeight = 40;
     public static int containerDepth = 25;
     public static int centerPosition = 0; //todo
-    public static int initialpositionX=15; //todo
-    public static int initialpositionY=5; //todo
+    public static int initialpositionX = 9; //todo
+    public static int initialpositionY = 4; //todo
     public static int maxScore=0;
 
     /* Genetic Algorithm Configurations */
@@ -24,7 +24,7 @@ public class Config {
     public static int numberOfPentominos2 = 50; //todo
     public static int numberOfPentominos3 = 50; //todo
 
-    public static double zoom = 0.036;
+    public static double zoom = 0.07;
     public static double zmultiply1 = 0.027;
     public static double zmultiply2 = 0.027;
     public static double angle = 0.0006; //todo
@@ -48,7 +48,7 @@ public class Config {
     }
     public static double getZoomLevel(){
         if(pentominoParcels)
-            return 2*zoom;
+            return 5 * zoom;
         else{
             return zoom;
         }

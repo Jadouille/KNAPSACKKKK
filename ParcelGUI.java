@@ -1,5 +1,4 @@
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -8,6 +7,7 @@ import java.util.ArrayList;
 
 
 public class ParcelGUI extends JPanel implements KeyListener {
+    Font font = new Font("Verdana", Font.BOLD, 36);
     private int x = 256;
     private int y = 105;
     private ParcelTypes parcelTypes = new ParcelTypes();
@@ -25,7 +25,6 @@ public class ParcelGUI extends JPanel implements KeyListener {
     private boolean rotatingDown;
     private ContainerKnapsack container;
     private JTextArea maxValue = new JTextArea();
-    Font font = new Font("Verdana", Font.BOLD, 36);
 
     public ParcelGUI() {
         addKeyListener(this);
@@ -119,6 +118,7 @@ public class ParcelGUI extends JPanel implements KeyListener {
 
         if(Config.loading)
             maxValue.setText("Loading...");
+
     }
 
 

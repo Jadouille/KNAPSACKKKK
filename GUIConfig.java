@@ -1,16 +1,14 @@
-import com.sun.deploy.panel.JSmartTextArea;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Arc2D;
 
 /**
  * Created by Anthony on 19/01/2016.
  */
 public class GUIConfig extends JFrame {
 
+    public ParcelGUI parcelgui = null;
     //Class Declarations
     JTextField numberOfParcels, numberOfPentominos1, numberOfPentominos2, numberOfPentominos3, angle, containerWidth, containerHeight, containerDepth, zoom, Zmultiply1, Zmultiply2, numberOfGenerations, populationSize, mutationRate, centerPosition, positionX, positionY;
     JButton save;
@@ -19,8 +17,6 @@ public class GUIConfig extends JFrame {
     JCheckBox pentominoParcels;
     String disp = "Saved Successfully";
     TextHandler handler = null;
-
-    public ParcelGUI parcelgui = null;
 
     public GUIConfig() {
         super("Edit Configuration");
@@ -150,7 +146,7 @@ public class GUIConfig extends JFrame {
 
         container.add(greedy);
         container.add(genetic);
-        container.add(bruteForce);
+        //container.add(bruteForce);
         container.add(pentominoParcels);
 
         greedy.setSelected(Config.greedy);
@@ -207,10 +203,10 @@ public class GUIConfig extends JFrame {
                 } else if (genetic.isSelected() && pentominoParcels.isSelected()) {
                     Config.setGeneticAlgorithm();
                     Config.pentominoParcels=true;
-                } else if (bruteForce.isSelected() && pentominoParcels.isSelected()) {
+                } /*else if (bruteForce.isSelected() && pentominoParcels.isSelected()) {
                     Config.setBruteForceAlgorithm();
                     Config.pentominoParcels=true;
-                }
+                }*/
 
                 //JOptionPane.showMessageDialog(null, disp);
                 dispose();
